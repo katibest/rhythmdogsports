@@ -1,0 +1,60 @@
+.image-grid {
+  display:-ms-grid;
+  display: grid;
+    grid-gap: $padd-sm;
+    -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    -ms-grid-rows: 1fr min-content;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr min-content;
+    align-items: start;
+  width: 100%;
+
+  img {
+    border-radius: 8px;
+    grid-row: span 1;
+    grid-column: span 6;
+    width: 100%;
+  }
+
+// Clever things to get any number of img to nicely grid
+  @media screen and (min-width: $screen-tablet) {
+
+    img:nth-last-child(2n+1) {
+      &:first-child {
+        grid-row: span 1;
+        grid-column: span 6;
+
+        ~ img {
+          grid-row: span 1;
+          grid-column: span 3;
+        }
+      }
+    }
+
+    img:nth-last-child(2n) {
+      &:first-child,
+      &:first-child ~ img {
+        grid-row: span 2;
+        grid-column: span 3;
+      }
+    }
+
+    img:nth-last-child(3n) {
+      &:first-child {
+        grid-row: span 2;
+        grid-column: span 4;
+
+        ~ img {
+          grid-row: span 1;
+          grid-column: span 2;
+        }
+
+        ~ img:nth-of-type(6n-1),
+        ~ img:nth-of-type(6n+1) {
+          grid-row: span 2;
+          grid-column: span 4;
+        }
+      }
+    }
+  }
+}

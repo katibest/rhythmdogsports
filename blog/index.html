@@ -1,0 +1,49 @@
+---
+layout: default
+permalink: '/blog/'
+pagination:
+  collection: 'posts'
+  enabled: true
+---
+
+<section class="section--light">
+  <h1 class="u-center--xs u-push-bottom--sm">Gaslight Blog</h1>
+  {% capture blog-intro %}{% include  /snipets/blog-intro.md %}{% endcapture %}
+  {% include image-pane.html image-url="../../assets/img/rocket-cho.jpg" pane-align="left" pane-copy=blog-intro %}
+  {% include blog-filters.html %}
+</section>
+
+<section class="section--light  u-padded-top--sm">
+  <div class="u-contained--max">
+    <div class="grid grid--2">
+      {% assign sorted_posts = paginator.posts | sort: 'publish_date' | reverse %}
+      {% for post in sorted_posts %}
+        <a href="{{ post.url }}" class="card">
+          <!--{% if post.feature_post_image %}<img src="{{ post.feature_post_image }}">{% endif %}-->
+          <div class="card__content">
+            <p>{{ post.publish_date | date: "%m/%d/%y" }}</p>
+            <h3>{{ post.post_title }}</h3>
+            <p class="note">{{ post.content | strip_html | truncatewords: 50 }}</p>
+            <p class="u-push-bottom--none">Read More &rarr;</p>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+    {% if paginator.page_trail %}
+      <div class="pagination">
+        <ul>
+          {% for trail in paginator.page_trail %}
+            <li {% if page.url == trail.path %}class="selected"{% endif %}>
+                <a href="{{ trail.path | prepend: site.baseurl }}" title="{{trail.title}}"><span>{{ trail.num }}</span></a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    </div>
+</section>
+
+
+{% capture cta-copy %}{% include  /cta/cta-newsletter.md %}{% endcapture %}
+{% include call-to-action.html cta-copy=cta-copy %}

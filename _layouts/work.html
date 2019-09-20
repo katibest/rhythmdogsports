@@ -1,0 +1,138 @@
+---
+layout: default
+---
+<section class="section--light">
+  <div class="image-pane image-pane--right  u-contained--wide">
+    <div class="image-pane__image" style="background-image: url( {{ page.featured_work_image }} )">
+    </div>
+    <div class="image-pane__content">
+      <h1 class="highlight"><span>{{page.title}}</span></h1>
+      <h3>{{page.sub_title}}</h3>
+      <p>{{ page.short_description }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="u-padded-top--none">
+  <div class="grid grid--3  u-text-sm  u-contained--wide">
+    <div>
+      <h4 class="u-push-bottom--none">Engagement</h4>
+      <ul class="list--unstyled">
+        <li>{{page.engagement}}</li>
+      </ul>
+
+      <h4 class="u-push-bottom--none u-push-top--lg">Technology</h4>
+      <ul class="list--unstyled">
+        {% for tech in page.technology %}
+        <li>{{tech}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="u-push-bottom--none">Capabilities</h4>
+      <ul class="list--unstyled">
+        {% for capability in page.capabilities %}
+          <li>{{capability}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="u-push-bottom--none">Service(s)</h4>
+      <ul class="list--unstyled  service-list">
+        {% for service in site.service %}
+          <li class="{% if page.related_services contains service.title %} service-list__related {% else %} {% endif %}">
+            {% if page.related_services contains service.title %}
+            <img src="{{ service.image_path }}" alt="{{ service.title }}">
+            {% else %}
+            <img src="{{ service.icon_colorless }}" alt="{{ service.title }}">
+            {% endif %}
+            {{ service.title }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="grid grid--3 grid--baseline  u-contained">
+    <h3>Problem</h3>
+    <div class="grid__child--span-2">
+      <p>{{ page.problem_statement }}</p>
+    </div>
+  </div>
+
+  <div class="grid grid--3 grid--baseline  u-contained  u-push-top--lg">
+    <h3>Solution</h3>
+    <div class="grid__child--span-2">
+      <p>{{ page.solution_statement }}</p>
+    </div>
+  </div>
+</section>
+
+<section style="{% if page.work_images_background %} background-color: {{ page.work_images_background }};{% endif %}">
+  <div class="image-grid  u-contained--max">
+    {% for image_path in page.work_images %}
+      <img src="{{image_path}}" alt="{{page.client}} Case Study Image {{ forloop.index }}">
+    {% endfor %}
+  </div>
+</section>
+
+{% if page.testimonial != '' %}
+  <section>
+    <blockquote class="u-contained">
+      {% if page.testimonial_image != '' %}
+        <div class="blockquote__image" style="background-image: url({{ page.testimonial_image }});"></div>
+      {% endif %}
+      {{ page.testimonial }}
+      {% if page.testimonial_attribution != '' %}
+        <p class="blockquote__attribution">
+          {{ page.testimonial_attribution }}
+        </p>
+      {% endif %}
+    </blockquote>
+  </section>
+{% endif %}
+
+<section class="u-contained--wide">
+  <h3>Check Out What Else We've Done</h3>
+  <div class="grid grid--3">
+    {% for work in site.work %}
+      {% if work.url != page.url %}
+        {% capture services %} {{ work.related_services | join: ", " }} {% endcapture %}
+        {% capture url %} {{ work.url }} {% endcapture %}
+        {% include feature-cards.html card-url=work.url card-title=work.title card-copy=services card-image-path=work.card_preview_image %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- projects based on related services list, can use in the future -->
+
+    <!-- <div>
+    {% assign maxRelated = 3 %}
+    {% assign minCommonServices =  1 %}
+    {% assign maxRelatedCounter = 0 %}
+    {% for work in site.work %}
+      {% assign sameServiceCount = 0 %}
+      {% for service in work.related_services %}
+        {% if work.url != page.url %}
+          {% if page.related_services contains service %}
+            {% assign sameServiceCount = sameServiceCount | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% if sameServiceCount >= minCommonServices %}
+        {% capture services %} {{ work.related_services | join: ", " }} {% endcapture %}
+        {% capture url %} {{ work.url }} {% endcapture %}
+        {% include feature-cards.html card-url=work.url card-title=work.title card-copy=services card-image-path=work.card_preview_image %}
+        {% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
+        {% if maxRelatedCounter >= maxRelated %}
+          {% break %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    </div> -->
+  </div>
+</section>

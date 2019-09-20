@@ -1,0 +1,12 @@
+<a href="{{ include.card-url }}" class="card card--feature">
+  <div class="card__content">
+    <h3>{{ include.card-title }}</h3>
+    {% if include.card-copy != null %}
+    <p>{{ include.card-copy }}</p>
+    {% endif %}
+    <p class="u-push-bottom--none">See What We Did &rarr;</p>
+  </div>
+  {% if include.card-image-path %}
+    <div class="card__image" style="background-image: url({{ include.card-image-path }});"></div>
+  {% endif %}
+</a>

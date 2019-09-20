@@ -1,0 +1,77 @@
+ol, ul {
+  padding-left: $padd;
+
+  li {
+    margin: $padd-xs 0;
+    padding-left: $padd-sm;
+  }
+
+  a {
+    line-height: 2;
+  }
+}
+
+ol {
+  li {
+    list-style: decimal;
+  }
+}
+
+ul {
+  li {
+    list-style: disc outside none;
+  }
+}
+
+.list {
+  &--unstyled {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      list-style-type: none;
+      padding: 0;
+    }
+  }
+
+  &--confetti {
+    li {
+
+      &:nth-of-type(9n + 1) {
+        list-style-image: url("/assets/img/confetti/circle--blue.svg");
+      }
+
+      &:nth-of-type(9n + 2) {
+        list-style-image: url("/assets/img/confetti/cross--red.svg");
+      }
+
+      &:nth-of-type(9n + 3) {
+        list-style-image: url("/assets/img/confetti/dot-lg--yellow.svg");
+      }
+
+      &:nth-of-type(9n + 4) {
+        list-style-image: url("/assets/img/confetti/star--blue.svg");
+      }
+
+      &:nth-of-type(9n + 5) {
+        list-style-image: url("/assets/img/confetti/circle--red.svg");
+      }
+
+      &:nth-of-type(9n + 6) {
+        list-style-image: url("/assets/img/confetti/cross--yellow.svg");
+      }
+
+      &:nth-of-type(9n + 7) {
+        list-style-image: url("/assets/img/confetti/dot-lg--blue.svg");
+      }
+
+      &:nth-of-type(9n + 8) {
+        list-style-image: url("/assets/img/confetti/star--red.svg");
+      }
+
+      &:nth-of-type(9n + 9) {
+        list-style-image: url("/assets/img/confetti/circle--yellow.svg");
+      }
+    }
+  }
+}

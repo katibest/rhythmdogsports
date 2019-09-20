@@ -1,0 +1,20 @@
+.logo-grid {
+  display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  width: 100%;
+
+  img {
+    height: grid(2);
+    margin: $padd-sm $padd;
+
+    &.logo--sm {
+      height: grid(1);
+    }
+
+    &.logo--lg {
+      height: grid(3);
+    }
+  }
+}

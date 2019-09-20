@@ -1,0 +1,99 @@
+.splash-title {
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: calc(100vh - #{grid(4)} - #{$section-break-height});
+
+    @media screen and (min-width: $screen-tablet) {
+      grid-template-columns: 100px 1fr;
+    }
+  }
+
+  &__social {
+    display: none;
+
+    @media screen and (min-width: $screen-tablet) {
+      align-self: end;
+      display: block;
+      padding-bottom: $padd-sm;
+    }
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: inherit;
+    justify-items: end;
+    position: relative;
+  }
+
+  &__shapes {
+    grid-row: 1;
+    grid-column: 1 / -1;
+    align-self: flex-end;
+    position: absolute;
+    z-index: 0;
+
+    &--texture {
+
+    }
+
+    &--confetti {
+    }
+  }
+
+  &__cta {
+    align-self: center;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding: 0 $padd-sm;
+    position: relative;
+    z-index: 100;
+
+    @media screen and (min-width: $screen-tablet) {
+      grid-column: 1 / 5;
+    }
+
+    @media screen and (min-width: $screen-desktop) {
+      grid-column: 1 / 4;
+    }
+
+    h1 {
+      font-size: $h2-font-size-base;
+      line-height: grid(2);
+
+      @media screen and (min-width: $screen-desktop) {
+        font-size: $h1-font-size-base;
+        line-height: grid(3);
+      }
+    }
+  }
+}
+
+//HOMEPAGE TITLE SHAPES
+svg.homepage__title-shapes {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  align-self: end;
+  &--texture {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    align-self: end;
+    margin-bottom: -5rem;
+  }
+
+  &--confetti {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    align-self: end;
+  }
+}
+@media (min-width: $screen-tablet) {
+  svg.homepage__title-shapes {
+    max-height: 750px;
+
+    &--confetti {
+      grid-column: 2 / -1;
+    }
+  }
+}

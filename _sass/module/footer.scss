@@ -1,0 +1,162 @@
+footer, .footer {
+  background-color: $color-dark;
+  color: $color-light;
+  padding: $padd $padd-sm $padd-lg;
+
+  &__container {
+    margin: 0 auto;
+    max-width: $header-max-width;
+    text-transform: capitalize;
+  }
+
+  a, a.inverse {
+    border-bottom: 0;
+    padding-bottom: .25rem;
+  }
+
+  &__credentials {
+    display:-ms-grid;
+    display: grid;
+      align-items: center;
+      grid-template-areas: "logo logo logo" "social social social" "copyright copyright copyright";
+      grid-gap: $padd-sm;
+      justify-items: center;
+    margin-top: $padd-xlg;
+
+    @media screen and (min-width: $screen-mobile) {
+      -ms-grid-columns: min-content minmax(235px, 1fr) minmax(235px, 1fr);
+      grid-template-columns: min-content minmax(235px, 1fr) minmax(235px, 1fr);
+      grid-template-areas: "logo social social" "copyright copyright copyright";
+      justify-items: start;
+    }
+
+    @media screen and (min-width: $screen-tablet) {
+      grid-template-areas: "logo social copyright";
+    }
+
+    a {
+      background: transparent;
+    }
+
+    .footer__logo {
+      background-image: url("/assets/img/gaslight-logo__inverse.svg");
+        background-size: cover;
+      grid-area: logo;
+        -ms-grid-row: 1;
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 3;
+      height: grid(2);
+      width: grid(7);
+
+      @media screen and (min-width: $screen-mobile) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 1;
+      }
+
+      @media screen and (min-width: $screen-tablet) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 1;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-image: url("/assets/img/gaslight-logo__inverse--hover.svg");
+      }
+    }
+
+    .footer__social {
+      display: flex;
+        align-items: center;
+      grid-area: social;
+        -ms-grid-row: 2;
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 3;
+
+      @media screen and (min-width: $screen-mobile) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 2;
+        -ms-grid-column-span: 2;
+      }
+
+      @media screen and (min-width: $screen-tablet) {
+        -ms-grid-row: 1;
+        -ms-grid-column: 2;
+        -ms-grid-column-span: 1;
+      }
+    }
+
+    .footer__copyright {
+      grid-area: copyright;
+        -ms-grid-row: 3;
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 3;
+      font-size: $font-size-sm;
+      margin: 0;
+      text-align: center;
+
+      @media screen and (min-width: $screen-mobile) {
+        text-align: left;
+        -ms-grid-row: 2;
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 3;
+      }
+
+      @media screen and (min-width: $screen-tablet) {
+        justify-self: end;
+        text-align: right;
+        -ms-grid-row: 1;
+        -ms-grid-column: 3;
+        -ms-grid-column-span: 1;
+      }
+    }
+  }
+
+  .social__link {
+    display: inline-block;
+    width: $padd-sm;
+  }
+
+  &__menu {
+    text-align: center;
+
+    @media screen and (min-width: $screen-mobile) {
+      display:-ms-grid;
+      display: grid;
+       -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: $padd-sm;
+      text-align: left;
+    }
+
+    ul {
+      font-family: $font-body;
+      margin: 0 0 $padd;
+      padding: 0;
+      vertical-align: center;
+
+      @media screen and (min-width: $screen-mobile) {
+        margin: 0;
+      }
+
+      li {
+        font-size: $font-size-sm;
+        line-height: grid(.75);
+        margin: $padd-xxs 0;
+        padding: grid(.25) 0;
+        list-style: none;
+
+        a {
+          line-height: unset;
+        }
+
+        &:first-of-type {
+          line-height: grid(1);
+          margin: $padd-xs 0;
+        }
+      }
+    }
+  }
+}

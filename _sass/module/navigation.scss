@@ -1,0 +1,188 @@
+//MAIN NAVIGATION
+nav {
+  align-items: center;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 2rem;
+  padding: $padd-sm;
+  position: relative;
+  width: 100%;
+  z-index: 200;
+
+  a.nav__logo {
+    background-image: url("/assets/img/gaslight-logo.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 0;
+    display: block;
+    height: grid(1.5);
+    margin: $padd-xxs 0;
+    transition: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-image: url("/assets/img/gaslight-logo--hover.svg");
+      border: 0;
+      transition: none;
+
+      &::after {
+        height: 0;
+        width: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.nav__toggle {
+  grid-row: 1;
+  grid-column: 2 / 3;
+  height: 2rem;
+  justify-self: end;
+  position: relative;
+  transition: all .3s ease;
+  width: 2rem;
+
+
+  &::before, &::after {
+    background: $color-dark;
+    border-radius: 1rem;
+    content: "";
+    display: block;
+    height: 3px;
+    position: absolute;
+      left: 0;
+    transform-origin: center;
+    transition: all .3s ease;
+  }
+
+  &::before {
+    transform: translateY(.7rem);
+    width: 100%;
+  }
+
+  &::after {
+    transform: translateY(1.3rem);
+    width: 75%;
+  }
+}
+
+#nav__toggle {
+  margin: 0;
+  opacity: 0;
+
+  &:checked {
+    + .nav__toggle {
+      transform: rotate(45deg);
+    }
+
+    + .nav__toggle::before {
+      transform: translate(.3rem, 1rem);
+      width: 75%;
+    }
+
+    + .nav__toggle::after {
+      transform: rotate(-90deg) translate(-1rem, .3rem);
+    }
+
+    ~ .nav__list {
+      height: calc(100vh - #{grid(5)});
+    }
+  }
+}
+
+.nav__list {
+  font-size: $font-size-sm;
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  font-family: $font-body;
+  font-weight: 400;
+  grid-row: 2;
+  grid-column: 1 / -1;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: all .3s ease;
+
+  a:not(.btn) {
+    border-bottom: 0;
+    padding-bottom: .25rem;
+  }
+}
+
+.nav__link {
+  line-height: grid(1);
+  padding: $padd-xs;
+
+  &.current {
+    a {
+      background-position: 0 0;
+      color: $color-light;
+    }
+  }
+
+}
+
+.nav__cta {
+  padding: 0;
+}
+.section--dark nav {
+  a.nav__logo {
+    background-image: url("/assets/img/gaslight-logo__inverse.svg");
+    &:hover {
+      background-image: url("/assets/img/gaslight-logo__inverse--hover.svg");
+    }
+  }
+
+  a:not(.nav__logo) {
+    background: linear-gradient(to right, $color-splash-2 0%, $color-splash-2 100%, transparent 100%);
+      background-repeat: no-repeat;
+      box-decoration-break: clone;
+      background-position: -65rem 0;
+    color: $color-light;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-position: 0 0;
+    }
+  }
+
+  .nav__toggle {
+    &::before, &::after {
+      background: $color-light;
+    }
+  }
+
+  .nav__cta {
+    display: none;
+  }
+}
+
+@media (min-width: $screen-desktop) {
+  nav {
+    grid-template-columns: 1fr 4fr;
+
+    a.nav__logo {
+      margin: 0;
+    }
+
+    #nav__toggle,
+    .nav__toggle {
+      display: none;
+    }
+
+    .nav__list {
+      flex-direction: row;
+      justify-content: flex-end;
+      height: auto;
+      grid-column: 2 / -1;
+      grid-row: 1;
+      text-align: right;
+    }
+  }
+}

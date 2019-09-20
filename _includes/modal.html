@@ -1,0 +1,20 @@
+<div class="modal" id="modal">
+  <img src="/assets/img/confetti/cross--blue.svg" class="modal__close" id="modal__close">
+  {{ include.popup-copy }}
+</div>
+
+<script>
+  var modal = document.getElementById("modal");
+  var modalClose = document.getElementById("modal__close");
+
+  // When the user clicks on (x), close the modal
+  modalClose.onclick = function() {
+    modal.style.right="-100%";
+  }
+
+  // Show the modal after 5s
+  window.addEventListener("load", showModal);
+  function showModal() {
+    setTimeout(function() { modal.style.right="2rem"; }, 5000);
+  }
+</script>

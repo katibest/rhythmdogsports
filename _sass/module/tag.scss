@@ -1,0 +1,23 @@
+.tag {
+  border: $border;
+  border-color: $color-gray-light;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: $color-gray-light;
+  display: inline-block;
+  font-family: $font-header;
+  font-size: .8em;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0 $padd-xxs $padd-xxs 0;
+  padding: .25em .5em;
+  position: relative;
+}
+
+a.tag {
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: $color-dark;
+  }
+}

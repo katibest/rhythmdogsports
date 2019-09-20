@@ -1,0 +1,89 @@
+//SECTIONS
+.section--dark {
+  background-color: $color-dark;
+  color: $color-light;
+  &-texture {
+    background-image: url(/assets/img/dark-texture-one.svg);
+    background-size: cover;
+    background-position: center;
+  }
+}
+.section--light {
+  background-color: $color-light;
+  color: $color-dark;
+}
+.section--off-dark {
+  background-color: $color-off-dark;
+}
+.section--off-light {
+  background-color: $color-off-light;
+}
+.section--splash-1 {
+  background-color: $color-splash-1;
+}
+.section--splash-2 {
+  background-color: $color-splash-2;
+}
+.section--splash-3 {
+  background-color: $color-splash-3;
+}
+
+//TEXT COLORS
+.color--dark{
+  color: $color-dark;
+}
+.color--off-dark {
+  color: $color-off-dark;
+}
+.color--light {
+  color:$color-light;
+}
+.color--off-light {
+  color: $color-off-light;
+}
+.color--gray-light {
+  color: $color-gray-light;
+}
+.color--splash-1 {
+  color: $color-splash-1;
+}
+.color--spalsh-2 {
+  color: $color-splash-2;
+}
+.color--splash-3 {
+  color: $color-splash-3;
+}
+
+//BORDER COLORS
+.border-color--dark {
+  border-color: $color-dark;
+}
+.border-color--off-dark {
+  border-color: $color-off-dark;
+}
+.border-color--light {
+  border-color: $color-light;
+}
+.border-color--off-light {
+  border-color: $color-off-light;
+}
+.border-color--splash-1 {
+  border-color: $color-splash-1;
+}
+.border-color--splash-2 {
+  border-color: $color-splash-2;
+}
+.border-color--splash-3 {
+  border-color: $color-splash-3;
+}
+
+//FILL
+.fill--splash-1 {
+  fill: $color-splash-1;
+}
+.fill--splash-2 {
+  fill: $color-splash-2;
+}
+.fill--splash-3 {
+  fill: $color-splash-3;
+}

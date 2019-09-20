@@ -1,0 +1,40 @@
+//PAGINATION POSTS
+.pagination {
+  width: 100%;
+  text-align: center;
+  ul {
+    margin: $padd 0;
+    padding: 0;
+    li {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      a {
+        border-bottom: none;
+        padding: .25rem .25rem 0.30rem .25rem;
+        span {
+          border-bottom: $border;
+          border-color: $color-splash-1;
+          padding: $padd-xs;
+          transition: background 0.3s ease-in-out;
+
+          @media screen and (min-width: $screen-tablet) {
+            padding: $padd-xs $padd-sm;
+          }
+        }
+
+        &:hover {
+          color: $color-light;
+          cursor: pointer;
+        }
+      }
+    }
+    li.selected {
+      a {
+        background: $color-dark;
+        color: $color-light;
+      }
+    }
+  }
+}

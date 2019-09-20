@@ -1,0 +1,188 @@
+.service {
+  &-list {
+    li {
+      color: $color-gray-light;
+      display: flex;
+        align-items: center;
+        justify-content: start;
+
+      img {
+        opacity: .3;
+        padding-right: $padd-xs;
+        height: grid(1)
+      }
+
+      &.service-list__related {
+        color: inherit;
+
+        img {
+          opacity: 1;
+        }
+      }
+    }
+
+  }
+
+
+  &__container {
+    display: grid;
+      grid-gap: $padd-sm;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: min-content min-content;
+      grid-template-areas: "category1 category2 category3" "services services services";
+    margin: $padd-lg auto 0;
+    max-width: $header-max-width;
+
+    @media screen and (min-width: $screen-tablet) {
+      grid-gap: $padd-sm;
+    }
+
+    input {
+      border-color: transparent;
+
+      &:first-of-type {
+        grid-area: category1;
+      }
+
+      &:nth-of-type(2) {
+        grid-area: category2;
+      }
+
+      &:nth-of-type(3) {
+        grid-area: category3;
+      }
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+
+  &__category {
+    text-align: center;
+
+    &:first-of-type {
+      grid-area: category1;
+    }
+
+    &:nth-of-type(2) {
+      grid-area: category2;
+    }
+
+    &:nth-of-type(3) {
+      grid-area: category3;
+    }
+
+    span {
+      background: linear-gradient(to right, $color-splash-1 0%, $color-splash-1 100%, transparent 100%);
+        background-repeat: no-repeat;
+        box-decoration-break: clone;
+        background-position: -65rem 0;
+      border-bottom: $border;
+      border-color: $color-splash-1;
+      padding: $padd-xs;
+      transition: all 0.3s ease-in-out;
+
+      @media screen and (min-width: $screen-tablet) {
+        padding: $padd-xs $padd-sm;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      span {
+        background-position: 0 0;
+        color: $color-light;
+      }
+    }
+  }
+
+  &__list {
+    grid-area: services;
+    height: 0;
+    margin: $padd 0;
+    opacity: 0;
+    transition: .2s all ease;
+
+    img {
+      height: grid(4);
+      margin-bottom: $padd-sm;
+    }
+
+    div {
+      margin-bottom: $padd;
+    }
+
+    &--discovery {
+
+      @media screen and (min-width: $screen-tablet) {
+        display: grid;
+          grid-gap: $padd-sm;
+          grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    &--delivery {
+
+      @media screen and (min-width: $screen-tablet) {
+        display: grid;
+          grid-gap: $padd-sm;
+          grid-template-columns: repeat(6, 1fr);
+
+        div {
+          grid-column: 2 / 6;
+        }
+      }
+    }
+
+    &--team-augmentation {
+
+      @media screen and (min-width: $screen-tablet) {
+        display: grid;
+          grid-gap: $padd-sm;
+          grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+}
+
+
+
+input:checked {
+  + label span {
+    background-position: 0 0;
+    color: $color-light;
+  }
+}
+
+#discovery:checked {
+  ~ .service__list--discovery {
+    height: 100%;
+    opacity: 1;
+    left: 0;
+    transition-delay: .15s;
+  }
+}
+
+#delivery:checked {
+  ~ .service__list--delivery {
+    height: 100%;
+    opacity: 1;
+    left: 0;
+    transition-delay: .15s;
+  }
+}
+
+#team-augmentation:checked {
+  ~ .service__list--team-augmentation {
+    height: 100%;
+    opacity: 1;
+    left: 0;
+    transition-delay: .15s;
+  }
+}

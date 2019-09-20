@@ -1,0 +1,10 @@
+<div class="image-pane image-pane--{{ include.pane-align }}">
+  <div class="image-pane__image" style="background-image: url( {{ include.image-url }} ); {% if include.image-align %} background-position: {{include.image-align}}; {% endif %}">
+  </div>
+  <div class="image-pane__content">
+    {% if include.pane-equation-url %}
+    <img src="{{ include.pane-equation-url }}" class="icon-equation" alt="{{ include.pane-equation-alt }}" />
+    {% endif %}
+    {{ include.pane-copy }}
+  </div>
+</div>

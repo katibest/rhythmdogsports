@@ -1,0 +1,2 @@
+
+<h2 class="highlight"><span> To build lasting impact with our clients, their end-users, and our community.</span></h2> <p> Sure, we love to geek out over technology and design. But it's all for a bigger purpose - boosting your business. Through development, design and business categories here on our blog - we break down our best practices, what to look for when it comes to software development, and how you can in fact, leverage technology. </p>

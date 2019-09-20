@@ -1,0 +1,64 @@
+.texture_shapes {
+  fill: $color-off-dark;
+}
+
+.shape-texture{
+  fill: $color-off-dark;
+}
+
+.shape-color {
+  &__stroke {
+
+    &--red {
+      fill: none;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10;
+      stroke: $color-splash-2;
+    }
+
+    &--yellow {
+      fill: none;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10;
+      stroke: $color-splash-3;
+    }
+
+    &--blue {
+      fill: none;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10;
+      stroke: $color-splash-1;
+    }
+  }
+  &__fill {
+    &--red {
+      fill: $color-splash-2;
+    }
+
+    &--yellow {
+      fill: $color-splash-3;
+    }
+
+    &--blue {
+      fill: $color-splash-1;
+    }
+  }
+}
+
+//ROTATION ANIMATIONS
+.rotate-left {
+  transform-origin: 50% 50%;
+  transform: rotate(0deg) rotate(-0deg);
+  animation: rotateLeft 5s infinite ease-in-out;
+}
+@keyframes rotateLeft {
+  0% { transform: rotate(0deg);}
+  50% { transform: rotate(180deg);}
+  100% { transform: rotate(360deg);}
+}

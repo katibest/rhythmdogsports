@@ -1,0 +1,81 @@
+.splash-intro {
+  &__image {
+    margin: 0;
+    max-width: 100%;
+    background-position: center;
+    background-size: cover;
+    height: grid(15);
+    overflow: hidden;
+  }
+
+  &__section {
+    overflow: visible;
+    padding: 0 $padd $padd;
+
+    &-container {
+      display: grid;
+        grid-gap: $padd-sm;
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: min-content min-content;
+        grid-template-areas: "header header" "copy copy" "confetti confetti";
+      margin: 0 auto;
+      max-width: $header-max-width;
+    }
+
+    &--dark {
+      background-color: $color-dark;
+      color: $white;
+    }
+
+    &--light {
+      background-color: $color-light;
+      color: $black;
+    }
+
+  }
+
+  &__header {
+    grid-area: header;
+    margin: grid(-1) 0 0;
+  }
+
+  &__confetti {
+    grid-area: confetti;
+
+    &--mobile {
+      display: block;
+      height: grid(4);
+      justify-self: center;
+    }
+
+    &--desktop {
+      display: none;
+    }
+  }
+
+  &__copy {
+    grid-area: copy;
+  }
+}
+
+@media screen and (min-width: $screen-tablet) {
+  .splash-intro {
+
+    &__section {
+      &-container {
+        grid-template-areas: "header header" "confetti copy";
+      }
+    }
+
+    &__confetti {
+      &--mobile {
+        display: none;
+      }
+
+      &--desktop {
+        display: block;
+        max-height: 100%;
+      }
+    }
+  }
+}

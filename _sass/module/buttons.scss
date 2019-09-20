@@ -1,0 +1,124 @@
+//BUTTONS
+a.btn, .btn, input.hs-button {
+  background: transparent;
+  border: 3px solid $color-splash-3;
+  border-radius: 50px;
+  box-sizing: border-box;
+  color: $black;
+  display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  font-family: $font-header;
+  font-size: 1rem;
+  font-weight: 600;
+  min-height: grid(2);
+  line-height: grid(1);
+  overflow: hidden;
+  position: relative;
+  padding: $padd-xs $padd-sm;
+  text-align: center;
+  text-transform: capitalize;
+  transition: all 0.5s ease;
+  z-index: 0;
+
+  @media screen and (min-width: $screen-mobile) {
+    padding: $padd-xs $padd;
+  }
+
+  &::after{
+    background-color: transparent;
+    content: "";
+    height: 110%;
+    transform: skewX(30deg) translateX(-50%);
+    position: absolute;
+      top: -5%;
+      left: 50%;
+    transition: all 0.3s ease-in-out;
+    width: 0%;
+    z-index: -100;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    color: $black;
+    text-decoration: none;
+
+    &::after {
+      background-color: $color-splash-3;
+      transition: all 0.3s ease-in-out;
+      width: 120%;
+    }
+  }
+
+  &--sm {
+    font-size: $font-size-sm;
+    line-height: grid(.5);
+    min-height: grid(1);
+    margin: $padd-xxs 0;
+    padding: $padd-xxs $padd-xs;
+  }
+}
+
+input.hs-button {
+  width: auto;
+  margin-top: $padd-sm;
+}
+
+.section--dark {
+  .btn {
+    background-color: transparentize($black, .5);
+    color: $color-light;
+  }
+}
+
+
+.btn--cta, a.btn--cta,
+.section--dark .btn--cta,
+.section--dark a.btn--cta, input.hs-button {
+  background-color: $color-splash-3;
+  color: $black;
+
+  &:hover,
+  &:active,
+  &:focus {
+    &::after {
+      background-color: $color-light;
+    }
+  }
+}
+input.hs-button::after {
+  background-color: $color-splash-3;
+  content: "";
+  height: 110%;
+  transform: skewX(30deg) translateX(-50%);
+  position: absolute;
+  top: -5%;
+  left: 50%;
+  transition: all 0.3s ease-in-out;
+  width: 0%;
+  z-index: -100;
+}
+input.hs-button:hover {
+  color: $black;
+  text-decoration: none;
+}
+input.hs-button:hover::after {
+  background-color: $color-light;
+  transition: all 0.3s ease-in-out;
+  width: 120%;
+}
+
+
+
+.section--dark .btn--cta,
+.section--dark a.btn--cta {
+  &:hover,
+  &:active,
+  &:focus {
+    color: $color-light;
+
+    &::after {
+      background-color: $black;
+    }
+  }
+}

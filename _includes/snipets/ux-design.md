@@ -1,0 +1,2 @@
+
+<h2><span>UX Design and Research</span></h2> <p> You can build software to solve a problem, but have you really solved the problem if your users don't experience the solution? We think the answer here is a strong no. If your users can't easily accomplish what they want, it doesn't matter how much code you write. We want to get inside the users' mind, understand what they need, and then allow them to do it in the most efficient and intuitive way possible. Because if your users ain't happy, nobody's happy... </p> <a href="/what-we-do" class="btn">Learn More</a>

@@ -1,0 +1,330 @@
+//BORDER
+.u-border {
+  border: $border;
+
+  &--top {
+    border-top: $border;
+  }
+
+  &--right {
+    border-right: $border;
+  }
+
+  &--bottom {
+    border-bottom: $border;
+  }
+
+  &--left {
+    border-left: $border;
+  }
+
+  &--light {
+    border-width: 1px;
+  }
+}
+
+//WIDTH
+.u-fill--width {
+  width: 100%;
+  box-sizing: border-box;
+}
+.u-full-fold {
+  min-height: 99.5vh;
+}
+.u-display--block {
+  display: block;
+}
+.u-pos-relative {
+  position: relative;
+}
+.u-display--in-block {
+  display: inline-block;
+}
+.u-radius {
+  //border-radius: $border-radius;
+}
+.u-contained {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $content-max-width;
+}
+.u-contained--wide {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $header-max-width;
+}
+.u-contained--max {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $list-max-width;
+}
+
+//FLEX
+.u-flex {
+  display: flex;
+
+  &-justify {
+    &--center {
+      justify-content: center;
+    }
+  }
+}
+
+
+//PADDING
+
+.u-padded--none {
+  padding: 0;
+}
+
+.u-padded-left--none {
+  padding-left: 0;
+}
+
+.u-padded-top--none {
+  padding-top: 0;
+}
+
+.u-padded-top--sm {
+  padding-top: $padd-sm;
+}
+
+.u-padded--xs {
+  padding: $padd-xs;
+}
+.u-padded--sm {
+  padding: $padd-sm;
+}
+@media (min-width: $screen-mobile) {
+  .u-padded--xs {
+    padding: $padd-xs;
+  }
+  .u-padded--sm {
+    padding: $padd-sm;
+  }
+  .u-padded {
+    padding: $padd;
+  }
+  .u-padded--lg {
+    padding: $padd-lg;
+  }
+  .u-padded--xlg {
+    padding: $padd-xlg;
+  }
+}
+
+//MARGIN
+.u-push--auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.u-push--none {
+  margin: 0;
+}
+.u-push--xs {
+  margin: $padd-xs;
+}
+.u-push--sm {
+  margin: $padd-sm;
+}
+.u-push {
+  margin: $padd;
+}
+.u-push--lg {
+  margin: $padd-lg;
+}
+.u-push--xlg {
+  margin: $padd-xlg;
+}
+
+.u-push-bottom--none {
+  margin-bottom: 0;
+}
+.u-push-bottom--xs {
+  margin-bottom: $padd-xs;
+}
+.u-push-bottom--sm {
+  margin-bottom: $padd-sm;
+}
+.u-push-bottom {
+  margin-bottom: $padd;
+}
+.u-push-bottom--lg {
+  margin-bottom: $padd-lg;
+}
+.u-push-bottom--xlg {
+  margin-bottom: $padd-xlg;
+}
+
+.u-push-top--none {
+  margin-top: 0;
+}
+.u-push-top--xs {
+  margin-top: $padd-xs;
+}
+.u-push-top--sm {
+  margin-top: $padd-sm;
+}
+.u-push-top {
+  margin-top: $padd;
+}
+.u-push-top--lg {
+  margin-top: $padd-lg;
+}
+.u-push-top--xlg {
+  margin-top: $padd-xlg;
+}
+
+.u-push-right--none {
+  margin-right: 0;
+}
+.u-push-right--xs {
+  margin-right: $padd-xs;
+}
+.u-push-right--sm {
+  margin-right: $padd-sm;
+}
+.u-push-right {
+  margin-right: $padd;
+}
+.u-push-right--lg {
+  margin-right: $padd-lg;
+}
+.u-push-right--xlg {
+  margin-right: $padd-xlg;
+}
+
+.u-push-left--none {
+  margin-left: 0;
+}
+.u-push-left--xs {
+  margin-left: $padd-xs;
+}
+.u-push-left--sm {
+  margin-left: $padd-sm;
+}
+.u-push-left {
+  margin-left: $padd;
+}
+.u-push-left--lg {
+  margin-left: $padd-lg;
+}
+.u-push-left--xlg {
+  margin-left: $padd-xlg;
+}
+
+//ALIGNMENT
+.u-left--xs {
+  text-align: left;
+}
+.u-right--xs {
+  text-align: right;
+}
+.u-center--xs {
+  text-align: center;
+}
+@media (min-width: $screen-mobile) {
+  .u-left--sm {
+    text-align: left;
+  }
+  .u-right--sm {
+    text-align: right;
+  }
+  .u-center--sm {
+    text-align: center;
+  }
+}
+@media (min-width: $screen-tablet) {
+  .u-left--md {
+    text-align: left;
+  }
+  .u-right--md {
+    text-align: right;
+  }
+  .u-center--md {
+    text-align: center;
+  }
+}
+@media (min-width: $screen-desktop) {
+  .u-left--lg {
+    text-align: left;
+  }
+  .u-right--lg {
+    text-align: right;
+  }
+  .u-center--lg {
+    text-align: center;
+  }
+}
+
+//FLOATS
+.u-float--left {
+  float: left;
+}
+.u-float--right {
+  float: right;
+}
+.u-clear--both {
+  clear: both;
+}
+
+//BOX SIZING
+.u-box--border {
+  box-sizing: border-box;
+}
+.u-box--content {
+  box-sizing: content-box;
+}
+
+//STICK ON SCROLL
+.u-stick__container {
+  height: 100%;
+}
+.u-stick {
+  display: block;
+  position: sticky;
+  top: 10px;
+}
+
+.u-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+// TYPOGRAPHY
+
+.u-text {
+  &-center {
+    text-align: center;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: right;
+  }
+
+  &-sm {
+    font-size: .9rem;
+  }
+
+  &-xlg {
+    font-size: $h2-font-size-base;
+  }
+}
+
+// SHOW/HIDE ON SCREEN SIZES
+
+.u-show-tablet {
+  @media screen and (min-width: $screen-tablet) {
+    display: none;
+  }
+}
+
+.u-show-desktop {
+  @media screen and (max-width: $screen-tablet) {
+    display: none;
+  }
+}

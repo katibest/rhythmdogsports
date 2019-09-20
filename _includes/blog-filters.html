@@ -1,0 +1,8 @@
+<ul class="list--unstyled  u-flex u-flex-justify--center  u-push-top--lg">
+  <li class="u-push--xs"><a href="/blog" class="{% if page.url == '/blog/index.html' %}current{% endif %}">All</a></li>
+  {% for category in site.categories %}
+  <li class="u-push--xs">
+    <a href="{{category.url}}/index.html" class="{% if page.url contains category.url %}current{% endif %}">{{category.title}}</a>
+  </li>
+  {% endfor %}
+</ul>

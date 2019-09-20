@@ -1,0 +1,26 @@
+.modal {
+  background: $color-light;
+  border: $border;
+  border-color: $color-off-light;
+  display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  padding: $padd;
+  position: fixed;
+    right: -100%;
+    bottom: $padd;
+  transition: all .5s ease;
+  width: calc(100% - #{$padd});
+  z-index: 600;
+
+  &__close {
+    align-self: flex-end;
+    cursor: pointer;
+    padding-bottom: $padd-sm;
+  }
+
+  @media screen and (min-width: $screen-tablet) {
+    width: 50%;
+  }
+}

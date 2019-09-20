@@ -1,0 +1,113 @@
+---
+layout: default
+---
+<article class="post">
+  <section class="section--light">
+    {% capture author_slug %}{{ page.post_author | slugify }}{% endcapture %}
+
+    {% capture author_image %}
+      {% for person in site.team %}
+        {% if person.image_path contains author_slug %}
+        <img src="/assets/img/team/{{ author_slug }}.jpg" alt="{{ page.post_author }}" />
+        {% endif %}
+      {% endfor %}
+    {% endcapture %}
+
+    {% capture gaslighter %}
+      {% for person in site.team %}
+        {% if person.url contains author_slug %}
+          "true"
+        {% endif %}
+      {%endfor%}
+    {%endcapture%}
+
+    {% capture author_name %}
+      {{ page.post_author | default: site.author }}
+    {% endcapture %}
+
+    {% if page.feature_post_image == '' %}
+      <div class="post__header  u-contained">
+        <div class="post__title">
+          <div class="post__date u-push-bottom--none">{{ page.publish_date | date: "%-d %B %Y" }}</div>
+          <h2>{{ page.post_title }}</h2>
+          {% if page.post_author %}
+            <div class="post__author">
+              {{ author_image }}
+              <p class="u-push-bottom--none">
+                by {{ author_name }}
+              </p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <div class="image-pane image-pane--left image-pane--blog">
+        <div class="image-pane__image">
+          <img src="{{ page.feature_post_image }}" />
+        </div>
+        <div class="image-pane__content">
+          <div class="post__title">
+            <div class="post__date u-push-bottom--none">{{ page.publish_date | date: "%-d %B %Y" }}</div>
+            <h2 class="highlight"><span>{{ page.post_title }} </span></h2>
+            {% if page.post_author %}
+              <div class="post__author">
+                {{ author_image }}
+                <p class="u-push-bottom--none">
+                  by {{ author_name }}
+                </p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </section>
+
+  <section class="post__body">
+    <div>
+    {{content}}
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      {% if page.categories %}{% for cat in page.categories %}<a class="tag" href="/blog/categories/{{ cat | downcase }}/index.html">{{ cat }}</a>{% endfor %}{% endif %}
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      {% assign maxRelated = 4 %}
+      {% assign minCommonCategories =  1 %}
+      {% assign maxRelatedCounter = 0 %}
+
+      {% for post in site.posts %}
+        {% assign sameCategoryCount = 0 %}
+        {% for category in post.categories %}
+          {% if post.url != page.url %}
+            {% if page.categories contains category %}
+              {% assign sameCategoryCount = sameCategoryCount | plus: 1 %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% if sameCategoryCount >= minCommonCategories %}
+          <a href="{{ post.url }}" class="card card--feature">
+            <div class="card__content">
+              <h3>{{ post.post_title }}</h3>
+              <h4>{{ post.post_author }}</h4>
+              <p class="note">{{ post.short_description }}</p>
+              Read More &rarr;
+            </div>
+          </a>
+          {% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
+          {% if maxRelatedCounter >= maxRelated %}
+            {% break %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+</article>
+
+{% capture cta-copy %}{% include /cta/cta-newsletter.md %}{% endcapture %}
+{% include call-to-action.html cta-copy=cta-copy %}

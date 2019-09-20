@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<section class="section--light">
+  <div class="image-pane image-pane--left">
+    <div class="image-pane__image" style="background-image: url( {{ page.featured_work_image }} )">
+    </div>
+    <div class="image-pane__content">
+      <h1 class="highlight"><span>{{page.title}}: {{page.sub_title}}</span></h1>
+      <p>{{ page.short_description }}</p>
+    </div>
+  </div>
+</section>
+
+<div class="u-contained--max u-push-bottom--xlg">
+  {{content}}
+</div>

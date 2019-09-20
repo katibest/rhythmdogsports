@@ -1,0 +1,67 @@
+title: Gaslight
+logo: /assets/img/logo.png
+description: Custom Built Software
+show_downloads: true
+permalink: "/blog/:categories/:year/:month/:day/:title.html"
+google_analytics:
+theme: jekyll-theme-minimal
+timezone: America/New_York
+collections:
+  posts:
+    output: true
+    title: Posts
+  work:
+    output: true
+    title: Work
+  team:
+    output: false
+    title: Team
+  event:
+    title: Events
+  service:
+    output: false
+    title: Services
+  categories:
+    output: true
+    title: Categories
+    permalink: "/blog/:collection/:name"
+  careers:
+    output: true
+    title: Careers
+  perks:
+    output: false
+    title: Perks
+plugins:
+  - jekyll-seo-tag
+  - jekyll-autoprefixer
+  - jekyll-paginate-v2
+autoprefixer:
+  browsers:
+  - last 4 versions
+  only_production: false
+
+
+autopages:
+  enabled: true
+  collections:
+    enabled: false
+  categories:
+    enabled: true
+    layouts:
+      - category.html
+    title: 'Posts in :cat'
+    permalink: '/blog/categories/:cat'
+  tags:
+    enabled: false
+
+pagination:
+  enabled: true
+  per_page: 6
+  permalink: '/:num/'
+  title: ':title - page :num'
+  limit: 0
+  sort_field: 'publish_date'
+  sort_reverse: 'true'
+  trail:
+      before: 2
+      after: 2

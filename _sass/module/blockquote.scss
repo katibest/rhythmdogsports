@@ -1,0 +1,61 @@
+blockquote,
+.blockquote {
+  background: transparent;
+  color: $color-dark;
+  font-family: $font-header;
+  font-size: 1.8em;
+  font-weight: 600;
+  line-height: grid(2);
+  padding: $padd;
+  position: relative;
+  text-align: center;
+  white-space: normal;
+
+  &::before,
+  &::after {
+    content: url('/assets/img/confetti/squiggle-h--blue.svg');
+    display: block;
+    margin: $padd auto;
+    transform-origin: center initial initial;
+    height: grid(1);
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  &__attribution {
+    color: $color-off-dark;
+    font-size: $font-size-sm;
+    font-weight: 400;
+    margin-top: $padd-sm;
+
+    &::before {
+      content: "—";
+    }
+  }
+
+  &__image {
+    background-size: cover;
+    background-position: center center;
+    border-radius: 50%;
+    height: grid(5);
+    width: grid(5);
+    margin: 0 auto $padd-sm;
+  }
+
+  @media screen and (min-width: $screen-mobile) {
+
+    &.quote__right {
+      float: right;
+      max-width: 10em;
+      padding-right: 0;
+    }
+
+    &.quote__left {
+      float: left;
+      max-width: 10em;
+      padding-left: 0;
+    }
+  }
+}

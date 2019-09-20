@@ -1,0 +1,139 @@
+html, body {
+  color: $black;
+  font-family: $font-body;
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  letter-spacing: .5px;
+  line-height: grid(1);
+}
+.highlight {
+  padding: $highlight-padding;
+  background-color: $color-splash-1;
+  box-decoration-break: clone;
+  color: $color-light;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-header;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-bottom: $padd-sm;
+
+  &.highlight {
+    background: transparent;
+    padding: 0;
+    white-space: normal;
+
+    span {
+      background-color: $color-splash-1;
+      box-decoration-break: clone;
+      box-shadow: 0.4em 0 0 #33BFE5, -0.4em 0 0 #33BFE5;
+      color: $color-light;
+      padding: $highlight-padding;
+    }
+  }
+}
+h1, h2.h1 {
+  font-size: $h1-font-size-base;
+  line-height: grid(3);
+}
+h2 {
+  font-size: $h2-font-size-base;
+  line-height: grid(2);
+}
+h3 {
+  font-size: $h3-font-size-base;
+}
+h4 {
+  font-size: $h4-font-size-base;
+}
+h5 {
+  font-size: $h5-font-size-base;
+}
+p {
+  margin-bottom: $padd-sm;
+}
+
+.note {
+  font-size: $font-size-sm;
+}
+
+.caption {
+  font-size: $font-size-sm;
+  font-weight: 200;
+}
+strong {
+  font-weight: 800;
+}
+i {
+  font-style: italic;
+}
+b {
+  font-weight: 600;
+}
+
+a {
+  background: linear-gradient(to right, $color-dark 0%, $color-dark 100%, transparent 100%);
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    background-position: -65rem 0;
+  border-bottom: 3px solid $color-dark;
+  color: $color-dark;
+  padding: .25rem .25rem 0 .25rem;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  z-index: 0;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &.current {
+    background-position: 0 0;
+    color: $color-light;
+    outline: 0;
+  }
+
+  &.inverse {
+    background: linear-gradient(to right, $color-light 0%, $color-light 100%, transparent 100%);
+      background-repeat: no-repeat;
+      box-decoration-break: clone;
+      background-position: -65rem 0;
+    border-bottom: 3px solid $color-light;
+    color: $color-light;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-position: 0 0;
+      color: $color-dark;
+      outline: 0;
+    }
+  }
+
+}
+
+// Forestry's code block class
+pre,
+.highlighter-rouge {
+  margin: $padd-sm 0;
+  padding: $padd-sm;
+  border-radius: 3px;
+  background-color: $color-off-dark;
+  color: $color-off-light;
+  font-family: 'Inconsolata', monospace;
+
+  .highlight {
+    background-color: transparent;
+    padding: 0;
+    white-space: pre-wrap;
+  }
+}
+
+// Inline code
+code.highlighter-rouge {
+  background-color: $color-gray-lighter;
+  box-decoration-break: clone;
+  color: $color-dark;
+  padding: $padd-xxs;
+}

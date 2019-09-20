@@ -1,0 +1,88 @@
+//SCREEN SIZES
+$screen-mobile: 576px;
+$screen-tablet: 744px;
+$screen-desktop: 900px;
+
+
+
+//TYPOGRAPHY
+:root {
+  --font-size-base:14px;
+  --line-height-base: 1.8571428571; // 26px
+
+  @media screen and (min-width: $screen-tablet) {
+    --font-size-base: 16px;
+    --line-height-base: 1.875; // 30px
+  }
+}
+
+$font-header: DinWeb, sans-serif;
+$font-body: aglet-slab, sans-serif;
+$font-size-sm: .8em;
+//Modified Perfect Fourth Scale
+$h1-font-size-base: 3.5rem; //48px
+$h2-font-size-base: 2.5rem; //40px
+$h3-font-size-base: 1.5rem; //24px
+$h4-font-size-base: 1.25rem; //20px
+$h5-font-size-base: 1rem; //16px
+$h6-font-size-base: .75rem; //12px
+
+//30px grid
+
+$content-max-width: 55em;
+$header-max-width: 70em;
+$list-max-width: 90em;
+
+
+
+//GRID
+:root {
+  --grid: calc(var(--font-size-base) * #{var(--line-height-base)});
+  --minus-one: calc(#{var(--grid)} - 1px);
+  --plus-one: calc(#{var(--grid)} + 1px);
+}
+
+@function grid($count) {
+  @return calc(#{var(--grid)} * #{$count});
+}
+
+
+//SPACING
+$padd: grid(2);
+$padd-xxs: grid(.25);
+$padd-xs: grid(.5);
+$padd-sm: grid(1);
+$padd-lg: grid(2);
+$padd-xlg: grid(3);
+$padd-none: 0;
+
+
+
+//COLORS
+$black: #252525;
+$white: #FFFFFF;
+$blue: #33BFE5;
+$red: #f03330;
+$yellow: #FFD503;
+
+$color-dark: $black;
+$color-off-dark: lighten($black, 6%);
+$color-gray: lighten($black, 30%);
+$color-gray-light: lighten($black, 60%);
+$color-gray-lighter: lighten($black, 80%);
+$color-light: $white;
+$color-off-light: darken($white, 5%);
+$color-splash-1: $blue;
+$color-splash-2: $red;
+$color-splash-3: $yellow;
+
+
+
+//BORDERS
+$border: 3px solid $color-dark;
+
+
+
+//MISC
+$section-break-height: 5px;
+$highlight-padding: $padd-xxs $padd-xxs grid(.1);
