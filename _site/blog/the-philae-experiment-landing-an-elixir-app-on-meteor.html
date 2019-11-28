@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>The Philae Experiment Landing An Elixir App On Meteor | Rhythm Dog Sports</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="The Philae Experiment Landing An Elixir App On Meteor" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A few months ago Super Chris Nelson challenged me to use Elixir to talk to a Meteor application because “It sounds like something Elixir would be good at.”" />
+<meta property="og:description" content="A few months ago Super Chris Nelson challenged me to use Elixir to talk to a Meteor application because “It sounds like something Elixir would be good at.”" />
+<link rel="canonical" href="http://localhost:4000/blog/the-philae-experiment-landing-an-elixir-app-on-meteor" />
+<meta property="og:url" content="http://localhost:4000/blog/the-philae-experiment-landing-an-elixir-app-on-meteor" />
+<meta property="og:site_name" content="Rhythm Dog Sports" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-06-27T00:00:00-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/the-philae-experiment-landing-an-elixir-app-on-meteor","headline":"The Philae Experiment Landing An Elixir App On Meteor","dateModified":"2019-06-27T00:00:00-04:00","datePublished":"2019-06-27T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/the-philae-experiment-landing-an-elixir-app-on-meteor"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"}},"description":"A few months ago Super Chris Nelson challenged me to use Elixir to talk to a Meteor application because “It sounds like something Elixir would be good at.”","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="https://use.typekit.net/vnr4ouz.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+  </head>
+  <body>
+    <nav>
+  <a class="nav__logo" href="/"></a>
+  <input type="checkbox" id="nav__toggle">
+  <label class="nav__toggle" for="nav__toggle"></label>
+  <div class="nav__list">
+    <div class="nav__link ">
+      <a href="/who-we-are">About Us</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/what-we-do">Agility</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/events">Events</a>
+    </div>
+    <div class="nav__link   current ">
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/connect">Connect with Us</a>
+    </div>
+    <!-- <div class="nav__link nav__cta">
+      <a href="/start-a-project" class="btn btn--cta btn--sm">Start a Project</a>
+    </div> -->
+  </div>
+</nav>
+
+
+    <main>
+      <article class="post">
+  <section class="section--light">
+    
+
+    
+
+    
+
+    
+
+    
+      <div class="image-pane image-pane--left image-pane--blog">
+        <div class="image-pane__image">
+          <img src="/uploads/Philae_2.png" />
+        </div>
+        <div class="image-pane__content">
+          <div class="post__title">
+            <div class="post__date u-push-bottom--none">27 January 2015</div>
+            <h2 class="highlight"><span>The Philae Experiment: Landing an Elixir App on Meteor </span></h2>
+            
+              <div class="post__author">
+                
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        <img src="/assets/img/team/james-smith.jpg" alt="James Smith" />
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+                <p class="u-push-bottom--none">
+                  by 
+      James Smith
+    
+                </p>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    
+  </section>
+
+  <section class="post__body">
+    <div>
+    <p>A few months ago <a href="https://teamgaslight.com/people/chris-nelson">Super Chris Nelson</a> challenged me to use Elixir to talk to a Meteor application because “It sounds like something Elixir would be good at.”</p>
+
+<p>At the time a few local developers—Doug Rohrer, Chris Nelson, Paul Henrich, Jason Voegele and I—had been meeting on a regular basis to <a href="https://teamgaslight.com/blog/the-best-resources-for-learning-elixir">hack on Elixir.</a> We had been working on a Kafka adapter for Elixir but, after a client project moved away from Kafka, we decided to set the project aside.</p>
+
+<p>So I pitched the idea of working on a DDP client for Elixir. I already had a pretty simple working example of sending a connect message to the basic leaderboard example app in Meteor and getting a response back. Around this time, humanity had managed to land a rover named Philae on a comet! So naming our little experiment Philae made sense.</p>
+
+<p>The leaderboard app in Meteor has served as our example app for working on Philae, so we will be connecting to it here.</p>
+
+<p>I’m going to walk you through the basic process we used to connect to a Meteor app using our in-progress library Philae and build a small example Elixir app along the way.</p>
+
+<p>###Getting Started</p>
+
+<p>I assume you have both Elixir and Meteor installed. If not, you can find install instructions here:</p>
+
+<p><a href="https://www.meteor.com/install">https://www.meteor.com/install</a>
+<br />
+<a href="http://elixir-lang.org/install.html">http://elixir-lang.org/install.html</a></p>
+
+<h3 id="creating-a-new-elixir-project">Creating a New Elixir Project</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix new philae_example
+cd philae_example
+</code></pre></div></div>
+
+<h3 id="adding-dependencies">Adding Dependencies</h3>
+<p>Next you will need to add Philae to your mix dependencies. For now you will need to add Philae’s as a Git dependency. We plan to eventually release the library as a hex package.</p>
+
+<p>####mix.exs</p>
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">PlayerVoter</span><span class="o">.</span><span class="no">Mixfile</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Project</span>
+
+  <span class="k">def</span> <span class="n">project</span> <span class="k">do</span>
+    <span class="p">[</span><span class="ss">app:</span> <span class="ss">:player_voter</span><span class="p">,</span>
+     <span class="ss">version:</span> <span class="s2">"0.0.1"</span><span class="p">,</span>
+     <span class="ss">elixir:</span> <span class="s2">"~&gt; 1.0"</span><span class="p">,</span>
+     <span class="ss">deps:</span> <span class="n">deps</span><span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Configuration for the OTP application</span>
+  <span class="c1">#</span>
+  <span class="c1"># Type `mix help compile.app` for more information</span>
+  <span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+    <span class="p">[</span><span class="ss">applications:</span> <span class="p">[</span><span class="ss">:logger</span><span class="p">]]</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Dependencies can be Hex packages:</span>
+  <span class="c1">#</span>
+  <span class="c1">#   {:mydep, "~&gt; 0.3.0"}</span>
+  <span class="c1">#</span>
+  <span class="c1"># Or git/path repositories:</span>
+  <span class="c1">#</span>
+  <span class="c1">#   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}</span>
+  <span class="c1">#</span>
+  <span class="c1"># Type `mix help deps` for more examples and options</span>
+  <span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+    <span class="p">[{</span><span class="ss">:philae</span><span class="p">,</span> <span class="ss">git:</span> <span class="s2">"https://github.com/cincinnati-elixir/philae.git"</span><span class="p">}]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Next we will fetch and compile our new dependencies:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix deps.get
+mix deps.compile
+
+</code></pre></div></div>
+
+<h3 id="installing-a-meteor-example-app">Installing a Meteor Example App</h3>
+<p>Now let’s install the Meteor leaderboard example app:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meteor create --example leaderboard
+</code></pre></div></div>
+
+<p>From a separate terminal go ahead and run the new Meteor app:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd leaderboard
+meteor 
+</code></pre></div></div>
+
+<p>You should see the meteor app is now running:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ~/src/elixir/philae_example/leaderboard $ meteor
+[[[[[ ~/src/elixir/new_philae_example/leaderboard ]]]]]
+
+=&gt; Started proxy.
+=&gt; Started MongoDB.
+=&gt; Started your app.
+
+=&gt; App running at: http://localhost:3000/
+
+</code></pre></div></div>
+<p>Visit http://localhost:3000 and you should see a basic leaderboard.</p>
+
+<p><img src="http://i.imgur.com/ScdnkYn.png" alt="Meteor Leaderboard example" /></p>
+
+<h3 id="creating-a-philae-handler-module">Creating a Philae Handler Module</h3>
+
+<p>Now let’s create an Elixir module to connect to the leaderboard app. This will be a basic GenServer and will also use the DDPHandler behavior provided by Philae. You can find out more about GenServers in the Elixir Getting started guide <a href="http://elixir-lang.org/getting_started">http://elixir-lang.org/getting_started</a></p>
+
+<p>philae_example/lib/leader.ex</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Leader</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">DDPHandler</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">([])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">client_pid</span> <span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"ws://localhost:3000/websocket"</span><span class="p">,</span> <span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>This gives us everything we need to connect to our Meteor app and get some messages back over <a href="https://www.meteor.com/ddp">DDP</a>.</p>
+
+<p>Next let’s start the Elixir REPL with our application loaded and make a connection to the Leaderboard app.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> iex -S mix 
+ Leader.start_link
+</code></pre></div></div>
+
+<p>After this you should see a whole lot of output in your terminal:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>¶ ~/src/elixir/new_philae_example $ iex -S mix
+Erlang/OTP 17 [erts-6.2] [source] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false] [dtrace]
+
+Compiled lib/new_philae_example.ex
+lib/leader.ex:10: warning: variable client_pid is unused
+Compiled lib/leader.ex
+Generated new_philae_example.app
+Interactive Elixir (1.0.2) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)&gt; Leader.start_link
+
+20:32:24.483 [info]  WS In: {"server_id":"0"}
+{:ok, #PID&lt;0.163.0&gt;}
+
+20:32:24.501 [info]  Unhandled message received %{"server_id" =&gt; "0"}
+
+20:32:24.501 [info]  WS Out: {"version":"1","support":["1","pre2","pre1"],"msg":"connect"}
+iex(2)&gt;
+20:32:24.502 [info]  WS In: {"msg":"connected","session":"D3zmeLHrLYdCeQKCz"}
+
+20:32:24.502 [info]  In: %{"msg" =&gt; "connected", "session" =&gt; "D3zmeLHrLYdCeQKCz"}
+
+20:32:24.502 [info]  WS In: {"msg":"added","collection":"players","id":"yiPp9GZpNoKcd8hjY","fields":{"name":"Ada Lovelace","score":45}}
+
+20:32:24.504 [info]  In: %{"collection" =&gt; "players", "fields" =&gt; %{"name" =&gt; "Ada Lovelace", "score" =&gt; 45}, "id" =&gt; "yiPp9GZpNoKcd8hjY", "msg" =&gt; "added"}
+
+20:32:24.504 [info]  WS In: {"msg":"added","collection":"players","id":"JPwJ2Pda5DWz5NSPJ","fields":{"name":"Grace Hopper","score":35}}
+
+20:32:24.504 [info]  In: %{"collection" =&gt; "players", "fields" =&gt; %{"name" =&gt; "Grace Hopper", "score" =&gt; 35}, "id" =&gt; "JPwJ2Pda5DWz5NSPJ", "msg" =&gt; "added"}
+
+20:32:24.504 [info]  WS In: {"msg":"added","collection":"players","id":"ups8ufNNKAvz9wSXZ","fields":{"name":"Marie Curie","score":45}}
+
+20:32:24.504 [info]  In: %{"collection" =&gt; "players", "fields" =&gt; %{"name" =&gt; "Marie Curie", "score" =&gt; 45}, "id" =&gt; "ups8ufNNKAvz9wSXZ", "msg" =&gt; "added"}
+
+20:32:24.504 [info]  WS In: {"msg":"added","collection":"players","id":"x49dhtpx6MYNqW7ps","fields":{"name":"Carl Friedrich Gauss","score":5}}
+
+20:32:24.504 [info]  In: %{"collection" =&gt; "players", "fields" =&gt; %{"name" =&gt; "Carl Friedrich Gauss", "score" =&gt; 5}, "id" =&gt; "x49dhtpx6MYNqW7ps", "msg" =&gt; "added"}
+
+20:32:24.504 [info]  WS In: {"msg":"added","collection":"players","id":"ysBJnxWu7d4cbhseQ","fields":{"name":"Nikola Tesla","score":45}}
+
+20:32:24.505 [info]  In: %{"collection" =&gt; "players", "fields" =&gt; %{"name" =&gt; "Nikola Tesla", "score" =&gt; 45}, "id" =&gt; "ysBJnxWu7d4cbhseQ", "msg" =&gt; "added"}
+
+20:32:24.505 [info]  WS In: {"msg":"added","collection":"players","id":"dQcPFWRjRKhfGXy48","fields":{"name":"Claude Shannon","score":45}}
+
+20:32:24.505 [info]  In: %{"collection" =&gt; "players", "fields" =&gt; %{"name" =&gt; "Claude Shannon", "score" =&gt; 45}, "id" =&gt; "dQcPFWRjRKhfGXy48", "msg" =&gt; "added"}
+
+20:32:54.503 [info]  WS In: {"msg":"ping"}
+
+20:32:54.503 [info]  WS Out: {"msg":"pong"}
+</code></pre></div></div>
+
+<p>What does all of this mean?</p>
+
+<h3 id="interpreting-ddp-messages">Interpreting DDP Messages</h3>
+<p>First we can see that we sent out a connect message over WebSocket:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>20:32:24.501 [info]  WS Out: {"version":"1","support":["1","pre2","pre1"],"msg":"connect"}
+</code></pre></div></div>
+
+<p>Then followed by a message back in over Websocket</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>20:32:24.502 [info]  WS In: {"msg":"connected","session":"D3zmeLHrLYdCeQKCz"}
+</code></pre></div></div>
+
+<p>This tells us we are now connected to the Meteor app, and we get an id for our session that we will want to keep track of.</p>
+
+<p>We then get another nearly identical message in our log:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>20:32:24.502 [info]  In: %{"msg" =&gt; "connected", "session" =&gt; "D3zmeLHrLYdCeQKCz"}
+</code></pre></div></div>
+
+<p>Why do we get the same message twice? Well this is the message that our Leader GenServer received from the Philae.DDP GenServer. It’s messages, processes and GenServers all the way down!</p>
+
+<p>Next we see some more useful messages in our log telling us that some players were added to a collection called ‘players’.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>20:32:24.502 [info]  WS In: {"msg":"added","collection":"players","id":"yiPp9GZpNoKcd8hjY","fields":{"name":"Ada Lovelace","score":45}}
+
+20:32:24.504 [info]  In: %{"collection" =&gt; "players", "fields" =&gt; %{"name" =&gt; "Ada Lovelace", "score" =&gt; 45}, "id" =&gt; "yiPp9GZpNoKcd8hjY", "msg" =&gt; "added"}
+</code></pre></div></div>
+<p>Once again we can see we logged a message coming into the WebSocket, as well as the message we received in our Leader GenServer process.</p>
+
+<p>Why are we receiving these when we haven’t subscribed to the player collection yet? 
+By default Meteor includes a package called autopublish. This is something you want to remove before publishing an app, so let’s go ahead and remove it.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd leaderboard
+meteor remove autopublish
+</code></pre></div></div>
+<p>Make sure meteor is running again and then connect to our app again:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ../
+iex -S mix
+Leader.start_link
+</code></pre></div></div>
+<p>Now you can see Meteor is a lot less chatty:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex(1)&gt; Leader.start_link
+
+20:52:10.047 [info]  WS In: {"server_id":"0"}
+{:ok, #PID&lt;0.148.0&gt;}
+
+20:52:10.065 [info]  Unhandled message received %{"server_id" =&gt; "0"}
+iex(2)&gt;
+20:52:10.065 [info]  WS Out: {"version":"1","support":["1","pre2","pre1"],"msg":"connect"}
+
+20:52:10.065 [info]  WS In: {"msg":"connected","session":"bZFji7PAuFBR34aAu"}
+
+20:52:10.066 [info]  In: %{"msg" =&gt; "connected", "session" =&gt; "bZFji7PAuFBR34aAu"}
+</code></pre></div></div>
+
+<h3 id="subscribing-to-meteor-collections">Subscribing to Meteor Collections</h3>
+<p>Let’s go ahead and get connected to the player collection again.</p>
+
+<p>Open up lib/leader.ex and change the init function it to look like the following:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="n">init</span><span class="p">([])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">client_pid</span> <span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"ws://localhost:3000/websocket"</span><span class="p">,</span> <span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+    <span class="p">{</span><span class="n">collection</span><span class="p">,</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">client_pid</span><span class="p">,</span> <span class="s2">"players"</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">client_pid:</span> <span class="n">client_pid</span><span class="p">,</span> <span class="ss">subscription_id:</span> <span class="n">id</span><span class="p">,</span> <span class="ss">collection:</span> <span class="n">collection</span><span class="p">}}</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<p>Ok what is happening in this function?</p>
+
+<p>First we are going to connect to our Meteor app. This time, however, we are going to capture the client pid we get back, which is the process id to the socket.</p>
+
+<p>Next we call the subscribe function passing in the client_id we captured as the first parameter and the name of the collection we want to subscribe to, in this case “players”.</p>
+
+<p>We match the collection and id that we get back from the call to the subscribe function and return them along with the client_pid as the state for our GenServer.</p>
+
+<p>Now if we restart our iex session (by typing ctrl-c twice) and start our Leader GenServer, we get something scary. A 404 error message that looks like this. Yikes.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1:14:43.265 [info]  WS Out: {"name":"players","msg":"sub","id":"0c30cb41-bfeb-41f4-852e-efc3c985388e"}
+iex(2)&gt;
+21:14:43.266 [info]  WS In: {"msg":"nosub","id":"0c30cb41-bfeb-41f4-852e-efc3c985388e","error":{"error":404,"reason":"Subscription not found","message":"Subscription not found [404]","errorType":"Meteor.Error"}}
+</code></pre></div></div>
+
+<p>This is because Meteor can’t find our subscription. When we removed autopublish, we didn’t tell Meteor what to publish. Let’s go ahead and tell it to publish the “players” collection.</p>
+
+<p>Open up leaderboard/leaderboard.js and add following at the bottom of the file:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Meteor</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="dl">"</span><span class="s2">players</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">Players</span><span class="p">.</span><span class="nx">find</span><span class="p">();</span>
+  <span class="p">});</span>
+</code></pre></div></div>
+<p>Add a call to subscribe to line to the end of isClient section on line 34:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">"</span><span class="s2">players</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>So your leadboard.js should look like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Set up a collection to contain player information. On the server,</span>
+<span class="c1">// it is backed by a MongoDB collection named "players".</span>
+
+<span class="nx">Players</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mongo</span><span class="p">.</span><span class="nx">Collection</span><span class="p">(</span><span class="dl">"</span><span class="s2">players</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">leaderboard</span><span class="p">.</span><span class="nx">helpers</span><span class="p">({</span>
+    <span class="na">players</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">Players</span><span class="p">.</span><span class="nx">find</span><span class="p">({},</span> <span class="p">{</span> <span class="na">sort</span><span class="p">:</span> <span class="p">{</span> <span class="na">score</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">});</span>
+    <span class="p">},</span>
+    <span class="na">selectedName</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">player</span> <span class="o">=</span> <span class="nx">Players</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">Session</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">selectedPlayer</span><span class="dl">"</span><span class="p">));</span>
+      <span class="k">return</span> <span class="nx">player</span> <span class="o">&amp;&amp;</span> <span class="nx">player</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="nx">Meteor</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">"</span><span class="s2">players</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">leaderboard</span><span class="p">.</span><span class="nx">events</span><span class="p">({</span>
+    <span class="dl">'</span><span class="s1">click .inc</span><span class="dl">'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Players</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">Session</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">selectedPlayer</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span><span class="na">$inc</span><span class="p">:</span> <span class="p">{</span><span class="na">score</span><span class="p">:</span> <span class="mi">5</span><span class="p">}});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">player</span><span class="p">.</span><span class="nx">helpers</span><span class="p">({</span>
+    <span class="na">selected</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">Session</span><span class="p">.</span><span class="nx">equals</span><span class="p">(</span><span class="dl">"</span><span class="s2">selectedPlayer</span><span class="dl">"</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_id</span><span class="p">)</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">selected</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">''</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">player</span><span class="p">.</span><span class="nx">events</span><span class="p">({</span>
+    <span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Session</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">"</span><span class="s2">selectedPlayer</span><span class="dl">"</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_id</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// On server startup, create some players if the database is empty.</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">startup</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">Players</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">names</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Ada Lovelace</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Grace Hopper</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Marie Curie</span><span class="dl">"</span><span class="p">,</span>
+                   <span class="dl">"</span><span class="s2">Carl Friedrich Gauss</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Nikola Tesla</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Claude Shannon</span><span class="dl">"</span><span class="p">];</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">names</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">Players</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span>
+          <span class="na">name</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
+          <span class="na">score</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">Random</span><span class="p">.</span><span class="nx">fraction</span><span class="p">()</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="dl">"</span><span class="s2">players</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">Players</span><span class="p">.</span><span class="nx">find</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Restart your iex session and Leader GenServer again and we should now get back messages from the player collection once more.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex(1)&gt; Leader.start_link
+
+...
+
+{:ok, #PID&lt;0.157.0&gt;}
+iex(2)&gt;
+21:20:22.019 [info]  WS In: {"msg":"added","collection":"players","id":"yiPp9GZpNoKcd8hjY","fields":{"name":"Ada Lovelace","score":45}}
+
+21:20:22.021 [info]  In: %{"collection" =&gt; "players", "fields" =&gt; %{"name" =&gt; "Ada Lovelace", "score" =&gt; 45}, "id" =&gt; "yiPp9GZpNoKcd8hjY", "msg" =&gt; "added"}
+</code></pre></div></div>
+
+<h3 id="receiving-updates-from-meteor-collections">Receiving Updates from Meteor Collections</h3>
+<p>Now with both your iex session and your meteor app running,  visit the Meteor app in your browser http://localhost:3000. This time let’s vote for Ada and see what happens.</p>
+
+<p>Looking at the iex session you should see a new set of messages:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>21:33:17.080 [info]  WS In: {"msg":"changed","collection":"players","id":"yiPp9GZpNoKcd8hjY","fields":{"score":50}}
+
+21:33:17.080 [info]  In: %{"collection" =&gt; "players", "fields" =&gt; %{"score" =&gt; 50}, "id" =&gt; "yiPp9GZpNoKcd8hjY", "msg" =&gt; "changed"}
+</code></pre></div></div>
+
+<p>Now we can see that we are receiving messages whenever items in the collection are modified. Awesome!</p>
+
+<h3 id="making-rpc-calls-to-meteor-and-trivial-voter-fraud">Making RPC Calls to Meteor and Trivial Voter Fraud</h3>
+<p>This is cool but what can we do with it? So far we have mostly just been been receiving messages from Meteor. Let’s go ahead and respond to these messages and use Meteor’s RPC capabilities.</p>
+
+<p>Let’s say that Ada Lovelace is our personal favorite computer scientist, and we want to make sure she is always in the lead. So let’s create a simple auto voter. Anytime we see someone other than Ada voted for we are going to give Ada a vote to keep her in the lead.</p>
+
+<p>First let’s handle added messages using pattern matching and find Ada in our lib/leader.ex</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Leader</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">DDPHandler</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">([])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">client_pid</span> <span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"ws://localhost:3000/websocket"</span><span class="p">,</span> <span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+    <span class="p">{</span><span class="n">collection</span><span class="p">,</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">client_pid</span><span class="p">,</span> <span class="s2">"players"</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">client_pid:</span> <span class="n">client_pid</span><span class="p">,</span> <span class="ss">subscription_id:</span> <span class="n">id</span><span class="p">,</span> <span class="ss">collection:</span> <span class="n">collection</span><span class="p">}}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">added</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:added</span><span class="p">,</span> <span class="n">message</span><span class="p">})</span>
+  <span class="k">end</span>
+
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:added</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"fields"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Ada Lovelace"</span><span class="p">},</span> <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="n">message</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Yeah! Ada is my favorite"</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"In: "</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="n">new_state</span> <span class="o">=</span> <span class="no">Map</span><span class="o">.</span><span class="n">put_new</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="ss">:ada_id</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">new_state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:added</span><span class="p">,</span> <span class="n">message</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"In: "</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>OK, now when we restart our iex session we see an extra log message telling us Ada was added and that she is in fact our favorite.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iex(1)&gt; Leader.start_link
+
+22:29:05.764 [info]  WS In: {"server_id":"0"}
+
+22:29:05.778 [info]  Unhandled message received %{"server_id" =&gt; "0"}
+
+22:29:05.778 [info]  WS Out: {"version":"1","support":["1","pre2","pre1"],"msg":"connect"}
+
+22:29:05.779 [info]  WS In: {"msg":"connected","session":"tSTDHqJH3pA2Y9vm8"}
+
+22:29:05.781 [info]  In: %{"msg" =&gt; "connected", "session" =&gt; "tSTDHqJH3pA2Y9vm8"}
+{:ok, #PID&lt;0.157.0&gt;}
+
+22:29:05.781 [info]  WS Out: {"name":"players","msg":"sub","id":"7875df79-b4d5-4d33-a8af-f8c45970d111"}
+
+22:29:05.782 [info]  WS In: {"msg":"added","collection":"players","id":"yiPp9GZpNoKcd8hjY","fields":{"name":"Ada Lovelace","score":60}}
+
+22:29:05.784 [info]  Yeah! Ada is my favorite
+</code></pre></div></div>
+
+<p>What else is going on here, though? If look at the first handle_call, we used pattern matching to match on Ada’s name and capture her ID. Next we are creating a new GenServer state from the previous state and adding Ada’s ID; then returning it as the next state for the GenServer process. This means that when we receive changed messages later we will be able to tell if the changes were to Ada’s record or not.</p>
+
+<p>Now let’s do just that. Let’s implement handle_calls for :changed messages and use pattern matching and a guard clause to tell when it is Ada’s record that has changed.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Leader</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">DDPHandler</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">([])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">client_pid</span> <span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"ws://localhost:3000/websocket"</span><span class="p">,</span> <span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+    <span class="p">{</span><span class="n">collection</span><span class="p">,</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">client_pid</span><span class="p">,</span> <span class="s2">"players"</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">client_pid:</span> <span class="n">client_pid</span><span class="p">,</span> <span class="ss">subscription_id:</span> <span class="n">id</span><span class="p">,</span> <span class="ss">collection:</span> <span class="n">collection</span><span class="p">}}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">added</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:added</span><span class="p">,</span> <span class="n">message</span><span class="p">})</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">changed</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:changed</span><span class="p">,</span> <span class="n">message</span><span class="p">})</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:added</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"fields"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Ada Lovelace"</span><span class="p">},</span> <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="n">message</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Yeah! Ada is my favorite"</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"In: "</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="n">new_state</span> <span class="o">=</span> <span class="no">Map</span><span class="o">.</span><span class="n">put_new</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="ss">:ada_id</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">new_state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:added</span><span class="p">,</span> <span class="n">message</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"In: "</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:changed</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="n">message</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="p">%{</span><span class="ss">ada_id:</span> <span class="n">ada_id</span><span class="p">}</span> <span class="o">=</span> <span class="n">state</span><span class="p">)</span> <span class="ow">when</span> <span class="n">id</span> <span class="o">==</span> <span class="n">ada_id</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"YAH another vote for ADA!"</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:changed</span><span class="p">,</span> <span class="n">message</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"PlayerVoter recieved changed msg:"</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span> <span class="n">message</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Here we can see on line 35 we are matching on Ada’s ID and the ID of the current record being passed from the Meteor collection. When they match our guard matches and our function is dispatched and we see a celebratory message in our iex session. If they do not match, we move on and the next function matches and simply logs the message out as normal.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>]  WS In: {"msg":"changed","collection":"players","id":"yiPp9GZpNoKcd8hjY","fields":{"score":65}}
+
+22:42:15.908 [info]  YAH another vote for ADA!
+
+22:42:18.274 [info]  WS In: {"msg":"changed","collection":"players","id":"dQcPFWRjRKhfGXy48","fields":{"score":60}}
+
+22:42:18.274 [info]  PlayerVoter recieved changed msg:%{"collection" =&gt; "players", "fields" =&gt; %{"score" =&gt; 60}, "id" =&gt; "dQcPFWRjRKhfGXy48", "msg" =&gt; "changed"}
+</code></pre></div></div>
+
+<p>Ok now lets get to the voter fraud …</p>
+
+<p>Meteor has RPC-like functionality that can be exposed by defining Meteor.methods. Let’s implement a voting method to call.
+update your leadeboard/leader.js to look like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Set up a collection to contain player information. On the server,</span>
+<span class="c1">// it is backed by a MongoDB collection named "players".</span>
+
+<span class="nx">Players</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mongo</span><span class="p">.</span><span class="nx">Collection</span><span class="p">(</span><span class="dl">"</span><span class="s2">players</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">leaderboard</span><span class="p">.</span><span class="nx">helpers</span><span class="p">({</span>
+    <span class="na">players</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">Players</span><span class="p">.</span><span class="nx">find</span><span class="p">({},</span> <span class="p">{</span> <span class="na">sort</span><span class="p">:</span> <span class="p">{</span> <span class="na">score</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">});</span>
+    <span class="p">},</span>
+    <span class="na">selectedName</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">player</span> <span class="o">=</span> <span class="nx">Players</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">Session</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">selectedPlayer</span><span class="dl">"</span><span class="p">));</span>
+      <span class="k">return</span> <span class="nx">player</span> <span class="o">&amp;&amp;</span> <span class="nx">player</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">leaderboard</span><span class="p">.</span><span class="nx">events</span><span class="p">({</span>
+    <span class="dl">'</span><span class="s1">click .inc</span><span class="dl">'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Players</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">Session</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">selectedPlayer</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span><span class="na">$inc</span><span class="p">:</span> <span class="p">{</span><span class="na">score</span><span class="p">:</span> <span class="mi">5</span><span class="p">}});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">player</span><span class="p">.</span><span class="nx">helpers</span><span class="p">({</span>
+    <span class="na">selected</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">Session</span><span class="p">.</span><span class="nx">equals</span><span class="p">(</span><span class="dl">"</span><span class="s2">selectedPlayer</span><span class="dl">"</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_id</span><span class="p">)</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">selected</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">''</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">Template</span><span class="p">.</span><span class="nx">player</span><span class="p">.</span><span class="nx">events</span><span class="p">({</span>
+    <span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Session</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">"</span><span class="s2">selectedPlayer</span><span class="dl">"</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_id</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="dl">"</span><span class="s2">players</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// On server startup, create some players if the database is empty.</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">startup</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">Players</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">count</span><span class="p">()</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">names</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Ada Lovelace</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Grace Hopper</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Marie Curie</span><span class="dl">"</span><span class="p">,</span>
+                   <span class="dl">"</span><span class="s2">Carl Friedrich Gauss</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Nikola Tesla</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Claude Shannon</span><span class="dl">"</span><span class="p">];</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">names</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">Players</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span>
+          <span class="na">name</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
+          <span class="na">score</span><span class="p">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">Random</span><span class="p">.</span><span class="nx">fraction</span><span class="p">()</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">methods</span><span class="p">({</span>
+      <span class="na">vote</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">playerName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">check</span><span class="p">(</span><span class="nx">playerName</span><span class="p">,</span> <span class="nb">String</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">player</span> <span class="o">=</span> <span class="nx">Players</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="nx">playerName</span><span class="p">});</span>
+        <span class="nx">Players</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">player</span><span class="p">,</span> <span class="p">{</span><span class="na">$inc</span><span class="p">:</span> <span class="p">{</span><span class="na">score</span><span class="p">:</span> <span class="mi">5</span><span class="p">}});</span>
+      <span class="p">},</span>
+  <span class="p">});</span>
+  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="dl">"</span><span class="s2">players</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">Players</span><span class="p">.</span><span class="nx">find</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here we added a function to our isServer section of our Meteor app in <a href="http://docs.meteor.com/#/basic/Meteor-methods">Meteor.methods</a>. Then find a player by their PlayerName and update their score by an increment of 5.</p>
+
+<p>Now let’s implement a Voter GenServer process to vote for Ada.</p>
+
+<p>Create a new file called lib/voter.ex with these contents:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">require</span> <span class="no">Logger</span>
+
+<span class="k">defmodule</span> <span class="no">Voter</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">client_pid</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="p">[</span><span class="n">client_pid</span><span class="p">],</span> <span class="p">[])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">client_pid</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">client_pid</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">vote</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">player_name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:vote</span><span class="p">,</span> <span class="n">player_name</span><span class="p">})</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">({</span><span class="ss">:vote</span><span class="p">,</span> <span class="n">player_name</span><span class="p">},</span> <span class="p">[</span><span class="n">client_pid</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Voter is Voting for "</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span><span class="p">(</span><span class="n">player_name</span><span class="p">)</span>
+    <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">client_pid</span><span class="p">,</span> <span class="ss">:vote</span><span class="p">,</span> <span class="p">[</span><span class="n">player_name</span><span class="p">])</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="p">[</span><span class="n">client_pid</span><span class="p">]}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Let’s start and link our new Voter process/GenServer to our leader in lib/leader.ex in our init function and add its pid to the Leader GenServer state.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="n">init</span><span class="p">([])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">client_pid</span> <span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"ws://localhost:3000/websocket"</span><span class="p">,</span> <span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+    <span class="p">{</span><span class="n">collection</span><span class="p">,</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">client_pid</span><span class="p">,</span> <span class="s2">"players"</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">voter_pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">Voter</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">client_pid</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">client_pid:</span> <span class="n">client_pid</span><span class="p">,</span> <span class="ss">subscription_id:</span> <span class="n">id</span><span class="p">,</span> <span class="ss">collection:</span> <span class="n">collection</span><span class="p">,</span> <span class="ss">voter_pid:</span> <span class="n">voter_pid</span><span class="p">}}</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<p>Finally, we just need to change our non Ada changed handle_call function to call our Voters vote function:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:changed</span><span class="p">,</span> <span class="n">message</span><span class="p">},</span> <span class="n">from</span><span class="p">,</span> <span class="p">%{</span><span class="ss">voter_pid:</span> <span class="n">voter_pid</span><span class="p">}</span> <span class="o">=</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"PlayerVoter recieved changed msg:"</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span> <span class="n">message</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Voting for Ada!"</span>
+    <span class="no">Voter</span><span class="o">.</span><span class="n">vote</span><span class="p">(</span><span class="n">voter_pid</span><span class="p">,</span> <span class="s2">"Ada Lovelace"</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+</code></pre></div></div>
+
+<p>So our final lib/leader.ex looks like this:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Leader</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">DDPHandler</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="k">def</span> <span class="n">start_link</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">([])</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">client_pid</span> <span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"ws://localhost:3000/websocket"</span><span class="p">,</span> <span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+    <span class="p">{</span><span class="n">collection</span><span class="p">,</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">client_pid</span><span class="p">,</span> <span class="s2">"players"</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">voter_pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">Voter</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">client_pid</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">client_pid:</span> <span class="n">client_pid</span><span class="p">,</span> <span class="ss">subscription_id:</span> <span class="n">id</span><span class="p">,</span> <span class="ss">collection:</span> <span class="n">collection</span><span class="p">,</span> <span class="ss">voter_pid:</span> <span class="n">voter_pid</span><span class="p">}}</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Client API</span>
+  <span class="k">def</span> <span class="n">added</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:added</span><span class="p">,</span> <span class="n">message</span><span class="p">})</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">changed</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:changed</span><span class="p">,</span> <span class="n">message</span><span class="p">})</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">vote_for_player</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">player_name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:vote</span><span class="p">,</span> <span class="n">player_name</span><span class="p">})</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">[]}</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Server API</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:vote</span><span class="p">,</span> <span class="n">player_name</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="p">%{</span><span class="ss">client_pid:</span> <span class="n">client_pid</span><span class="p">}</span> <span class="o">=</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Philae</span><span class="o">.</span><span class="no">DDP</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">client_pid</span><span class="p">,</span> <span class="ss">:vote</span><span class="p">,</span> <span class="p">[</span><span class="n">player_name</span><span class="p">])</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:added</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"fields"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Ada Lovelace"</span><span class="p">},</span> <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="n">message</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Yeah! Ada is my favorite"</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"In: "</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="n">new_state</span> <span class="o">=</span> <span class="no">Map</span><span class="o">.</span><span class="n">put_new</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="ss">:ada_id</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">new_state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:added</span><span class="p">,</span> <span class="n">message</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"In: "</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:changed</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">id</span><span class="p">}</span> <span class="o">=</span> <span class="n">message</span><span class="p">},</span> <span class="n">_from</span><span class="p">,</span> <span class="p">%{</span><span class="ss">ada_id:</span> <span class="n">ada_id</span><span class="p">}</span> <span class="o">=</span> <span class="n">state</span><span class="p">)</span> <span class="ow">when</span> <span class="n">id</span> <span class="o">==</span> <span class="n">ada_id</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"YAH another vote for ADA!"</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">({</span><span class="ss">:changed</span><span class="p">,</span> <span class="n">message</span><span class="p">},</span> <span class="n">from</span><span class="p">,</span> <span class="p">%{</span><span class="ss">voter_pid:</span> <span class="n">voter_pid</span><span class="p">}</span> <span class="o">=</span> <span class="n">state</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"PlayerVoter recieved changed msg:"</span> <span class="o">&lt;&gt;</span> <span class="n">inspect</span> <span class="n">message</span>
+    <span class="no">Logger</span><span class="o">.</span><span class="n">info</span> <span class="s2">"Voting for Ada!"</span>
+    <span class="no">Voter</span><span class="o">.</span><span class="n">vote</span><span class="p">(</span><span class="n">voter_pid</span><span class="p">,</span> <span class="s2">"Ada Lovelace"</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">state</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h3 id="conclusion">Conclusion</h3>
+<p>Whenever we vote for someone now, we should see that Ada gets a vote almost immediately after. Pretty neat.</p>
+
+<p>This is a limited example of using Philae and what you can do with Meteor and Elixir. Philae has a long way to go before it is ready for primetime. We are still working on it as a group at the <a href="http://www.meetup.com/Cincinnati-Elixir-Meetup">Cincinnati Elixir Meetup</a> and plan to release it as a hex Package as soon as it gets a little further along.</p>
+
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      <a class="tag" href="/blog/categories/development/index.html">Development</a>
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      
+      
+      
+
+      
+        
+        
+
+        
+          <a href="/blog/refactoring-patterns-in-elixir-replace-conditional-with-polymorphism-via-protocols-part-2" class="card card--feature">
+            <div class="card__content">
+              <h3>Refactoring Patterns in Elixir: Replace Conditional with Polymorphism Via Protocols Part 2</h3>
+              <h4>Zack Kayser</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/outsourcing-custom-development-for-fast-paced-companies" class="card card--feature">
+            <div class="card__content">
+              <h3>Outsourcing Custom Development for Fast-Paced Companies </h3>
+              <h4>Peter Kananen</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/oh-to-be-a-domain-expert-if-only-we-knew-what-you-know" class="card card--feature">
+            <div class="card__content">
+              <h3>Oh, to be a Domain Expert … if we only knew what you knew.</h3>
+              <h4>Kati Best</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/gaslight-your-partner-in-growth" class="card card--feature">
+            <div class="card__content">
+              <h3>Gaslight, Your Partner in Growth</h3>
+              <h4>Steve Hennegan</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+            
+    </div>
+  </section>
+</article>
+
+
+<section class="section--light flush">
+  <div class="cta">
+    <img src="/assets/img/color-shapes-one.svg" class="cta__confetti" />
+    <div class="cta__container">
+      <div>
+        
+<h3> Like what you're seeing? Let's keep in touch. </h3> <a href="/newsletter" class="btn btn--cta"> Subscribe to Our Newsletter </a>
+
+      </div>
+    </div>
+    <img src="/assets/img/color-shapes-two.svg" class="cta__confetti" />
+  </div>
+</section>
+
+
+    </main>
+
+    
+<footer>
+  <div class="footer__container">
+    <div class="footer__menu">
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
+        <li><a class="inverse" href="/careers">Careers</a></li>
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
+        
+          <li><a class="inverse" href="/what-we-do">Apprenticeship</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Code Check Up</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Custom Software Development</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Design Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Discovery Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Fast Forward Build</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
+        
+        <li><a class="inverse" href="/work/e_beam">E-Beam Services, Inc.</a></li>
+        
+        <li><a class="inverse" href="/work/mike-albert-fleet-solutions">Mike Albert Fleet Solutions</a></li>
+        
+        <li><a class="inverse" href="/work/omega">OMEGA</a></li>
+        
+        <li><a class="inverse" href="/work/poa">POA</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
+        
+          <li><a href="/blog/categories/business/index.html" class="inverse">Business</a></li>
+        
+          <li><a href="/blog/categories/design/index.html" class="inverse">Design</a></li>
+        
+          <li><a href="/blog/categories/development/index.html" class="inverse">Development</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
+        <li><a class="inverse" href="/events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer__credentials">
+      <a href="/" class="footer__logo"></a>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/rhythmdogsports/" target="_blank" class="social__link instagram">
+  <svg viewBox="0 0 50 50">
+    <path d="M16 3C8.83 3 3 8.83 3 16v18c0 7.17 5.83 13 13 13h18c7.17 0 13-5.83 13-13V16c0-7.17-5.83-13-13-13H16zm21 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-12 3c6.07 0 11 4.93 11 11s-4.93 11-11 11-11-4.93-11-11 4.93-11 11-11zm0 2c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z"/>
+  </svg>
+</a>
+<!-- <a href="http://twitter.com/teamgaslight" target="_blank" class="social__link twitter">
+  <svg viewBox="0 0 50 50">
+    <path d="M50.06 10.44c-1.85.82-3.83 1.37-5.91 1.62 2.12-1.27 3.76-3.29 4.52-5.69a20.473 20.473 0 0 1-6.53 2.49c-1.88-2-4.55-3.25-7.5-3.25-5.68 0-10.29 4.6-10.29 10.28 0 .8.09 1.59.27 2.34C16.08 17.81 8.5 13.72 3.43 7.5c-.89 1.52-1.39 3.29-1.39 5.17 0 3.57 1.81 6.71 4.57 8.56-1.69-.05-3.27-.52-4.66-1.29v.13c0 4.98 3.55 9.14 8.25 10.09-.86.23-1.77.36-2.71.36-.66 0-1.31-.06-1.94-.19 1.31 4.08 5.11 7.06 9.61 7.14-3.52 2.76-7.95 4.4-12.77 4.4-.83 0-1.65-.05-2.45-.14 4.55 2.92 9.95 4.62 15.76 4.62 18.91 0 29.26-15.67 29.26-29.25 0-.45-.01-.89-.03-1.33 2.01-1.46 3.75-3.27 5.13-5.33z"/>
+  </svg>
+</a> -->
+<a href="http://facebook.com/rhythmdogsports" target="_blank" class="social__link facebook">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zm-4 15h-2c-2.14 0-3 .5-3 2v3h5l-1 5h-4v15h-5V29h-4v-5h4v-3c0-4 2-7 6-7 2.9 0 4 1 4 1v4z"/>
+  </svg>
+</a>
+<!-- <a href="http://github.com/gaslight" target="_blank" class="social__link github">
+  <svg viewBox="0 0 50 50">
+    <path d="M33 29c-1.8 0-3 1.52-3 4s.89 5.05 3 5c2.22-.05 3.02-2.22 3-5-.02-2.48-1.21-4-3-4zm11.26-11.93c.27-1.34.39-6.1-1.58-11.07 0 0-4.53.5-11.38 5.2-1.43-.4-3.87-.6-6.3-.6s-4.86.2-6.3.59C11.85 6.5 7.32 6 7.32 6c-1.98 4.96-1.88 9.61-1.59 11.07C3.42 19.59 2 22.61 2 26.74 2 44.71 16.91 45 20.67 45h8.66C33.09 45 48 44.71 48 26.74c0-4.13-1.42-7.15-3.74-9.67zM25.14 43H25c-9.43 0-16.84-1.34-16.84-10.5 0-2.2.78-4.23 2.62-5.92 3.07-2.82 8.26-1.33 14.16-1.33h.14c5.89 0 11.09-1.49 14.16 1.33 1.84 1.69 2.61 3.73 2.61 5.92-.01 9.16-7.28 10.5-16.71 10.5zM17 29c-1.79 0-3 2.02-3 4.5s1.21 4.5 3 4.5c1.8 0 3-2.02 3-4.5S18.8 29 17 29z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.youtube.com/channel/UCC36CM_uLqhoKEqSy2mjqFQ" target="_blank" class="social__link youtube">
+  <svg viewBox="0 0 50 50">
+    <path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9zm6 4h2.4l1.6 4 1.6-4H23l-3 7v4h-2v-4.01c-.6-1.61-2.59-5.98-3-6.99zm10 3c.89 0 1.77.27 2.33.95.43.49.67 1.28.67 2.32v1.46c0 1.04-.2 1.76-.62 2.25-.56.67-1.49 1.02-2.38 1.02s-1.8-.35-2.36-1.02c-.43-.49-.64-1.21-.64-2.25v-1.45c0-1.04.23-1.84.67-2.33.56-.68 1.32-.95 2.33-.95zm4 0h2v6c.05.27.34.39.61.39.41 0 .93-.48 1.39-1.01V11h2v8h-2v-1.38c-.81.79-1.5 1.38-2.41 1.35-.66-.02-1.12-.26-1.35-.74-.14-.28-.24-.73-.24-1.39V11zm-4 1.62c-.14 0-.27.03-.39.08a1.016 1.016 0 0 0-.53.54c-.05.13-.08.26-.08.4v2.81a1.02 1.02 0 0 0 .61.94c.12.05.25.08.39.08s.27-.03.39-.08c.36-.16.61-.52.61-.94v-2.81c0-.56-.45-1.02-1-1.02zM24.99 22h.02s6.71 0 11.19.32c.63.07 1.99.08 3.21 1.33.96.94 1.27 3.1 1.27 3.1s.32 1.53.32 4.06v2.37c0 2.53-.32 4.06-.32 4.06s-.31 2.16-1.27 3.1c-1.22 1.25-2.58 1.26-3.21 1.33-4.48.32-11.2.33-11.2.33s-8.32-.08-10.88-.32c-.71-.13-2.31-.09-3.53-1.33-.96-.95-1.27-3.11-1.27-3.11S9 35.71 9 33.18v-2.37c0-2.53.32-4.06.32-4.06s.31-2.16 1.27-3.1c1.22-1.25 2.58-1.26 3.21-1.33C18.28 22 24.99 22 24.99 22zM12 26v1.98h2V38h2V27.98h2V26h-6zm13 0v12h2v-1.25c.63.78 1.45 1.25 2.12 1.25.75 0 1.41-.4 1.66-1.18.12-.42.21-.81.21-1.7v-2.75c0-.99-.13-1.73-.26-2.15-.24-.78-.85-1.22-1.61-1.22-.98-.01-1.38.5-2.12 1.38V26h-2zm-7 3v6.69c0 .72.1 1.21.23 1.52.22.51.67.79 1.31.79.73 0 1.67-.51 2.46-1.37V38h2v-9h-2v6.27c-.44.58-1.08 1.02-1.48 1.02-.26 0-.47-.11-.52-.4V29h-2zm17.03 0c-1.01 0-1.8.32-2.37.92-.42.44-.66 1.16-.66 2.1v3.07c0 .93.27 1.58.69 2.02.57.6 1.36.9 2.39.9s1.84-.31 2.39-.95c.24-.28.39-.6.46-.95.01-.17.07-.6.07-1.11h-2v.8c0 .46-.45.84-1 .84s-1-.38-1-.84V34h4v-2.03c0-.93-.23-1.62-.64-2.06-.56-.59-1.34-.91-2.33-.91zM35 30.45c.55 0 1 .38 1 .84v1.33h-2v-1.33c0-.47.45-.84 1-.84zm-6.78.3c.55 0 .78.33.78 1.38v2.75c0 1.04-.23 1.4-.78 1.4-.31 0-.9-.21-1.22-.53v-4.38c.32-.31.91-.62 1.22-.62z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.linkedin.com/company/gaslight" target="_blank" class="social__link linkedin">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM17 20v19h-6V20h6zm-6-5.53c0-1.4 1.2-2.47 3-2.47s2.93 1.07 3 2.47c0 1.4-1.12 2.53-3 2.53-1.8 0-3-1.13-3-2.53zM39 39h-6V29c0-2-1-4-3.5-4.04h-.08C27 24.96 26 27.02 26 29v10h-6V20h6v2.56S27.93 20 31.81 20c3.97 0 7.19 2.73 7.19 8.26V39z"/>
+  </svg>
+</a> -->
+
+      </div>
+      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/js/scale.fix.js"></script>
+    <script src="/assets/js/rellax.min.js"></script>
+    <script>
+    var rellax = new Rellax('.float', {
+      speed: -2,
+      center: false,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    </script>
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/509988.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    
+  </body>
+</html>

@@ -6,27 +6,12 @@ permalink: /events/
 <section class="section--light">
   <h1 class="u-center--xs u-push-bottom--sm"> Events </h1>
   {% capture events-intro %}{% include  /snipets/events-intro.md %}{% endcapture %}
-  {% include image-pane.html image-url="../assets/img/meetup-9.jpg" pane-align="right" pane-copy=events-intro %}
+  {% include image-pane.html image-url="../assets/img/events-1.jpg" pane-align="right" pane-copy=events-intro %}
 </section>
-
-{% assign featured_events = site.event | where: "featured_event", true | reverse %}
-
-{% for event in featured_events limit:1 %}
-  <section class="section--dark section--dark-texture">
-    <div class="u-contained--wide">
-      <h2> Featured Event </h2>
-    </div>
-
-    {% capture featured-event %} {% include /snipets/featured-event.md %} {% endcapture %}
-    {% capture featured-event-image %} {{ event.featured_event_image }} {% endcapture %}
-
-    {% include image-pane.html image-url=featured-event-image pane-align="left" pane-copy=featured-event %}
-  </section>
-{% endfor %}
 
 <section class="section--light">
   <div class="u-contained">
-    <h2> Upcoming Events </h2>
+    <h2> Upcoming Trials </h2>
     <div class="grid">
 
       {% assign sorted_events = site.event | sort: 'event_date' %}

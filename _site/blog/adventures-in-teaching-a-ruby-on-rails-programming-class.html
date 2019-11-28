@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Adventures In Teaching A Ruby On Rails Programming Class | Rhythm Dog Sports</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Adventures In Teaching A Ruby On Rails Programming Class" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="To help get our local chapter of Women Who Code off the ground, I have been volunteering to help with classes. As the only developer working with Rails on a day-to-day basis, it seemed like a great idea for me to lead a Ruby on Rails class. Now, I haven’t even really given a full presentation before, but if I can make a simple blog in under an hour, certainly I can make a quick class about it." />
+<meta property="og:description" content="To help get our local chapter of Women Who Code off the ground, I have been volunteering to help with classes. As the only developer working with Rails on a day-to-day basis, it seemed like a great idea for me to lead a Ruby on Rails class. Now, I haven’t even really given a full presentation before, but if I can make a simple blog in under an hour, certainly I can make a quick class about it." />
+<link rel="canonical" href="http://localhost:4000/blog/adventures-in-teaching-a-ruby-on-rails-programming-class" />
+<meta property="og:url" content="http://localhost:4000/blog/adventures-in-teaching-a-ruby-on-rails-programming-class" />
+<meta property="og:site_name" content="Rhythm Dog Sports" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-06-28T00:00:00-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/adventures-in-teaching-a-ruby-on-rails-programming-class","headline":"Adventures In Teaching A Ruby On Rails Programming Class","dateModified":"2019-06-28T00:00:00-04:00","datePublished":"2019-06-28T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/adventures-in-teaching-a-ruby-on-rails-programming-class"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"}},"description":"To help get our local chapter of Women Who Code off the ground, I have been volunteering to help with classes. As the only developer working with Rails on a day-to-day basis, it seemed like a great idea for me to lead a Ruby on Rails class. Now, I haven’t even really given a full presentation before, but if I can make a simple blog in under an hour, certainly I can make a quick class about it.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="https://use.typekit.net/vnr4ouz.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+  </head>
+  <body>
+    <nav>
+  <a class="nav__logo" href="/"></a>
+  <input type="checkbox" id="nav__toggle">
+  <label class="nav__toggle" for="nav__toggle"></label>
+  <div class="nav__list">
+    <div class="nav__link ">
+      <a href="/who-we-are">About Us</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/what-we-do">Agility</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/events">Events</a>
+    </div>
+    <div class="nav__link   current ">
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/connect">Connect with Us</a>
+    </div>
+    <!-- <div class="nav__link nav__cta">
+      <a href="/start-a-project" class="btn btn--cta btn--sm">Start a Project</a>
+    </div> -->
+  </div>
+</nav>
+
+
+    <main>
+      <article class="post">
+  <section class="section--light">
+    
+
+    
+
+    
+
+    
+
+    
+      <div class="post__header  u-contained">
+        <div class="post__title">
+          <div class="post__date u-push-bottom--none">25 February 2016</div>
+          <h2>Adventures in Teaching a Ruby on Rails Programming Class</h2>
+          
+            <div class="post__author">
+              
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+              <p class="u-push-bottom--none">
+                by 
+      Katherine Tornwall
+    
+              </p>
+            </div>
+          
+        </div>
+      </div>
+    
+  </section>
+
+  <section class="post__body">
+    <div>
+    <p>To help get our local chapter of <a href="http://www.meetup.com/WWCode-Cincinnati/">Women Who Code</a> off the
+ground, I have been volunteering to help with classes. As the only developer working with Rails on
+a day-to-day basis, it seemed like a great idea for me to lead a Ruby on Rails class. Now, I haven’t
+even really given a full presentation before, but if I can make a simple blog in under an hour,
+certainly I can make a quick class about it.</p>
+
+<p>My coworkers, who have a lot more experience in this area, were a little more skeptical. I got a lot
+of reactions along the lines of “That sounds ambitious, but I’m sure you’ll do great.” They were
+definitely right. I got to give my first big presentation a few weeks ago, and we didn’t get as
+far as I wanted to, but I think both the students and I were able to get a lot out of the course.
+We were able to cover a lot of the high-level concepts used in Rails, and I got to learn a lot about
+putting a <a href="https://teamgaslight.com/training">large tutorial</a> together from scratch.</p>
+
+<p>One of the best things you can do after taking on a large project like this is to hold a
+retrospective. We already do this for our software projects to help us continuously improve at our
+craft, so why not apply the same technique to other things? To make this retro more than “me,
+myself and I,” come along with me on my journey and hopefully we can all get something out of this
+experience.</p>
+
+<h2 id="building-the-course">Building the course</h2>
+
+<p>I always struggle to get started on anything. I always seem not to know what to do next to get
+towards my goal. I will put in a little work here, a little work there, but it didn’t seem to come
+together into a cohesive slide deck. After struggling for a few nights, I took a step back and
+approached the problem like I would approach a new project at work by asking myself the questions</p>
+
+<blockquote>
+  <p>What is our end goal? What is the minimum work we need to do to get there?</p>
+</blockquote>
+
+<p>This is a lot like <a href="https://teamgaslight.com/services/custom-software-development">how we build a minimum viable product</a> for our clients. Being able to start with
+a familiar approach finally made everything come together. We had already planned on making a blog
+post app for our Rails course, so that was my end goal. To determine the minimum work to make a
+project successful, we would normally use story mapping to lay out what needs to be done. In this
+case, I came up with a
+<a href="https://teamgaslight.com/blog/ready-to-try-ruby-an-awesome-rails-cheat-sheet">single page cheat sheet</a>
+that acted as a rough skeleton for all of the information that I needed to teach. I followed along
+the cheat sheet to generate the whole course, and the
+<a href="https://rawgit.com/CincyWWC/rails-crash-course/v1.0.0/slides.html#1">slides</a>
+practically wrote themselves.</p>
+
+<p>Knowing that attendees were not going to walk away being Rails masters, I wanted to make sure
+that I gave them enough information to continue on their Rails adventure if they were still
+interested. There are tons of resources available around the web for free, from blog posts, to
+Youtube tutorials, to local Slack channels filled with people who are ready to help. I’m not sure
+that my slides covered that enough, but many of the students joined our Slack channel to keep in
+contact with us about Rails and any of our future classes.</p>
+
+<h2 id="takeaways">Takeaways</h2>
+
+<p>The most valuable part of any retrospective are the takeaways and lessons learned from the
+experience. I feel like there were several things that I could do better if I did another course,
+which seems likely because I’m on the schedule for a TDD session in June!</p>
+
+<h3 id="rails-might-be-too-much-for-half-a-day">Rails might be too much for half a day</h3>
+
+<p>The class went very fast for both the students and myself. While some might say it was great because
+it was action-packed, I didn’t feel like I was able to cover topics in enough depth. Even then, we
+didn’t cover all of the topics that I would have liked in the three hours we had allocated for
+Rails. The straight lecture format was also a little difficult to keep moving because there were
+breaks to keep everyone on the same step. Thankfully, several students let me know that they still
+got a lot of the course by just covering the basics. It helped me feel better about how well I did
+overall.</p>
+
+<p>Could this problem be fixed by extending the length of the class? Possibly. We had discussed making
+the class a full eight hours, but it did not feel quite right. Not only is that a long time to
+lecture for the instructor, and a long time for the students to stay in one spot, but the space
+was being donated to us. It did not feel right to ask a sponsor to provide a full day of their time
+to keep the space open and also feed us for the day.</p>
+
+<p>There is definitely demand for a full Rails course, but I haven’t quite figured out how to deliver
+that yet for an affordable price. I am still looking into this issue and hopefully we can announce
+something in the next few months to help fill this need in our community.</p>
+
+<h3 id="slides-are-not-always-the-best-medium">Slides are not always the best medium</h3>
+
+<p>I found myself fighting with the slides constantly. If you happened to take a look at them, you
+might notice that the text is HUGE. It’s hard to anticipate the smallest font size that will be
+legible if you don’t know what kind of screen you will be working with. This resulted in me needing
+to split code examples across a few slides, and not feeling like I could add enough text to explain
+what was going on.</p>
+
+<p>After the class, a coworker showed me
+<a href="http://christianalfoni.github.io/react-webpack-cookbook/index.html">this book on React and Webpack</a>
+and I really liked how the material is presented. For my next course, I am considering using
+something like this. My writing style will likely work a lot better with the book format, and I
+think a guided tutorial format will work well for the TDD class. It also completely solves the
+issue of having large code examples because the page scrolls. I’ll be sure to write an update to
+let you know how that goes in a few months.</p>
+
+<h3 id="bring-plenty-to-drink">Bring plenty to drink</h3>
+
+<p>Don’t forget to bring something to keep your throat from hurting too much after presenting! After
+four hours of talking, I found myself constantly clearing my throat. I had a large coffee at the
+beginning of the session, but I was definitely craving a big mug of mint tea by the end. A nice
+warm beverage always helps me keep talking for hours.</p>
+
+<h3 id="have-fun">Have fun!</h3>
+
+<p>In the end, I found teaching a class to be a very rewarding experience. It has helped me get over
+the fear of presenting at meetups and conferences, and I learned a lot about my presenting style. I
+don’t know if I would recommend taking on a four hour class for your first presentation, but you
+should definitely take on a presentation if you haven’t already. It’s a lot of fun to share what
+you know with others.</p>
+
+
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      <a class="tag" href="/blog/categories/development/index.html">Development</a>
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      
+      
+      
+
+      
+        
+        
+
+        
+          <a href="/blog/refactoring-patterns-in-elixir-replace-conditional-with-polymorphism-via-protocols-part-2" class="card card--feature">
+            <div class="card__content">
+              <h3>Refactoring Patterns in Elixir: Replace Conditional with Polymorphism Via Protocols Part 2</h3>
+              <h4>Zack Kayser</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/outsourcing-custom-development-for-fast-paced-companies" class="card card--feature">
+            <div class="card__content">
+              <h3>Outsourcing Custom Development for Fast-Paced Companies </h3>
+              <h4>Peter Kananen</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/oh-to-be-a-domain-expert-if-only-we-knew-what-you-know" class="card card--feature">
+            <div class="card__content">
+              <h3>Oh, to be a Domain Expert … if we only knew what you knew.</h3>
+              <h4>Kati Best</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/gaslight-your-partner-in-growth" class="card card--feature">
+            <div class="card__content">
+              <h3>Gaslight, Your Partner in Growth</h3>
+              <h4>Steve Hennegan</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+            
+    </div>
+  </section>
+</article>
+
+
+<section class="section--light flush">
+  <div class="cta">
+    <img src="/assets/img/color-shapes-one.svg" class="cta__confetti" />
+    <div class="cta__container">
+      <div>
+        
+<h3> Like what you're seeing? Let's keep in touch. </h3> <a href="/newsletter" class="btn btn--cta"> Subscribe to Our Newsletter </a>
+
+      </div>
+    </div>
+    <img src="/assets/img/color-shapes-two.svg" class="cta__confetti" />
+  </div>
+</section>
+
+
+    </main>
+
+    
+<footer>
+  <div class="footer__container">
+    <div class="footer__menu">
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
+        <li><a class="inverse" href="/careers">Careers</a></li>
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
+        
+          <li><a class="inverse" href="/what-we-do">Apprenticeship</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Code Check Up</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Custom Software Development</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Design Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Discovery Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Fast Forward Build</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
+        
+        <li><a class="inverse" href="/work/e_beam">E-Beam Services, Inc.</a></li>
+        
+        <li><a class="inverse" href="/work/mike-albert-fleet-solutions">Mike Albert Fleet Solutions</a></li>
+        
+        <li><a class="inverse" href="/work/omega">OMEGA</a></li>
+        
+        <li><a class="inverse" href="/work/poa">POA</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
+        
+          <li><a href="/blog/categories/business/index.html" class="inverse">Business</a></li>
+        
+          <li><a href="/blog/categories/design/index.html" class="inverse">Design</a></li>
+        
+          <li><a href="/blog/categories/development/index.html" class="inverse">Development</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
+        <li><a class="inverse" href="/events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer__credentials">
+      <a href="/" class="footer__logo"></a>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/rhythmdogsports/" target="_blank" class="social__link instagram">
+  <svg viewBox="0 0 50 50">
+    <path d="M16 3C8.83 3 3 8.83 3 16v18c0 7.17 5.83 13 13 13h18c7.17 0 13-5.83 13-13V16c0-7.17-5.83-13-13-13H16zm21 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-12 3c6.07 0 11 4.93 11 11s-4.93 11-11 11-11-4.93-11-11 4.93-11 11-11zm0 2c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z"/>
+  </svg>
+</a>
+<!-- <a href="http://twitter.com/teamgaslight" target="_blank" class="social__link twitter">
+  <svg viewBox="0 0 50 50">
+    <path d="M50.06 10.44c-1.85.82-3.83 1.37-5.91 1.62 2.12-1.27 3.76-3.29 4.52-5.69a20.473 20.473 0 0 1-6.53 2.49c-1.88-2-4.55-3.25-7.5-3.25-5.68 0-10.29 4.6-10.29 10.28 0 .8.09 1.59.27 2.34C16.08 17.81 8.5 13.72 3.43 7.5c-.89 1.52-1.39 3.29-1.39 5.17 0 3.57 1.81 6.71 4.57 8.56-1.69-.05-3.27-.52-4.66-1.29v.13c0 4.98 3.55 9.14 8.25 10.09-.86.23-1.77.36-2.71.36-.66 0-1.31-.06-1.94-.19 1.31 4.08 5.11 7.06 9.61 7.14-3.52 2.76-7.95 4.4-12.77 4.4-.83 0-1.65-.05-2.45-.14 4.55 2.92 9.95 4.62 15.76 4.62 18.91 0 29.26-15.67 29.26-29.25 0-.45-.01-.89-.03-1.33 2.01-1.46 3.75-3.27 5.13-5.33z"/>
+  </svg>
+</a> -->
+<a href="http://facebook.com/rhythmdogsports" target="_blank" class="social__link facebook">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zm-4 15h-2c-2.14 0-3 .5-3 2v3h5l-1 5h-4v15h-5V29h-4v-5h4v-3c0-4 2-7 6-7 2.9 0 4 1 4 1v4z"/>
+  </svg>
+</a>
+<!-- <a href="http://github.com/gaslight" target="_blank" class="social__link github">
+  <svg viewBox="0 0 50 50">
+    <path d="M33 29c-1.8 0-3 1.52-3 4s.89 5.05 3 5c2.22-.05 3.02-2.22 3-5-.02-2.48-1.21-4-3-4zm11.26-11.93c.27-1.34.39-6.1-1.58-11.07 0 0-4.53.5-11.38 5.2-1.43-.4-3.87-.6-6.3-.6s-4.86.2-6.3.59C11.85 6.5 7.32 6 7.32 6c-1.98 4.96-1.88 9.61-1.59 11.07C3.42 19.59 2 22.61 2 26.74 2 44.71 16.91 45 20.67 45h8.66C33.09 45 48 44.71 48 26.74c0-4.13-1.42-7.15-3.74-9.67zM25.14 43H25c-9.43 0-16.84-1.34-16.84-10.5 0-2.2.78-4.23 2.62-5.92 3.07-2.82 8.26-1.33 14.16-1.33h.14c5.89 0 11.09-1.49 14.16 1.33 1.84 1.69 2.61 3.73 2.61 5.92-.01 9.16-7.28 10.5-16.71 10.5zM17 29c-1.79 0-3 2.02-3 4.5s1.21 4.5 3 4.5c1.8 0 3-2.02 3-4.5S18.8 29 17 29z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.youtube.com/channel/UCC36CM_uLqhoKEqSy2mjqFQ" target="_blank" class="social__link youtube">
+  <svg viewBox="0 0 50 50">
+    <path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9zm6 4h2.4l1.6 4 1.6-4H23l-3 7v4h-2v-4.01c-.6-1.61-2.59-5.98-3-6.99zm10 3c.89 0 1.77.27 2.33.95.43.49.67 1.28.67 2.32v1.46c0 1.04-.2 1.76-.62 2.25-.56.67-1.49 1.02-2.38 1.02s-1.8-.35-2.36-1.02c-.43-.49-.64-1.21-.64-2.25v-1.45c0-1.04.23-1.84.67-2.33.56-.68 1.32-.95 2.33-.95zm4 0h2v6c.05.27.34.39.61.39.41 0 .93-.48 1.39-1.01V11h2v8h-2v-1.38c-.81.79-1.5 1.38-2.41 1.35-.66-.02-1.12-.26-1.35-.74-.14-.28-.24-.73-.24-1.39V11zm-4 1.62c-.14 0-.27.03-.39.08a1.016 1.016 0 0 0-.53.54c-.05.13-.08.26-.08.4v2.81a1.02 1.02 0 0 0 .61.94c.12.05.25.08.39.08s.27-.03.39-.08c.36-.16.61-.52.61-.94v-2.81c0-.56-.45-1.02-1-1.02zM24.99 22h.02s6.71 0 11.19.32c.63.07 1.99.08 3.21 1.33.96.94 1.27 3.1 1.27 3.1s.32 1.53.32 4.06v2.37c0 2.53-.32 4.06-.32 4.06s-.31 2.16-1.27 3.1c-1.22 1.25-2.58 1.26-3.21 1.33-4.48.32-11.2.33-11.2.33s-8.32-.08-10.88-.32c-.71-.13-2.31-.09-3.53-1.33-.96-.95-1.27-3.11-1.27-3.11S9 35.71 9 33.18v-2.37c0-2.53.32-4.06.32-4.06s.31-2.16 1.27-3.1c1.22-1.25 2.58-1.26 3.21-1.33C18.28 22 24.99 22 24.99 22zM12 26v1.98h2V38h2V27.98h2V26h-6zm13 0v12h2v-1.25c.63.78 1.45 1.25 2.12 1.25.75 0 1.41-.4 1.66-1.18.12-.42.21-.81.21-1.7v-2.75c0-.99-.13-1.73-.26-2.15-.24-.78-.85-1.22-1.61-1.22-.98-.01-1.38.5-2.12 1.38V26h-2zm-7 3v6.69c0 .72.1 1.21.23 1.52.22.51.67.79 1.31.79.73 0 1.67-.51 2.46-1.37V38h2v-9h-2v6.27c-.44.58-1.08 1.02-1.48 1.02-.26 0-.47-.11-.52-.4V29h-2zm17.03 0c-1.01 0-1.8.32-2.37.92-.42.44-.66 1.16-.66 2.1v3.07c0 .93.27 1.58.69 2.02.57.6 1.36.9 2.39.9s1.84-.31 2.39-.95c.24-.28.39-.6.46-.95.01-.17.07-.6.07-1.11h-2v.8c0 .46-.45.84-1 .84s-1-.38-1-.84V34h4v-2.03c0-.93-.23-1.62-.64-2.06-.56-.59-1.34-.91-2.33-.91zM35 30.45c.55 0 1 .38 1 .84v1.33h-2v-1.33c0-.47.45-.84 1-.84zm-6.78.3c.55 0 .78.33.78 1.38v2.75c0 1.04-.23 1.4-.78 1.4-.31 0-.9-.21-1.22-.53v-4.38c.32-.31.91-.62 1.22-.62z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.linkedin.com/company/gaslight" target="_blank" class="social__link linkedin">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM17 20v19h-6V20h6zm-6-5.53c0-1.4 1.2-2.47 3-2.47s2.93 1.07 3 2.47c0 1.4-1.12 2.53-3 2.53-1.8 0-3-1.13-3-2.53zM39 39h-6V29c0-2-1-4-3.5-4.04h-.08C27 24.96 26 27.02 26 29v10h-6V20h6v2.56S27.93 20 31.81 20c3.97 0 7.19 2.73 7.19 8.26V39z"/>
+  </svg>
+</a> -->
+
+      </div>
+      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/js/scale.fix.js"></script>
+    <script src="/assets/js/rellax.min.js"></script>
+    <script>
+    var rellax = new Rellax('.float', {
+      speed: -2,
+      center: false,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    </script>
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/509988.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    
+  </body>
+</html>

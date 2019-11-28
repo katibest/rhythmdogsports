@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Git Branching Strategy For Feature Development | Rhythm Dog Sports</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Git Branching Strategy For Feature Development" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Git is a powerful tool that let’s you manage your source code pretty much any way you want. But this is definitely a case of “all things are permissible, but not all things are beneficial.” What I’d like to do is lay out my strategy for managing feature branches." />
+<meta property="og:description" content="Git is a powerful tool that let’s you manage your source code pretty much any way you want. But this is definitely a case of “all things are permissible, but not all things are beneficial.” What I’d like to do is lay out my strategy for managing feature branches." />
+<link rel="canonical" href="http://localhost:4000/blog/git-branching-strategy-for-feature-development" />
+<meta property="og:url" content="http://localhost:4000/blog/git-branching-strategy-for-feature-development" />
+<meta property="og:site_name" content="Rhythm Dog Sports" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-02T00:00:00-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/git-branching-strategy-for-feature-development","headline":"Git Branching Strategy For Feature Development","dateModified":"2019-07-02T00:00:00-04:00","datePublished":"2019-07-02T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/git-branching-strategy-for-feature-development"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"}},"description":"Git is a powerful tool that let’s you manage your source code pretty much any way you want. But this is definitely a case of “all things are permissible, but not all things are beneficial.” What I’d like to do is lay out my strategy for managing feature branches.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="https://use.typekit.net/vnr4ouz.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+  </head>
+  <body>
+    <nav>
+  <a class="nav__logo" href="/"></a>
+  <input type="checkbox" id="nav__toggle">
+  <label class="nav__toggle" for="nav__toggle"></label>
+  <div class="nav__list">
+    <div class="nav__link ">
+      <a href="/who-we-are">About Us</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/what-we-do">Agility</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/events">Events</a>
+    </div>
+    <div class="nav__link   current ">
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/connect">Connect with Us</a>
+    </div>
+    <!-- <div class="nav__link nav__cta">
+      <a href="/start-a-project" class="btn btn--cta btn--sm">Start a Project</a>
+    </div> -->
+  </div>
+</nav>
+
+
+    <main>
+      <article class="post">
+  <section class="section--light">
+    
+
+    
+
+    
+
+    
+
+    
+      <div class="post__header  u-contained">
+        <div class="post__title">
+          <div class="post__date u-push-bottom--none">14 August 2017</div>
+          <h2>Git Branching Strategy for Feature Development</h2>
+          
+            <div class="post__author">
+              
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        <img src="/assets/img/team/doug-alcorn.jpg" alt="Doug Alcorn" />
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+              <p class="u-push-bottom--none">
+                by 
+      Doug Alcorn
+    
+              </p>
+            </div>
+          
+        </div>
+      </div>
+    
+  </section>
+
+  <section class="post__body">
+    <div>
+    <p>Git is a powerful tool that let’s you manage your source code pretty much any way you want. But this is definitely a case of “all things are permissible, but not all things are beneficial.” What I’d like to do is lay out my strategy for managing feature branches.</p>
+
+<p>I’m going to jump to the punch line. Here’s my overall recipe for merging a feature branch assuming all work on the branch is done:</p>
+
+<ol>
+  <li><code class="highlighter-rouge">git checkout master</code></li>
+  <li><code class="highlighter-rouge">git pull --rebase</code></li>
+  <li><code class="highlighter-rouge">git rebase --committer-date-is-author-date master feature-branch</code></li>
+  <li><code class="highlighter-rouge">git checkout master</code></li>
+  <li><code class="highlighter-rouge">git merge --no-ff feature-branch</code></li>
+  <li><code class="highlighter-rouge">git push origin master</code></li>
+</ol>
+
+<p>Why do we use feature branches? There are three goals to keep in mind. First, it’s very nice to see all the commits grouped together that make up a chunk of development. Second, we still want to make it easy to browse the git history and make sense of what’s going on. Third, the <code class="highlighter-rouge">master</code> branch is considered golden. At any time, <code class="highlighter-rouge">master</code> should be able to be deployed at least to a staging environment if not directly to production. There are other benefits for sure; but these are my three primary goals when figuring out my workflow.</p>
+
+<p>Rather than just dictate to you that my recipe is the best way, I’m going to walk through a couple options of how you could handle branching and merging. Along the way, we’ll see how well these options hold to the three goals outlined above. I consider most of the examples wrong. In various ways they don’t meet the goals of clarity, grouping chunks of work, and leaving master production ready.</p>
+
+<p>Also, before we dive in too deep, I’d like to put in a plug for <a href="http://gitimmersion.com/">Git Immersion</a>. It’s a course put together to help people understand what git is doing. Jim Weirich wrote the course. He was a master teacher. While he was certainly super nerdy, he made technology very approachable. Don’t be afraid of the innards of git. If you’re not super comfortable with it, you should work through the course with Jim.</p>
+
+<h2 id="pulling-from-master">Pulling from Master</h2>
+
+<p>Here’s the first step. Consider the following situation:</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-01.png" alt="figure 1" /></p>
+
+<p>You’ve made a change directly on <code class="highlighter-rouge">master</code> and there are changes made directly on <code class="highlighter-rouge">master</code> from your remote. If you simply <code class="highlighter-rouge">git pull</code>, your changes will be merged into the remote’s master with a merge bubble:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull
+</code></pre></div></div>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-02.png" alt="figure 2" /></p>
+
+<p>This is confusing to read. There’s an “extra” commit representing the merge itself. The two commits appear to be on different branches even though both were made directly onto master. At first glance, I’m not sure what’s just happened here. Was the branch made on purpose? Did it represent some feature work? I can reason it out in a couple seconds, but it’s ugly and confusing at first glance. This confusion is just a wart due to committing code from different locations.</p>
+
+<p>The solution to this is always pull from your git remotes with <code class="highlighter-rouge">--rebase</code>. This will cause your local commits to be rewritten directly on top of the remote’s master.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull --rebase
+</code></pre></div></div>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-03.png" alt="figure 3" /></p>
+
+<p>This is clean and clear. There were two commits in a row directly on master. That the commits were made on different systems is irrelevant.</p>
+
+<h2 id="creating-a-branch-for-your-feature">Creating a Branch for your Feature</h2>
+
+<p>When you begin development on a new feature you think might take a while, start by creating a new branch. There are several ways to create a new branch. My favorite is like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout -b feature/fancy-feature
+</code></pre></div></div>
+<p>This actually is switching to a branch by checking it out. The <code class="highlighter-rouge">-b</code> flag tells git to create the branch since it doesn’t yet exist.</p>
+
+<p>In this case the name of the feature is <code class="highlighter-rouge">fancy-feature</code>. Using the <code class="highlighter-rouge">feature/</code> prefix on your branch name gives it a sense of organization. I’ll also sometimes use <code class="highlighter-rouge">bugfix/</code>.</p>
+
+<p>On this branch you can develop to your heart’s content. Though I will point out that “long lived” branches can create problems. It increases the likelihood that your changes on the branch will conflict with those on the mainline <code class="highlighter-rouge">master</code> branch. It also makes it more difficult to actually integrate the new functionality back into mainline <code class="highlighter-rouge">master</code>.</p>
+
+<p>I’m going to largely gloss over the work done on the branch. If the work is done in a relatively short period of time, it’s pretty much no big deal. You simply do periodic commits of work on the branch. When you’re done with the feature, you begin merging it as below. However, for longer lived branches you may have to do more work to keep your branch in sync with the work that’s continuing on the master branch. There are some other odd ball scenarios that can cause confusion as well. For the time being I’d like to forget about all that and focus on how to merge your branch back into master after you’ve finished working on the feature.</p>
+
+<h2 id="branch-merging-scenarios">Branch Merging Scenarios</h2>
+
+<p>After you’ve done development on your branch, imagine you have a scenario like this:</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-04.png" alt="figure 4" /></p>
+
+<p>Here’s a situation when you have several commits on your branch, but other commits are on master. The goal is to merge the branch into master, but there are a few options.</p>
+
+<h3 id="option-1">Option 1</h3>
+
+<p>First, you could simply merge as is. What you’d end up with is something like this:</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-05.png" alt="figure 5" /></p>
+
+<p>This isn’t all bad. It meets our first goal above of seeing all the commits for the feature in one chunk. There are some confusing parts though. At first glance it looks like the “Fix typo on master” commit happened after all the development on the branch (which it didn’t based on the commit date).</p>
+
+<h3 id="option-2-step-1">Option 2 (Step 1)</h3>
+
+<p>One thing you could do to fix this is rebase your branch off of master before you merge. I do this with the command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase master feature/fancy-feature
+</code></pre></div></div>
+
+<p>The result looks like this:</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-06.png" alt="figure 6" /></p>
+
+<p>This is the default for rebasing a feature branches. But there’s a couple things to note here. First, the act of rebasing the branch creates new commits. They have a different sha. Before the rebase “First commit on the branch” had a sha of 0aea53c. After it’s 4029f03. Second, this new commit also gets the timestamp of when the rebase was done. We’ve lost information of when the commit was made. Looking strictly at this log, it seems like no work at all was done on 8/8.</p>
+
+<p>###Option 2 (Step 1 Even Better)</p>
+
+<p>Here’s something new I learned recently to fix the problem of changing the commit date:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase --committer-date-is-author-date master feature/fancy-feature
+</code></pre></div></div>
+
+<p>As it turns out, git remembers when the commit was originally <em>authored</em> when it’s rebasing. The option above will use the author date as the commit date rather than the current date:  The result of this command looks like this:</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-07.png" alt="figure 7" /></p>
+
+<p>Now all the timestamps on the rebased branch have the original commit date. All of the commits that were on master before the rebase are below the branch’s commits. The branch itself is a single line of commits on top of master.</p>
+
+<h3 id="option-2-step-2">Option 2 (Step 2)</h3>
+
+<p>Finally, here’s the last step in my preferred merge strategy:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master
+git merge --no-ff feature/fancy-feature
+</code></pre></div></div>
+<p>And the resulting merge bubble:</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-08.png" alt="figure 8" /></p>
+
+<p>This meets all the goals of doing a good merge. All of the commits from the branch are together. The graphical log is simple in that the only branching is for the commits specifically on the feature branch. Further, timestamps are preserved.</p>
+
+<p>There’s another effect here with respect to integration. The general concept is that the commits on master are already integrated. The code on master should be ready to go to production at any time. By rebasing the feature branch on top of master, it’s up to the feature branch developer to resolve all conflicts and integrations before merging back into master.</p>
+
+<h3 id="option-2-step-2-but-worse">Option 2 (Step 2 But Worse)</h3>
+
+<p>If you do the above merge without the <code class="highlighter-rouge">--no-ff</code> option,</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master
+git merge feature/fancy-feature
+</code></pre></div></div>
+
+<p>What happens is that the commits are re-written onto master, but there’s no merge bubble. In git language, you are “fast forwarding” master with the branch:</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-09.png" alt="figure 9" /></p>
+
+<p>We’ve missed our primary goal. The group of commits that make up the feature have been lost. They look just like a series of commits made directly on master. There’s no way to tell that there was several steps required to implement the feature.</p>
+
+<p>##Conclusion</p>
+
+<p>These examples have been fairly simple. Here’s a real world example of what happens when you don’t rebase feature branches before merging them. This graph corresponds to about three days of work. Even under the best of circumstances, it’s easy for things to get out of control. Looking at this graph, it’s very difficult to see what code is where:</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/fig-10.png" alt="figure 10" /></p>
+
+<h3 id="follow-this-recipe">Follow this recipe:</h3>
+
+<ol>
+  <li><code class="highlighter-rouge">git checkout master</code></li>
+  <li><code class="highlighter-rouge">git pull --rebase</code></li>
+  <li><code class="highlighter-rouge">git rebase --committer-date-is-author-date master feature-branch</code></li>
+  <li><code class="highlighter-rouge">git checkout master</code></li>
+  <li><code class="highlighter-rouge">git merge --no-ff feature-branch</code></li>
+  <li><code class="highlighter-rouge">git push orign master</code></li>
+</ol>
+
+<p>Make sure your merge looks like this:</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/figure-11.png" alt="figure 11" /></p>
+
+<p>Only  the commits from the branch are inside the bubble. All of the changes on master should be below your merged branch. Your merge commit should be the last commit on master.</p>
+
+<p>If you don’t have a merge that looks like this – do not push master back to origin. You can start over and try again:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master
+git reset --hard origin/master
+</code></pre></div></div>
+
+<p>This will make your master exactly like the remote’s master. At this point you can try again to follow the recipe above to get a clean merge bubble back onto master. As long as you don’t push back to origin, you can pretty much recover from any mistake you might make locally.</p>
+
+<p>Good luck!</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/branching-strategy-for-feature-development/im-pulling-for-you.jpg" alt="I'm pulling for you" /></p>
+
+
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      <a class="tag" href="/blog/categories/development/index.html">Development</a>
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      
+      
+      
+
+      
+        
+        
+
+        
+          <a href="/blog/refactoring-patterns-in-elixir-replace-conditional-with-polymorphism-via-protocols-part-2" class="card card--feature">
+            <div class="card__content">
+              <h3>Refactoring Patterns in Elixir: Replace Conditional with Polymorphism Via Protocols Part 2</h3>
+              <h4>Zack Kayser</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/outsourcing-custom-development-for-fast-paced-companies" class="card card--feature">
+            <div class="card__content">
+              <h3>Outsourcing Custom Development for Fast-Paced Companies </h3>
+              <h4>Peter Kananen</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/oh-to-be-a-domain-expert-if-only-we-knew-what-you-know" class="card card--feature">
+            <div class="card__content">
+              <h3>Oh, to be a Domain Expert … if we only knew what you knew.</h3>
+              <h4>Kati Best</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/gaslight-your-partner-in-growth" class="card card--feature">
+            <div class="card__content">
+              <h3>Gaslight, Your Partner in Growth</h3>
+              <h4>Steve Hennegan</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+            
+    </div>
+  </section>
+</article>
+
+
+<section class="section--light flush">
+  <div class="cta">
+    <img src="/assets/img/color-shapes-one.svg" class="cta__confetti" />
+    <div class="cta__container">
+      <div>
+        
+<h3> Like what you're seeing? Let's keep in touch. </h3> <a href="/newsletter" class="btn btn--cta"> Subscribe to Our Newsletter </a>
+
+      </div>
+    </div>
+    <img src="/assets/img/color-shapes-two.svg" class="cta__confetti" />
+  </div>
+</section>
+
+
+    </main>
+
+    
+<footer>
+  <div class="footer__container">
+    <div class="footer__menu">
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
+        <li><a class="inverse" href="/careers">Careers</a></li>
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
+        
+          <li><a class="inverse" href="/what-we-do">Apprenticeship</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Code Check Up</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Custom Software Development</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Design Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Discovery Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Fast Forward Build</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
+        
+        <li><a class="inverse" href="/work/e_beam">E-Beam Services, Inc.</a></li>
+        
+        <li><a class="inverse" href="/work/mike-albert-fleet-solutions">Mike Albert Fleet Solutions</a></li>
+        
+        <li><a class="inverse" href="/work/omega">OMEGA</a></li>
+        
+        <li><a class="inverse" href="/work/poa">POA</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
+        
+          <li><a href="/blog/categories/business/index.html" class="inverse">Business</a></li>
+        
+          <li><a href="/blog/categories/design/index.html" class="inverse">Design</a></li>
+        
+          <li><a href="/blog/categories/development/index.html" class="inverse">Development</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
+        <li><a class="inverse" href="/events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer__credentials">
+      <a href="/" class="footer__logo"></a>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/rhythmdogsports/" target="_blank" class="social__link instagram">
+  <svg viewBox="0 0 50 50">
+    <path d="M16 3C8.83 3 3 8.83 3 16v18c0 7.17 5.83 13 13 13h18c7.17 0 13-5.83 13-13V16c0-7.17-5.83-13-13-13H16zm21 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-12 3c6.07 0 11 4.93 11 11s-4.93 11-11 11-11-4.93-11-11 4.93-11 11-11zm0 2c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z"/>
+  </svg>
+</a>
+<!-- <a href="http://twitter.com/teamgaslight" target="_blank" class="social__link twitter">
+  <svg viewBox="0 0 50 50">
+    <path d="M50.06 10.44c-1.85.82-3.83 1.37-5.91 1.62 2.12-1.27 3.76-3.29 4.52-5.69a20.473 20.473 0 0 1-6.53 2.49c-1.88-2-4.55-3.25-7.5-3.25-5.68 0-10.29 4.6-10.29 10.28 0 .8.09 1.59.27 2.34C16.08 17.81 8.5 13.72 3.43 7.5c-.89 1.52-1.39 3.29-1.39 5.17 0 3.57 1.81 6.71 4.57 8.56-1.69-.05-3.27-.52-4.66-1.29v.13c0 4.98 3.55 9.14 8.25 10.09-.86.23-1.77.36-2.71.36-.66 0-1.31-.06-1.94-.19 1.31 4.08 5.11 7.06 9.61 7.14-3.52 2.76-7.95 4.4-12.77 4.4-.83 0-1.65-.05-2.45-.14 4.55 2.92 9.95 4.62 15.76 4.62 18.91 0 29.26-15.67 29.26-29.25 0-.45-.01-.89-.03-1.33 2.01-1.46 3.75-3.27 5.13-5.33z"/>
+  </svg>
+</a> -->
+<a href="http://facebook.com/rhythmdogsports" target="_blank" class="social__link facebook">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zm-4 15h-2c-2.14 0-3 .5-3 2v3h5l-1 5h-4v15h-5V29h-4v-5h4v-3c0-4 2-7 6-7 2.9 0 4 1 4 1v4z"/>
+  </svg>
+</a>
+<!-- <a href="http://github.com/gaslight" target="_blank" class="social__link github">
+  <svg viewBox="0 0 50 50">
+    <path d="M33 29c-1.8 0-3 1.52-3 4s.89 5.05 3 5c2.22-.05 3.02-2.22 3-5-.02-2.48-1.21-4-3-4zm11.26-11.93c.27-1.34.39-6.1-1.58-11.07 0 0-4.53.5-11.38 5.2-1.43-.4-3.87-.6-6.3-.6s-4.86.2-6.3.59C11.85 6.5 7.32 6 7.32 6c-1.98 4.96-1.88 9.61-1.59 11.07C3.42 19.59 2 22.61 2 26.74 2 44.71 16.91 45 20.67 45h8.66C33.09 45 48 44.71 48 26.74c0-4.13-1.42-7.15-3.74-9.67zM25.14 43H25c-9.43 0-16.84-1.34-16.84-10.5 0-2.2.78-4.23 2.62-5.92 3.07-2.82 8.26-1.33 14.16-1.33h.14c5.89 0 11.09-1.49 14.16 1.33 1.84 1.69 2.61 3.73 2.61 5.92-.01 9.16-7.28 10.5-16.71 10.5zM17 29c-1.79 0-3 2.02-3 4.5s1.21 4.5 3 4.5c1.8 0 3-2.02 3-4.5S18.8 29 17 29z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.youtube.com/channel/UCC36CM_uLqhoKEqSy2mjqFQ" target="_blank" class="social__link youtube">
+  <svg viewBox="0 0 50 50">
+    <path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9zm6 4h2.4l1.6 4 1.6-4H23l-3 7v4h-2v-4.01c-.6-1.61-2.59-5.98-3-6.99zm10 3c.89 0 1.77.27 2.33.95.43.49.67 1.28.67 2.32v1.46c0 1.04-.2 1.76-.62 2.25-.56.67-1.49 1.02-2.38 1.02s-1.8-.35-2.36-1.02c-.43-.49-.64-1.21-.64-2.25v-1.45c0-1.04.23-1.84.67-2.33.56-.68 1.32-.95 2.33-.95zm4 0h2v6c.05.27.34.39.61.39.41 0 .93-.48 1.39-1.01V11h2v8h-2v-1.38c-.81.79-1.5 1.38-2.41 1.35-.66-.02-1.12-.26-1.35-.74-.14-.28-.24-.73-.24-1.39V11zm-4 1.62c-.14 0-.27.03-.39.08a1.016 1.016 0 0 0-.53.54c-.05.13-.08.26-.08.4v2.81a1.02 1.02 0 0 0 .61.94c.12.05.25.08.39.08s.27-.03.39-.08c.36-.16.61-.52.61-.94v-2.81c0-.56-.45-1.02-1-1.02zM24.99 22h.02s6.71 0 11.19.32c.63.07 1.99.08 3.21 1.33.96.94 1.27 3.1 1.27 3.1s.32 1.53.32 4.06v2.37c0 2.53-.32 4.06-.32 4.06s-.31 2.16-1.27 3.1c-1.22 1.25-2.58 1.26-3.21 1.33-4.48.32-11.2.33-11.2.33s-8.32-.08-10.88-.32c-.71-.13-2.31-.09-3.53-1.33-.96-.95-1.27-3.11-1.27-3.11S9 35.71 9 33.18v-2.37c0-2.53.32-4.06.32-4.06s.31-2.16 1.27-3.1c1.22-1.25 2.58-1.26 3.21-1.33C18.28 22 24.99 22 24.99 22zM12 26v1.98h2V38h2V27.98h2V26h-6zm13 0v12h2v-1.25c.63.78 1.45 1.25 2.12 1.25.75 0 1.41-.4 1.66-1.18.12-.42.21-.81.21-1.7v-2.75c0-.99-.13-1.73-.26-2.15-.24-.78-.85-1.22-1.61-1.22-.98-.01-1.38.5-2.12 1.38V26h-2zm-7 3v6.69c0 .72.1 1.21.23 1.52.22.51.67.79 1.31.79.73 0 1.67-.51 2.46-1.37V38h2v-9h-2v6.27c-.44.58-1.08 1.02-1.48 1.02-.26 0-.47-.11-.52-.4V29h-2zm17.03 0c-1.01 0-1.8.32-2.37.92-.42.44-.66 1.16-.66 2.1v3.07c0 .93.27 1.58.69 2.02.57.6 1.36.9 2.39.9s1.84-.31 2.39-.95c.24-.28.39-.6.46-.95.01-.17.07-.6.07-1.11h-2v.8c0 .46-.45.84-1 .84s-1-.38-1-.84V34h4v-2.03c0-.93-.23-1.62-.64-2.06-.56-.59-1.34-.91-2.33-.91zM35 30.45c.55 0 1 .38 1 .84v1.33h-2v-1.33c0-.47.45-.84 1-.84zm-6.78.3c.55 0 .78.33.78 1.38v2.75c0 1.04-.23 1.4-.78 1.4-.31 0-.9-.21-1.22-.53v-4.38c.32-.31.91-.62 1.22-.62z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.linkedin.com/company/gaslight" target="_blank" class="social__link linkedin">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM17 20v19h-6V20h6zm-6-5.53c0-1.4 1.2-2.47 3-2.47s2.93 1.07 3 2.47c0 1.4-1.12 2.53-3 2.53-1.8 0-3-1.13-3-2.53zM39 39h-6V29c0-2-1-4-3.5-4.04h-.08C27 24.96 26 27.02 26 29v10h-6V20h6v2.56S27.93 20 31.81 20c3.97 0 7.19 2.73 7.19 8.26V39z"/>
+  </svg>
+</a> -->
+
+      </div>
+      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/js/scale.fix.js"></script>
+    <script src="/assets/js/rellax.min.js"></script>
+    <script>
+    var rellax = new Rellax('.float', {
+      speed: -2,
+      center: false,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    </script>
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/509988.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    
+  </body>
+</html>

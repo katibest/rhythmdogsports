@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>3 Solutions For Using Meteor And Angularjs Together | Rhythm Dog Sports</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="3 Solutions For Using Meteor And Angularjs Together" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Building rich client web apps has gotten a ton better in the past 5 years. Frameworks like AngularJS and Ember have provided solutions to most of the problems you are going to encounter building the client side of your app: binding, routing, communicating with the server, to name a few. Building an app with either one is an enjoyable and productive experience." />
+<meta property="og:description" content="Building rich client web apps has gotten a ton better in the past 5 years. Frameworks like AngularJS and Ember have provided solutions to most of the problems you are going to encounter building the client side of your app: binding, routing, communicating with the server, to name a few. Building an app with either one is an enjoyable and productive experience." />
+<link rel="canonical" href="http://localhost:4000/blog/3-solutions-for-using-meteor-and-angularjs-together" />
+<meta property="og:url" content="http://localhost:4000/blog/3-solutions-for-using-meteor-and-angularjs-together" />
+<meta property="og:site_name" content="Rhythm Dog Sports" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-06-27T00:00:00-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/3-solutions-for-using-meteor-and-angularjs-together","headline":"3 Solutions For Using Meteor And Angularjs Together","dateModified":"2019-06-27T00:00:00-04:00","datePublished":"2019-06-27T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/3-solutions-for-using-meteor-and-angularjs-together"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"}},"description":"Building rich client web apps has gotten a ton better in the past 5 years. Frameworks like AngularJS and Ember have provided solutions to most of the problems you are going to encounter building the client side of your app: binding, routing, communicating with the server, to name a few. Building an app with either one is an enjoyable and productive experience.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="https://use.typekit.net/vnr4ouz.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+  </head>
+  <body>
+    <nav>
+  <a class="nav__logo" href="/"></a>
+  <input type="checkbox" id="nav__toggle">
+  <label class="nav__toggle" for="nav__toggle"></label>
+  <div class="nav__list">
+    <div class="nav__link ">
+      <a href="/who-we-are">About Us</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/what-we-do">Agility</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/events">Events</a>
+    </div>
+    <div class="nav__link   current ">
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/connect">Connect with Us</a>
+    </div>
+    <!-- <div class="nav__link nav__cta">
+      <a href="/start-a-project" class="btn btn--cta btn--sm">Start a Project</a>
+    </div> -->
+  </div>
+</nav>
+
+
+    <main>
+      <article class="post">
+  <section class="section--light">
+    
+
+    
+
+    
+
+    
+
+    
+      <div class="image-pane image-pane--left image-pane--blog">
+        <div class="image-pane__image">
+          <img src="/uploads/meteor-01.jpg" />
+        </div>
+        <div class="image-pane__content">
+          <div class="post__title">
+            <div class="post__date u-push-bottom--none">30 December 2014</div>
+            <h2 class="highlight"><span>3 Solutions for Using Meteor and AngularJS Together </span></h2>
+            
+              <div class="post__author">
+                
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        <img src="/assets/img/team/chris-nelson.jpg" alt="Chris Nelson" />
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+                <p class="u-push-bottom--none">
+                  by 
+      Chris Nelson
+    
+                </p>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    
+  </section>
+
+  <section class="post__body">
+    <div>
+    <p>Building rich client web apps has gotten a ton better in the past 5 years. Frameworks like <a href="http://angularjs.org">AngularJS</a> and <a href="http://emberjs.com/">Ember</a> have provided solutions to most of the problems you are going to encounter building the client side of your app: binding, routing, communicating with the server, to name a few. Building an app with either one is an enjoyable and productive experience.</p>
+
+<p>One of the challenges that remains is how to build the server portion of a rich client app. I don’t mean that it’s difficult in the sense of unsolved problems or lack of prior art. What I mean to suggest is that it feels repetitive and tedious. As a simple for instance, let’s imagine building a rich client cookbook application in Rails. I’m going to build a client side resource that represents my Recipe and can persist to a server. This is trivial in either AngularJS or Ember.</p>
+
+<p>Next I’m going to build a server side model that represents my Recipe. This is going to involve creating database migrations and a Ruby model class. Finally, I’m going to need to implement a server side route, controller and serializer to be able to respond to client requests. Now multiply this for each model in my application, and I haven’t even mentioned authentication yet. I’m already sad, and if it’s not something someone is paying me to do, I’ve probably lost interest. :/</p>
+
+<p><a href="https://www.meteor.com/">Meteor</a> is a framework designed to holistically solve the problem of rich client web app development. What intrigued me about Meteor most is the ability to express the domain model of my application exactly once and have server side persistence provided for free. Meteor persistence is real time, so all changes to models are broadcast via web sockets to all connected clients.</p>
+
+<p>Meteor also has the most enjoyable developer experience I’ve ever seen for OAuth integration. By adding a single Meteor package, you have solved the problem of adding GitHub, Twitter, or Google authentication to your app. What’s more, Meteor’s solution is smart enough to virtually hold your hand as you go get the API keys you need and configure your app. All this put together make it incredibly easy and fun to get started building a Meteor app.</p>
+
+<p>As I dug in just a tad more, however, I found the frontend framework that Meteor ships with to be less desirable. The holistic approach of Meteor has led some to accuse Meteor of “trying to boil the ocean.” Regardless of which side of this debate you come down on, being able to use one of the existing best of breed client side frameworks is compelling, and AngularJS is my current favorite. I did some research and found that a few people had already started investigating how to use AngularJS with Meteor. I’m going to discuss three different solutions out there for solving this problem.</p>
+
+<p>The first two solutions are quite similar. In fact, similar enough that we may end up merging at some point. Both are Meteor packages derived from the same roots, but they have slightly different features. The third takes a different approach entirely, and it’s interesting that it could also be applicable for non-angular applications.</p>
+
+<h2 id="superchrisangular-meteor"><a href="https://github.com/superchris/angular-meteor"><code class="highlighter-rouge">superchris:angular-meteor</code></a></h2>
+
+<p>This is a meteor package developed by yours truly. I came across an existing pre-1.0 meteor package that was no longer being maintained, added some features that I found useful and updated it to be compatible with Meteor 1.0. It’s available right now as <code class="highlighter-rouge">superchris:angular-meteor</code> using the standard meteor package system. The GitHub repo explains in detail how to use it and links to a couple example apps. Under the covers, it allows you to use Angular inside your Meteor app by solving a couple key challenges.</p>
+
+<p>The first is bridging the reactivity concept of Meteor with the binding system of AngularJS. angular-meteor does this by providing a $collection service that wraps Meteor collections and exposes them as property on an AngularJS $scope. angular-meteor adds the necessary Meteor reactive plumbing such that your $scope is notified when anything in the collection changes. angular-meteor also gives you pagination and support one-to-many relationships on Meteor collections.</p>
+
+<p>The next problem angular-meteor solves is how to avoid collisions between the Blaze template engine that Meteor ships with and AngularJS. Specifically, both want to use the {{}} to indicate expressions. Unfortunately, only AngularJS is flexible enough to allow us to change that and so the approach taken is to configure AngularJS to use [[ instead of }}. That means any existing templates will need to change, but it should be possible to do this with a simple search and replace.</p>
+
+<h2 id="urigoangular-meteor"><a href="https://github.com/Urigo/angular-meteor"><code class="highlighter-rouge">urigo:angular-meteor</code></a></h2>
+
+<p>During the course of development, I learned that another group of developers had been working on the same problem in the same way, even to the point of arriving at the same name. Many of the features of this package are the same, with support for relationships being the notable exception. I’ve been in touch already, and It’s likely that moving forward we’ll end up merging these packages. This package is available as <code class="highlighter-rouge">urigo:angular-meteor</code>.</p>
+
+<h2 id="asteroid"><a href="https://github.com/mondora/asteroid">Asteroid</a></h2>
+
+<p>Asteroid is a completely different approach to the problem. It’s a much more ambitious approach and in some ways more interesting. Rather than bundle Angular into Meteor and solve the challenges with that approach, Asteroid completely separates Meteor from the front end. Meteor implements a protocol called DDP to communicate between browser and server. The protocol is a simple, lightweight protocol of JSON payloads over web sockets, and it’s quite well documented. The entire spec only takes a few minutes to read and for me is one of the most interesting things about Meteor.</p>
+
+<p>Because DDP is a simple, open protocol, Asteroid has taken the approach of re-implementing it in JavaScript without any Meteor dependencies. It ships as Bower component, and this means you can implement your frontend in whatever framework you want; not just angular. I’m really intrigued by this approach and also with the idea of alternate DDP implementations. Expect a future post to talk more about this.</p>
+
+<p>Lastly but not lastly, I’ll be talking about this at <a href="http://www.codemash.org/">CodeMash</a> next month. Stop by and say hi if you’re there! I’m also looking forward to teaching a <a href="https://teamgaslight.com/training/courses/18-mastering-angularjs">three-day AngularJS workshop in Miami March 16-18.</a></p>
+
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      <a class="tag" href="/blog/categories/development/index.html">Development</a>
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      
+      
+      
+
+      
+        
+        
+
+        
+          <a href="/blog/refactoring-patterns-in-elixir-replace-conditional-with-polymorphism-via-protocols-part-2" class="card card--feature">
+            <div class="card__content">
+              <h3>Refactoring Patterns in Elixir: Replace Conditional with Polymorphism Via Protocols Part 2</h3>
+              <h4>Zack Kayser</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/outsourcing-custom-development-for-fast-paced-companies" class="card card--feature">
+            <div class="card__content">
+              <h3>Outsourcing Custom Development for Fast-Paced Companies </h3>
+              <h4>Peter Kananen</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/oh-to-be-a-domain-expert-if-only-we-knew-what-you-know" class="card card--feature">
+            <div class="card__content">
+              <h3>Oh, to be a Domain Expert … if we only knew what you knew.</h3>
+              <h4>Kati Best</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/gaslight-your-partner-in-growth" class="card card--feature">
+            <div class="card__content">
+              <h3>Gaslight, Your Partner in Growth</h3>
+              <h4>Steve Hennegan</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+            
+    </div>
+  </section>
+</article>
+
+
+<section class="section--light flush">
+  <div class="cta">
+    <img src="/assets/img/color-shapes-one.svg" class="cta__confetti" />
+    <div class="cta__container">
+      <div>
+        
+<h3> Like what you're seeing? Let's keep in touch. </h3> <a href="/newsletter" class="btn btn--cta"> Subscribe to Our Newsletter </a>
+
+      </div>
+    </div>
+    <img src="/assets/img/color-shapes-two.svg" class="cta__confetti" />
+  </div>
+</section>
+
+
+    </main>
+
+    
+<footer>
+  <div class="footer__container">
+    <div class="footer__menu">
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
+        <li><a class="inverse" href="/careers">Careers</a></li>
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
+        
+          <li><a class="inverse" href="/what-we-do">Apprenticeship</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Code Check Up</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Custom Software Development</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Design Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Discovery Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Fast Forward Build</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
+        
+        <li><a class="inverse" href="/work/e_beam">E-Beam Services, Inc.</a></li>
+        
+        <li><a class="inverse" href="/work/mike-albert-fleet-solutions">Mike Albert Fleet Solutions</a></li>
+        
+        <li><a class="inverse" href="/work/omega">OMEGA</a></li>
+        
+        <li><a class="inverse" href="/work/poa">POA</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
+        
+          <li><a href="/blog/categories/business/index.html" class="inverse">Business</a></li>
+        
+          <li><a href="/blog/categories/design/index.html" class="inverse">Design</a></li>
+        
+          <li><a href="/blog/categories/development/index.html" class="inverse">Development</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
+        <li><a class="inverse" href="/events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer__credentials">
+      <a href="/" class="footer__logo"></a>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/rhythmdogsports/" target="_blank" class="social__link instagram">
+  <svg viewBox="0 0 50 50">
+    <path d="M16 3C8.83 3 3 8.83 3 16v18c0 7.17 5.83 13 13 13h18c7.17 0 13-5.83 13-13V16c0-7.17-5.83-13-13-13H16zm21 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-12 3c6.07 0 11 4.93 11 11s-4.93 11-11 11-11-4.93-11-11 4.93-11 11-11zm0 2c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z"/>
+  </svg>
+</a>
+<!-- <a href="http://twitter.com/teamgaslight" target="_blank" class="social__link twitter">
+  <svg viewBox="0 0 50 50">
+    <path d="M50.06 10.44c-1.85.82-3.83 1.37-5.91 1.62 2.12-1.27 3.76-3.29 4.52-5.69a20.473 20.473 0 0 1-6.53 2.49c-1.88-2-4.55-3.25-7.5-3.25-5.68 0-10.29 4.6-10.29 10.28 0 .8.09 1.59.27 2.34C16.08 17.81 8.5 13.72 3.43 7.5c-.89 1.52-1.39 3.29-1.39 5.17 0 3.57 1.81 6.71 4.57 8.56-1.69-.05-3.27-.52-4.66-1.29v.13c0 4.98 3.55 9.14 8.25 10.09-.86.23-1.77.36-2.71.36-.66 0-1.31-.06-1.94-.19 1.31 4.08 5.11 7.06 9.61 7.14-3.52 2.76-7.95 4.4-12.77 4.4-.83 0-1.65-.05-2.45-.14 4.55 2.92 9.95 4.62 15.76 4.62 18.91 0 29.26-15.67 29.26-29.25 0-.45-.01-.89-.03-1.33 2.01-1.46 3.75-3.27 5.13-5.33z"/>
+  </svg>
+</a> -->
+<a href="http://facebook.com/rhythmdogsports" target="_blank" class="social__link facebook">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zm-4 15h-2c-2.14 0-3 .5-3 2v3h5l-1 5h-4v15h-5V29h-4v-5h4v-3c0-4 2-7 6-7 2.9 0 4 1 4 1v4z"/>
+  </svg>
+</a>
+<!-- <a href="http://github.com/gaslight" target="_blank" class="social__link github">
+  <svg viewBox="0 0 50 50">
+    <path d="M33 29c-1.8 0-3 1.52-3 4s.89 5.05 3 5c2.22-.05 3.02-2.22 3-5-.02-2.48-1.21-4-3-4zm11.26-11.93c.27-1.34.39-6.1-1.58-11.07 0 0-4.53.5-11.38 5.2-1.43-.4-3.87-.6-6.3-.6s-4.86.2-6.3.59C11.85 6.5 7.32 6 7.32 6c-1.98 4.96-1.88 9.61-1.59 11.07C3.42 19.59 2 22.61 2 26.74 2 44.71 16.91 45 20.67 45h8.66C33.09 45 48 44.71 48 26.74c0-4.13-1.42-7.15-3.74-9.67zM25.14 43H25c-9.43 0-16.84-1.34-16.84-10.5 0-2.2.78-4.23 2.62-5.92 3.07-2.82 8.26-1.33 14.16-1.33h.14c5.89 0 11.09-1.49 14.16 1.33 1.84 1.69 2.61 3.73 2.61 5.92-.01 9.16-7.28 10.5-16.71 10.5zM17 29c-1.79 0-3 2.02-3 4.5s1.21 4.5 3 4.5c1.8 0 3-2.02 3-4.5S18.8 29 17 29z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.youtube.com/channel/UCC36CM_uLqhoKEqSy2mjqFQ" target="_blank" class="social__link youtube">
+  <svg viewBox="0 0 50 50">
+    <path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9zm6 4h2.4l1.6 4 1.6-4H23l-3 7v4h-2v-4.01c-.6-1.61-2.59-5.98-3-6.99zm10 3c.89 0 1.77.27 2.33.95.43.49.67 1.28.67 2.32v1.46c0 1.04-.2 1.76-.62 2.25-.56.67-1.49 1.02-2.38 1.02s-1.8-.35-2.36-1.02c-.43-.49-.64-1.21-.64-2.25v-1.45c0-1.04.23-1.84.67-2.33.56-.68 1.32-.95 2.33-.95zm4 0h2v6c.05.27.34.39.61.39.41 0 .93-.48 1.39-1.01V11h2v8h-2v-1.38c-.81.79-1.5 1.38-2.41 1.35-.66-.02-1.12-.26-1.35-.74-.14-.28-.24-.73-.24-1.39V11zm-4 1.62c-.14 0-.27.03-.39.08a1.016 1.016 0 0 0-.53.54c-.05.13-.08.26-.08.4v2.81a1.02 1.02 0 0 0 .61.94c.12.05.25.08.39.08s.27-.03.39-.08c.36-.16.61-.52.61-.94v-2.81c0-.56-.45-1.02-1-1.02zM24.99 22h.02s6.71 0 11.19.32c.63.07 1.99.08 3.21 1.33.96.94 1.27 3.1 1.27 3.1s.32 1.53.32 4.06v2.37c0 2.53-.32 4.06-.32 4.06s-.31 2.16-1.27 3.1c-1.22 1.25-2.58 1.26-3.21 1.33-4.48.32-11.2.33-11.2.33s-8.32-.08-10.88-.32c-.71-.13-2.31-.09-3.53-1.33-.96-.95-1.27-3.11-1.27-3.11S9 35.71 9 33.18v-2.37c0-2.53.32-4.06.32-4.06s.31-2.16 1.27-3.1c1.22-1.25 2.58-1.26 3.21-1.33C18.28 22 24.99 22 24.99 22zM12 26v1.98h2V38h2V27.98h2V26h-6zm13 0v12h2v-1.25c.63.78 1.45 1.25 2.12 1.25.75 0 1.41-.4 1.66-1.18.12-.42.21-.81.21-1.7v-2.75c0-.99-.13-1.73-.26-2.15-.24-.78-.85-1.22-1.61-1.22-.98-.01-1.38.5-2.12 1.38V26h-2zm-7 3v6.69c0 .72.1 1.21.23 1.52.22.51.67.79 1.31.79.73 0 1.67-.51 2.46-1.37V38h2v-9h-2v6.27c-.44.58-1.08 1.02-1.48 1.02-.26 0-.47-.11-.52-.4V29h-2zm17.03 0c-1.01 0-1.8.32-2.37.92-.42.44-.66 1.16-.66 2.1v3.07c0 .93.27 1.58.69 2.02.57.6 1.36.9 2.39.9s1.84-.31 2.39-.95c.24-.28.39-.6.46-.95.01-.17.07-.6.07-1.11h-2v.8c0 .46-.45.84-1 .84s-1-.38-1-.84V34h4v-2.03c0-.93-.23-1.62-.64-2.06-.56-.59-1.34-.91-2.33-.91zM35 30.45c.55 0 1 .38 1 .84v1.33h-2v-1.33c0-.47.45-.84 1-.84zm-6.78.3c.55 0 .78.33.78 1.38v2.75c0 1.04-.23 1.4-.78 1.4-.31 0-.9-.21-1.22-.53v-4.38c.32-.31.91-.62 1.22-.62z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.linkedin.com/company/gaslight" target="_blank" class="social__link linkedin">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM17 20v19h-6V20h6zm-6-5.53c0-1.4 1.2-2.47 3-2.47s2.93 1.07 3 2.47c0 1.4-1.12 2.53-3 2.53-1.8 0-3-1.13-3-2.53zM39 39h-6V29c0-2-1-4-3.5-4.04h-.08C27 24.96 26 27.02 26 29v10h-6V20h6v2.56S27.93 20 31.81 20c3.97 0 7.19 2.73 7.19 8.26V39z"/>
+  </svg>
+</a> -->
+
+      </div>
+      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/js/scale.fix.js"></script>
+    <script src="/assets/js/rellax.min.js"></script>
+    <script>
+    var rellax = new Rellax('.float', {
+      speed: -2,
+      center: false,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    </script>
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/509988.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    
+  </body>
+</html>

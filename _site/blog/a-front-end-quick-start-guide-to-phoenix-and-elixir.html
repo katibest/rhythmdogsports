@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>A Front End Quick Start Guide To Phoenix And Elixir | Rhythm Dog Sports</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="A Front End Quick Start Guide To Phoenix And Elixir" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Elixir has taken our office by storm, with special thanks to a few Elixir evangelists in the office. Three out of eight of our current client projects at Gaslight use Elixir and Phoenix. We even have two developers speaking at ElixirConf next week!" />
+<meta property="og:description" content="Elixir has taken our office by storm, with special thanks to a few Elixir evangelists in the office. Three out of eight of our current client projects at Gaslight use Elixir and Phoenix. We even have two developers speaking at ElixirConf next week!" />
+<link rel="canonical" href="http://localhost:4000/blog/a-front-end-quick-start-guide-to-phoenix-and-elixir" />
+<meta property="og:url" content="http://localhost:4000/blog/a-front-end-quick-start-guide-to-phoenix-and-elixir" />
+<meta property="og:site_name" content="Rhythm Dog Sports" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-02T00:00:00-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/a-front-end-quick-start-guide-to-phoenix-and-elixir","headline":"A Front End Quick Start Guide To Phoenix And Elixir","dateModified":"2019-07-02T00:00:00-04:00","datePublished":"2019-07-02T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/a-front-end-quick-start-guide-to-phoenix-and-elixir"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"}},"description":"Elixir has taken our office by storm, with special thanks to a few Elixir evangelists in the office. Three out of eight of our current client projects at Gaslight use Elixir and Phoenix. We even have two developers speaking at ElixirConf next week!","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="https://use.typekit.net/vnr4ouz.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+  </head>
+  <body>
+    <nav>
+  <a class="nav__logo" href="/"></a>
+  <input type="checkbox" id="nav__toggle">
+  <label class="nav__toggle" for="nav__toggle"></label>
+  <div class="nav__list">
+    <div class="nav__link ">
+      <a href="/who-we-are">About Us</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/what-we-do">Agility</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/events">Events</a>
+    </div>
+    <div class="nav__link   current ">
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/connect">Connect with Us</a>
+    </div>
+    <!-- <div class="nav__link nav__cta">
+      <a href="/start-a-project" class="btn btn--cta btn--sm">Start a Project</a>
+    </div> -->
+  </div>
+</nav>
+
+
+    <main>
+      <article class="post">
+  <section class="section--light">
+    
+
+    
+
+    
+
+    
+
+    
+      <div class="post__header  u-contained">
+        <div class="post__title">
+          <div class="post__date u-push-bottom--none">1 September 2017</div>
+          <h2>A Front End Quick Start Guide to Phoenix and Elixir</h2>
+          
+            <div class="post__author">
+              
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+              <p class="u-push-bottom--none">
+                by 
+      Bailey Miller
+    
+              </p>
+            </div>
+          
+        </div>
+      </div>
+    
+  </section>
+
+  <section class="post__body">
+    <div>
+    <p>Elixir has taken our office by storm, with special thanks to a few Elixir evangelists in the office. Three out of eight of our current client projects at Gaslight use Elixir and Phoenix. We even have two developers <a href="http://www.teamgaslight.com/elixir">speaking at ElixirConf next week!</a></p>
+
+<p>If you’re like me and work in the front end world, you probably haven’t worked with Elixir much or at all. You spend most of your time coding HTML, CSS, and/or JavaScript, and don’t know much about backend languages. If you’re like the designers at Gaslight, you may be used to maneuvering your way around Rails and JS based projects, but not Elixir since it is still early in the adoption curve. It’s difficult to find many resources for front end developers and designers on Elixir and Phoenix for this reason.</p>
+
+<p>According to the <a href="https://elixir-lang.org/">Elixir</a> website, Elixir is a “dynamic, functional language designed for building scalable and maintainable applications.” <a href="http://phoenixframework.org/">Phoenix</a> is Elixir’s most popular web framework. If you’re used to Ruby, Phoenix is to Elixir as Rails is to Ruby. One more thing to know: Elixir is built on top of <a href="https://www.erlang.org/">Erlang</a>, which is a speedy language that’s been around for quite awhile (31 years!)</p>
+
+<h2 id="is-this-post-for-you">Is This Post For You?</h2>
+
+<p>If you’re like me and just found yourself working on an Elixir project, unsure of how to set things up but hungry to learn, this post is for you! However, this post will not go into detail on actually making a new Elixir and Phoenix project from scratch. The information here will be most beneficial if you are working on an established Phoenix project. I am in no way an Elixir expert, so I am still trying to learn about the language myself. I hope this post will help you, as a front-ender, know what you need to know about Elixir so that you can understand how to set up your assets and maneuver your way around the project.</p>
+
+<p>For this guide, it’ll be important for you to know that we’re using the following versions:</p>
+
+<ul>
+  <li>Elixir version 1.5.1</li>
+  <li>Phoenix version 1.3.0</li>
+  <li>Erlang/OTP 20.0</li>
+</ul>
+
+<p><em>Note that file structure (especially around assets) has changed in a recent update to Elixir. Because of this, some of the details here might not apply if you’re using Phoenix version &lt; 1.3.</em></p>
+
+<p>We’re also using these JavaScript tools:</p>
+
+<ul>
+  <li><strong>Yarn</strong> for package management (instead of npm)</li>
+  <li><strong>Brunch,</strong> which comes with Phoenix by default for a build tool (instead of Webpack)</li>
+</ul>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<h3 id="1-installing-elixir">1. Installing Elixir</h3>
+
+<p>Before you can do anything with Elixir, you have to install it on your computer globally. To do this, you’ll need a package manager. I use <a href="https://brew.sh/">Homebrew.</a> Given you are using a Mac and have Homebrew, here’s what’ll you need to do to install Elixir:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># to make sure Homebrew is updated before diving in</span>
+brew update
+<span class="c"># to install Elixir</span>
+brew <span class="nb">install </span>elixir
+</code></pre></div></div>
+
+<p>If you don’t have a Mac and don’t have Homebrew, view <a href="https://elixir-lang.org/install.html">these instructions.</a></p>
+
+<p>And there you go. After that, you’ll have Elixir installed on your computer and you’ll never have to do it again! (Except you’ll need to update your Elixir version every once in awhile).</p>
+
+<h3 id="2-installing-dependencies">2. Installing Dependencies</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix deps.get
+</code></pre></div></div>
+
+<p>With this command, you’ll install all the Elixir and Phoenix dependencies in your project.</p>
+
+<p>Note: when I did this, I had an error with something called “Hex.” When I ran <code class="highlighter-rouge">mix deps.get</code> my terminal window said:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Could not find Hex, which is needed to build dependency :phoenix
+Shall I <span class="nb">install </span>Hex? <span class="o">(</span><span class="k">if </span>running non-interactively, use <span class="s2">"mix local.hex --force"</span><span class="o">)</span> <span class="o">[</span>Yn]
+</code></pre></div></div>
+
+<p>I typed in <code class="highlighter-rouge">y</code> for yes. Then I ran <code class="highlighter-rouge">mix deps.get</code> once more and it worked. There’s a chance your terminal window might ask you to install other things with a similar kind of prompt. Just say <code class="highlighter-rouge">y</code> (unless it says <code class="highlighter-rouge">can I install a virus on your computer? [y/n]</code>.)</p>
+
+<h3 id="3-create-and-migrate-your-database">3. Create and Migrate your Database</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.create <span class="o">&amp;&amp;</span> mix ecto.migrate
+</code></pre></div></div>
+
+<p>Ecto is a database wrapper for Elixir. To get your database setup, you’ll need to run these commands.</p>
+
+<p>When I did this, I ran into some gnarly postgres errors. I won’t go into detail for sanity’s sake, but for this part of the setup to work you’ll need postgres to be working. You can figure out how to get that setup <a href="https://www.codementor.io/devops/tutorial/getting-started-postgresql-server-mac-osx">here.</a></p>
+
+<h3 id="4-install-nodejs-dependencies">4. Install Node.js Dependencies</h3>
+
+<p><strong>If you’re using npm:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>assets <span class="o">&amp;&amp;</span> npm <span class="nb">install</span>
+</code></pre></div></div>
+
+<p><strong>If you’re using yarn:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>assets <span class="o">&amp;&amp;</span> yarn
+</code></pre></div></div>
+
+<p>Next you’ll need to install the dependencies that are handled with node. You’ll need to run a different command depending on whether you’re project is using npm or yarn. Npm is what your Elixir and Phoenix app will use by default, but we’re using yarn in the project I’m working on currently.</p>
+
+<p>Another thing to note is that when installing dependencies, you’ll want to do it from the <code class="highlighter-rouge">assets</code> folder, not the root. (Hence the <code class="highlighter-rouge">cd assets</code> part of both of these commands.)</p>
+
+<h3 id="5-starting-your-server">5. Starting your Server</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.server
+</code></pre></div></div>
+
+<p>Run this command after setting up your dependencies. Or maybe your developer teammates (or you! I’m all for front-end empowerment) set up a bin/ command. The <code class="highlighter-rouge">/bin</code> folder is in place for different scripts. For example, we have a <code class="highlighter-rouge">bin/server</code> file that contains the <code class="highlighter-rouge">mix phx.server</code> command. So that way, if we type literally <code class="highlighter-rouge">bin/server</code> it will run whatever commands are in that file. Rad.</p>
+
+<p>Now you can visit <code class="highlighter-rouge">localhost:4000</code> in your browser to check out your app!</p>
+
+<p>So now once you’ve got your shiny app running you may be asking yourself “which things were a one time thing and which things will I need to do again?” Well, good question. Whenever you want to see your app running you will need to start your server with the above command, <code class="highlighter-rouge">mix phx.server</code>. The great thing about Elixir and Phoenix is the hot reloader that reloads the page whenever you make a change in code. That comes in handy!</p>
+
+<p>Less frequently will you need to run these commands:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">$ cd assets &amp;&amp; yarn</code> or <code class="highlighter-rouge">$ cd assets &amp;&amp; npm install</code> (depending on if you’re using yarn or npm) - You’ll run this when a node package is added to the package.json file in the assets folder</li>
+  <li><code class="highlighter-rouge">$ mix deps.get</code> - you’ll run this when a new dependency is added to the <code class="highlighter-rouge">mix.exs</code> file (which is where project dependencies are specified)</li>
+  <li><code class="highlighter-rouge">$ mix ecto.migrate</code> - you’ll run this when something new is added in your database</li>
+</ul>
+
+<p>Often the terminal or view of the app will tell you when you need to do these things via an error, so keep an eye out and you’ll be golden.</p>
+
+<h2 id="setting-up-front-end-assets">Setting Up Front End Assets</h2>
+<h3 id="file-organization">File Organization</h3>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/a-front-end-quick-start-guide-to-elixir/blog-1.png" alt="file-tree" /></p>
+
+<p>This is what our file tree looks like. This will be different depending on what version of Elixir you’re using. Here’s a breakdown of the folders that will matter to a front end person.</p>
+
+<ul>
+  <li><strong><code class="highlighter-rouge">/assets</code></strong> - This is where your css, js, and “static” folders will live. The ‘/assets/static’ folder is where fonts and images will reside.</li>
+  <li><strong><code class="highlighter-rouge">/lib</code></strong> - This is where your templates will live (aka your HTML sprinkled with cool Phoenix logic). If you’ve used Rails you probably had <code class="highlighter-rouge">.erb</code> files. In Elixir, that extension is <code class="highlighter-rouge">.eex</code>. These <code class="highlighter-rouge">.eex</code> files exist in <code class="highlighter-rouge">lib/[project-name]_web/templates</code>. Within that, there should be a <code class="highlighter-rouge">layout</code> and <code class="highlighter-rouge">page</code> folder. In the <code class="highlighter-rouge">layout</code> folder there should be something called <code class="highlighter-rouge">app.html.eex</code> which exists as your most outermost template that most likely renders a page that exists in the <code class="highlighter-rouge">page</code> directory. This can be confusing if you’ve used Rails because templates exist in a <code class="highlighter-rouge">views</code> folder in Rails. But you may see in Elixir there’s a <code class="highlighter-rouge">views</code> folder that means something different.</li>
+</ul>
+
+<h3 id="installing-sass">Installing Sass</h3>
+
+<p>The first thing I usually want to do once I’ve gotten a project running locally is set up sass so I can start setting up my css files. Here’s how you would do that in Elixir/Phoenix with Brunch.</p>
+
+<p><strong>Installing sass with yarn:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>assets
+yarn add sass-brunch
+</code></pre></div></div>
+
+<p><strong>Installing sass with npm:</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>assets
+npm <span class="nb">install</span> <span class="nt">--save-dev</span> sass-brunch
+</code></pre></div></div>
+
+<p>Once you’ve added sass to your package.json, you’ll need to add a few lines to your <code class="highlighter-rouge">assets/brunch-config.js</code> file. Here’s what I have in mine:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     stylesheets: {
+      joinTo: "css/app.css",
+      order: {
+        after: ["css/app.scss"] // concat app.css last
+      }
+     },
+</code></pre></div></div>
+
+<p>Then after that, you’ll need to change the name of your main css file to have a sass extension, going from <code class="highlighter-rouge">assets/css/app.css</code> to <code class="highlighter-rouge">assets/css/app.scss</code>. From there, you should be good to start setting up your sass files!</p>
+
+<h3 id="setting-up-fonts">Setting Up Fonts</h3>
+<p>Web development can be a cruel world. A place where fonts never load correctly on the first go. Or second. Here is what our file tree looks like around our assets.</p>
+
+<p><img src="https://s3.amazonaws.com/gaslight-blog/a-front-end-quick-start-guide-to-elixir/blog-2.png" alt="assets-file-organization" /></p>
+
+<p>The font files are in <code class="highlighter-rouge">assets/static/fonts</code> (within their respective font folders) and the css importing them is in <code class="highlighter-rouge">assets/css/base/_fonts.scss</code>. All of the partials including <code class="highlighter-rouge">_fonts.scss</code> are imported into <code class="highlighter-rouge">assets/css/app.scss</code></p>
+
+<p>Here is how we import our custom fonts in <code class="highlighter-rouge">_fonts.scss</code>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@font-face</span> <span class="p">{</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="s2">'Avenir'</span><span class="p">;</span>
+  <span class="nl">src</span><span class="p">:</span> <span class="sx">url('/fonts/avenir/AvenirLTStd-Black.otf')</span><span class="p">;</span>
+  <span class="nl">font-style</span><span class="p">:</span> <span class="nb">normal</span><span class="p">;</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="m">800</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>See the third line there? One stumbling block I had when configuring this was that I had copied my font sass file from a Rails project. The problem there was in Rails you often have to do weird things because of the asset pipeline like use <code class="highlighter-rouge">asset-url</code> instead of just <code class="highlighter-rouge">url</code>. In Elixir and Phoenix, you don’t need to go through the trauma drama of figuring out how the heck to work with the asset pipeline. So keep it simple with just <code class="highlighter-rouge">url</code> and it should work!</p>
+
+<p>But…do you configure this route to go from the <code class="highlighter-rouge">_font.scss</code> file, <code class="highlighter-rouge">app.scss</code>, from the app route, from the assets folder, or the hidden <code class="highlighter-rouge">_/build</code> folder css files or wherever things end up? There are so many possibilities when you’re left to guess. Well, the answer is none of those!</p>
+
+<p>Static assets like fonts and images within <code class="highlighter-rouge">assets/static</code> are copied to <code class="highlighter-rouge">priv/static</code>. So then if you have the default configuration of Brunch, everything in <code class="highlighter-rouge">priv/static</code> is served from <code class="highlighter-rouge">/</code>. So instead of referring to the example font above with the url <code class="highlighter-rouge">assets/static/fonts/avenir/AvenirLTStd-Black.otf</code> (which is the full path from the application’s root),you would leave off <code class="highlighter-rouge">assets/static</code> and just use <code class="highlighter-rouge">/fonts/avenir/AvenirLTStd-Black.otf</code> like I did in the above example. <a href="https://elixirforum.com/t/how-to-serve-an-img-with-phoenix/2036/2">This forum</a> helped me figure that out.</p>
+
+<p>Static urls should also work the same with images. If you want to render an image in an .eex template, here is what you would do if the image was located in <code class="highlighter-rouge">assets/static/images/image.jpg</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;img src="&lt;%= static_path(@conn, "/images/image.jpg") %&gt;"&gt;
+</code></pre></div></div>
+
+<h2 id="glossary">Glossary</h2>
+<p>Now that you’ve done <em>tons</em> of great work setting up your Elixir and Phoenix project on your machine, you probably still are confused by all the terms being thrown around. Me too.</p>
+
+<h3 id="elixir">Elixir</h3>
+<p>A dynamic, functional language designed for building scalable and maintainable applications.</p>
+<h3 id="phoenix">Phoenix</h3>
+<p>A web framework for Elixir.</p>
+<h3 id="erlang">Erlang</h3>
+<p>The speedy and established language that Elixir was built on top of.</p>
+<h3 id="otp">OTP</h3>
+<p>Stands for “Open Telecom Platform”. A collection of useful middleware, libraries, and tools written in Erlang.</p>
+<h3 id="mix">Mix</h3>
+<p>Makes it so Elixir and Phoenix code can be sorted into project files. If you’re used to Ruby, Mix is like Bundler and Rake combined.</p>
+<h3 id="ecto">Ecto</h3>
+<p>A database wrapper for Elixir. If you’re used to Ruby, Ecto is like Active Record.</p>
+<h3 id="hex">Hex</h3>
+<p>A package manager that comes with Elixir. It was built for all of Erlang. If you’re used to Ruby, Hex is similar to RubyGems.</p>
+<h3 id="brunch">Brunch</h3>
+<p>A build tool, an alternative to Webpack, and comes with Elixir by default.</p>
+<h3 id="yarn">Yarn</h3>
+<p>A Node package manager. An alternative to npm.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>So there you have it. I hope this helped you, as a front-end person, to get started on your Phoenix project. I hope to see more documentation for designers, front-end developers, and more out there for Elixir.</p>
+
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      <a class="tag" href="/blog/categories/development/index.html">Development</a>
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      
+      
+      
+
+      
+        
+        
+
+        
+          <a href="/blog/refactoring-patterns-in-elixir-replace-conditional-with-polymorphism-via-protocols-part-2" class="card card--feature">
+            <div class="card__content">
+              <h3>Refactoring Patterns in Elixir: Replace Conditional with Polymorphism Via Protocols Part 2</h3>
+              <h4>Zack Kayser</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/outsourcing-custom-development-for-fast-paced-companies" class="card card--feature">
+            <div class="card__content">
+              <h3>Outsourcing Custom Development for Fast-Paced Companies </h3>
+              <h4>Peter Kananen</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/oh-to-be-a-domain-expert-if-only-we-knew-what-you-know" class="card card--feature">
+            <div class="card__content">
+              <h3>Oh, to be a Domain Expert … if we only knew what you knew.</h3>
+              <h4>Kati Best</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/gaslight-your-partner-in-growth" class="card card--feature">
+            <div class="card__content">
+              <h3>Gaslight, Your Partner in Growth</h3>
+              <h4>Steve Hennegan</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+            
+    </div>
+  </section>
+</article>
+
+
+<section class="section--light flush">
+  <div class="cta">
+    <img src="/assets/img/color-shapes-one.svg" class="cta__confetti" />
+    <div class="cta__container">
+      <div>
+        
+<h3> Like what you're seeing? Let's keep in touch. </h3> <a href="/newsletter" class="btn btn--cta"> Subscribe to Our Newsletter </a>
+
+      </div>
+    </div>
+    <img src="/assets/img/color-shapes-two.svg" class="cta__confetti" />
+  </div>
+</section>
+
+
+    </main>
+
+    
+<footer>
+  <div class="footer__container">
+    <div class="footer__menu">
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
+        <li><a class="inverse" href="/careers">Careers</a></li>
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
+        
+          <li><a class="inverse" href="/what-we-do">Apprenticeship</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Code Check Up</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Custom Software Development</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Design Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Discovery Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Fast Forward Build</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
+        
+        <li><a class="inverse" href="/work/e_beam">E-Beam Services, Inc.</a></li>
+        
+        <li><a class="inverse" href="/work/mike-albert-fleet-solutions">Mike Albert Fleet Solutions</a></li>
+        
+        <li><a class="inverse" href="/work/omega">OMEGA</a></li>
+        
+        <li><a class="inverse" href="/work/poa">POA</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
+        
+          <li><a href="/blog/categories/business/index.html" class="inverse">Business</a></li>
+        
+          <li><a href="/blog/categories/design/index.html" class="inverse">Design</a></li>
+        
+          <li><a href="/blog/categories/development/index.html" class="inverse">Development</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
+        <li><a class="inverse" href="/events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer__credentials">
+      <a href="/" class="footer__logo"></a>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/rhythmdogsports/" target="_blank" class="social__link instagram">
+  <svg viewBox="0 0 50 50">
+    <path d="M16 3C8.83 3 3 8.83 3 16v18c0 7.17 5.83 13 13 13h18c7.17 0 13-5.83 13-13V16c0-7.17-5.83-13-13-13H16zm21 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-12 3c6.07 0 11 4.93 11 11s-4.93 11-11 11-11-4.93-11-11 4.93-11 11-11zm0 2c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z"/>
+  </svg>
+</a>
+<!-- <a href="http://twitter.com/teamgaslight" target="_blank" class="social__link twitter">
+  <svg viewBox="0 0 50 50">
+    <path d="M50.06 10.44c-1.85.82-3.83 1.37-5.91 1.62 2.12-1.27 3.76-3.29 4.52-5.69a20.473 20.473 0 0 1-6.53 2.49c-1.88-2-4.55-3.25-7.5-3.25-5.68 0-10.29 4.6-10.29 10.28 0 .8.09 1.59.27 2.34C16.08 17.81 8.5 13.72 3.43 7.5c-.89 1.52-1.39 3.29-1.39 5.17 0 3.57 1.81 6.71 4.57 8.56-1.69-.05-3.27-.52-4.66-1.29v.13c0 4.98 3.55 9.14 8.25 10.09-.86.23-1.77.36-2.71.36-.66 0-1.31-.06-1.94-.19 1.31 4.08 5.11 7.06 9.61 7.14-3.52 2.76-7.95 4.4-12.77 4.4-.83 0-1.65-.05-2.45-.14 4.55 2.92 9.95 4.62 15.76 4.62 18.91 0 29.26-15.67 29.26-29.25 0-.45-.01-.89-.03-1.33 2.01-1.46 3.75-3.27 5.13-5.33z"/>
+  </svg>
+</a> -->
+<a href="http://facebook.com/rhythmdogsports" target="_blank" class="social__link facebook">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zm-4 15h-2c-2.14 0-3 .5-3 2v3h5l-1 5h-4v15h-5V29h-4v-5h4v-3c0-4 2-7 6-7 2.9 0 4 1 4 1v4z"/>
+  </svg>
+</a>
+<!-- <a href="http://github.com/gaslight" target="_blank" class="social__link github">
+  <svg viewBox="0 0 50 50">
+    <path d="M33 29c-1.8 0-3 1.52-3 4s.89 5.05 3 5c2.22-.05 3.02-2.22 3-5-.02-2.48-1.21-4-3-4zm11.26-11.93c.27-1.34.39-6.1-1.58-11.07 0 0-4.53.5-11.38 5.2-1.43-.4-3.87-.6-6.3-.6s-4.86.2-6.3.59C11.85 6.5 7.32 6 7.32 6c-1.98 4.96-1.88 9.61-1.59 11.07C3.42 19.59 2 22.61 2 26.74 2 44.71 16.91 45 20.67 45h8.66C33.09 45 48 44.71 48 26.74c0-4.13-1.42-7.15-3.74-9.67zM25.14 43H25c-9.43 0-16.84-1.34-16.84-10.5 0-2.2.78-4.23 2.62-5.92 3.07-2.82 8.26-1.33 14.16-1.33h.14c5.89 0 11.09-1.49 14.16 1.33 1.84 1.69 2.61 3.73 2.61 5.92-.01 9.16-7.28 10.5-16.71 10.5zM17 29c-1.79 0-3 2.02-3 4.5s1.21 4.5 3 4.5c1.8 0 3-2.02 3-4.5S18.8 29 17 29z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.youtube.com/channel/UCC36CM_uLqhoKEqSy2mjqFQ" target="_blank" class="social__link youtube">
+  <svg viewBox="0 0 50 50">
+    <path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9zm6 4h2.4l1.6 4 1.6-4H23l-3 7v4h-2v-4.01c-.6-1.61-2.59-5.98-3-6.99zm10 3c.89 0 1.77.27 2.33.95.43.49.67 1.28.67 2.32v1.46c0 1.04-.2 1.76-.62 2.25-.56.67-1.49 1.02-2.38 1.02s-1.8-.35-2.36-1.02c-.43-.49-.64-1.21-.64-2.25v-1.45c0-1.04.23-1.84.67-2.33.56-.68 1.32-.95 2.33-.95zm4 0h2v6c.05.27.34.39.61.39.41 0 .93-.48 1.39-1.01V11h2v8h-2v-1.38c-.81.79-1.5 1.38-2.41 1.35-.66-.02-1.12-.26-1.35-.74-.14-.28-.24-.73-.24-1.39V11zm-4 1.62c-.14 0-.27.03-.39.08a1.016 1.016 0 0 0-.53.54c-.05.13-.08.26-.08.4v2.81a1.02 1.02 0 0 0 .61.94c.12.05.25.08.39.08s.27-.03.39-.08c.36-.16.61-.52.61-.94v-2.81c0-.56-.45-1.02-1-1.02zM24.99 22h.02s6.71 0 11.19.32c.63.07 1.99.08 3.21 1.33.96.94 1.27 3.1 1.27 3.1s.32 1.53.32 4.06v2.37c0 2.53-.32 4.06-.32 4.06s-.31 2.16-1.27 3.1c-1.22 1.25-2.58 1.26-3.21 1.33-4.48.32-11.2.33-11.2.33s-8.32-.08-10.88-.32c-.71-.13-2.31-.09-3.53-1.33-.96-.95-1.27-3.11-1.27-3.11S9 35.71 9 33.18v-2.37c0-2.53.32-4.06.32-4.06s.31-2.16 1.27-3.1c1.22-1.25 2.58-1.26 3.21-1.33C18.28 22 24.99 22 24.99 22zM12 26v1.98h2V38h2V27.98h2V26h-6zm13 0v12h2v-1.25c.63.78 1.45 1.25 2.12 1.25.75 0 1.41-.4 1.66-1.18.12-.42.21-.81.21-1.7v-2.75c0-.99-.13-1.73-.26-2.15-.24-.78-.85-1.22-1.61-1.22-.98-.01-1.38.5-2.12 1.38V26h-2zm-7 3v6.69c0 .72.1 1.21.23 1.52.22.51.67.79 1.31.79.73 0 1.67-.51 2.46-1.37V38h2v-9h-2v6.27c-.44.58-1.08 1.02-1.48 1.02-.26 0-.47-.11-.52-.4V29h-2zm17.03 0c-1.01 0-1.8.32-2.37.92-.42.44-.66 1.16-.66 2.1v3.07c0 .93.27 1.58.69 2.02.57.6 1.36.9 2.39.9s1.84-.31 2.39-.95c.24-.28.39-.6.46-.95.01-.17.07-.6.07-1.11h-2v.8c0 .46-.45.84-1 .84s-1-.38-1-.84V34h4v-2.03c0-.93-.23-1.62-.64-2.06-.56-.59-1.34-.91-2.33-.91zM35 30.45c.55 0 1 .38 1 .84v1.33h-2v-1.33c0-.47.45-.84 1-.84zm-6.78.3c.55 0 .78.33.78 1.38v2.75c0 1.04-.23 1.4-.78 1.4-.31 0-.9-.21-1.22-.53v-4.38c.32-.31.91-.62 1.22-.62z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.linkedin.com/company/gaslight" target="_blank" class="social__link linkedin">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM17 20v19h-6V20h6zm-6-5.53c0-1.4 1.2-2.47 3-2.47s2.93 1.07 3 2.47c0 1.4-1.12 2.53-3 2.53-1.8 0-3-1.13-3-2.53zM39 39h-6V29c0-2-1-4-3.5-4.04h-.08C27 24.96 26 27.02 26 29v10h-6V20h6v2.56S27.93 20 31.81 20c3.97 0 7.19 2.73 7.19 8.26V39z"/>
+  </svg>
+</a> -->
+
+      </div>
+      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/js/scale.fix.js"></script>
+    <script src="/assets/js/rellax.min.js"></script>
+    <script>
+    var rellax = new Rellax('.float', {
+      speed: -2,
+      center: false,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    </script>
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/509988.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    
+  </body>
+</html>

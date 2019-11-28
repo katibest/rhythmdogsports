@@ -1,48 +1,17 @@
 ---
 layout: dark-nav
 ---
-<section class="section--dark u-full-fold  flush">
+<section class="section--dark u-full-fold flush">
   {% include navigation.html %}
   <div class="splash-title__grid">
+    {% include image-pane-splash.html image-url="../assets/img/splash.jpg" %}
     <div class="splash-title__social">
       {% include social-links.html %}
     </div>
-    <div class="splash-title__content">
-      {% include homepage-title-texture.html %}
-      {% include homepage-title-confetti.html %}
-      <div class="splash-title__cta">
-        <h1 class="u-push-bottom--sm">{% include  /snipets/homepage-heading.md %}</h1>
-        <a href="/start-a-project" class="btn btn--cta  u-push-bottom--sm">{% include_relative homepage-cta.md %}</a>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="section-break"><div></div><div></div><div></div></div>
-<section class="section--light">
-  {% capture what-we-do %}{% include  /snipets/what-we-do-preview.md %}{% endcapture %}
-  {% include image-pane.html image-url="../assets/img/gaslight-team-1.jpg" pane-equation-url="assets/img/work-plus-unicorn-equals-delivery.svg" pane-equation-alt="Work Plus Unicorns" pane-align="left" pane-copy=what-we-do %}
-</section>
-<section class="section--dark  full-bleed">
-  {% capture agile-development %}{% include /snipets/agile-development.md %}{% endcapture %}
-  {% capture ux-design %}{% include  /snipets/ux-design.md %}{% endcapture %}
-  {% include split-pane.html pane-texture-url="assets/img/dark-texture-one.svg" pane-icon-url="assets/img/icon-trust-is-everything.svg" pane-icon-alt="Trust Is Everything" pane-left-copy=agile-development pane-right-copy=ux-design %}
-</section>
-<section class="section--light u-center--md">
-  <div class="section__copy">
-    {% include /snipets/our-work-preview.md %}
-  </div>
-  <div class="grid grid--3  u-contained--max  u-push-top">
-    {% for casestudy in site.work limit:3 %}
-    {% capture services %} {{ casestudy.related_services | join: ", " }} {% endcapture %}
-    {% include feature-cards.html card-url=casestudy.url card-title=casestudy.title card-copy=services card-image-path=casestudy.card_preview_image %}
-    {% endfor %}
-  </div>
-</section>
-<section class="section--dark">
-  <div class="section__copy  u-center--md">
-    {% include /snipets/who-we-are-preview.md %}
   </div>
 </section>
 
-{% capture cta-copy %}{% include /cta/cta-start-a-project.md %}{% endcapture %}
-{% include call-to-action.html cta-copy=cta-copy %}
+<section class="section--light">
+  {% capture what-we-do %}{% include  /snipets/what-we-do-preview.md %}{% endcapture %}
+  {% include image-pane.html image-url="../assets/img/agility-2.jpg" pane-align="left" pane-copy=what-we-do %}
+</section>

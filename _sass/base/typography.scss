@@ -8,9 +8,13 @@ html, body {
 }
 .highlight {
   padding: $highlight-padding;
-  background-color: $color-splash-1;
+  background-color: $teal;
   box-decoration-break: clone;
   color: $color-light;
+
+  &--gold {
+    background-color: $yellow;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -25,12 +29,19 @@ h1, h2, h3, h4, h5, h6 {
     white-space: normal;
 
     span {
-      background-color: $color-splash-1;
+      background-color: $teal;
       box-decoration-break: clone;
-      box-shadow: 0.4em 0 0 #33BFE5, -0.4em 0 0 #33BFE5;
+      box-shadow: 0.4em 0 0 #23aaad, -0.4em 0 0 #23aaad;
       color: $color-light;
       padding: $highlight-padding;
+
+      &.gold {
+        background-color: $yellow;
+        box-shadow: 0.4em 0 0 #ebc234, -0.4em 0 0 #ebc234;
+      }
     }
+
+
   }
 }
 h1, h2.h1 {
@@ -52,6 +63,7 @@ h5 {
 }
 p {
   margin-bottom: $padd-sm;
+  color: $black;
 }
 
 .note {
@@ -73,12 +85,12 @@ b {
 }
 
 a {
-  background: linear-gradient(to right, $color-dark 0%, $color-dark 100%, transparent 100%);
+  background: linear-gradient(to right, $yellow 0%, $yellow 100%, transparent 100%);
     background-repeat: no-repeat;
     box-decoration-break: clone;
     background-position: -65rem 0;
-  border-bottom: 3px solid $color-dark;
-  color: $color-dark;
+  border-bottom: 3px solid $black;
+  color: $color-light;
   padding: .25rem .25rem 0 .25rem;
   position: relative;
   text-decoration: none;
@@ -89,7 +101,7 @@ a {
   &:active,
   &:focus,
   &.current {
-    background-position: 0 0;
+    background-position: 0 20px;
     color: $color-light;
     outline: 0;
   }
@@ -106,7 +118,7 @@ a {
     &:active,
     &:focus {
       background-position: 0 0;
-      color: $color-dark;
+      color: $black;
       outline: 0;
     }
   }

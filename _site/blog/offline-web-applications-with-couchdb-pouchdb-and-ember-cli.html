@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Offline Web Applications With Couchdb Pouchdb And Ember Cli | Rhythm Dog Sports</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Offline Web Applications With Couchdb Pouchdb And Ember Cli" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A few years ago, we worked with a client in the agricultural industry. We were building an application to allow scouts to take measurements out in the field. Literally." />
+<meta property="og:description" content="A few years ago, we worked with a client in the agricultural industry. We were building an application to allow scouts to take measurements out in the field. Literally." />
+<link rel="canonical" href="http://localhost:4000/blog/offline-web-applications-with-couchdb-pouchdb-and-ember-cli" />
+<meta property="og:url" content="http://localhost:4000/blog/offline-web-applications-with-couchdb-pouchdb-and-ember-cli" />
+<meta property="og:site_name" content="Rhythm Dog Sports" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-06-28T00:00:00-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/offline-web-applications-with-couchdb-pouchdb-and-ember-cli","headline":"Offline Web Applications With Couchdb Pouchdb And Ember Cli","dateModified":"2019-06-28T00:00:00-04:00","datePublished":"2019-06-28T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/offline-web-applications-with-couchdb-pouchdb-and-ember-cli"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"}},"description":"A few years ago, we worked with a client in the agricultural industry. We were building an application to allow scouts to take measurements out in the field. Literally.","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="https://use.typekit.net/vnr4ouz.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+  </head>
+  <body>
+    <nav>
+  <a class="nav__logo" href="/"></a>
+  <input type="checkbox" id="nav__toggle">
+  <label class="nav__toggle" for="nav__toggle"></label>
+  <div class="nav__list">
+    <div class="nav__link ">
+      <a href="/who-we-are">About Us</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/what-we-do">Agility</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/events">Events</a>
+    </div>
+    <div class="nav__link   current ">
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/connect">Connect with Us</a>
+    </div>
+    <!-- <div class="nav__link nav__cta">
+      <a href="/start-a-project" class="btn btn--cta btn--sm">Start a Project</a>
+    </div> -->
+  </div>
+</nav>
+
+
+    <main>
+      <article class="post">
+  <section class="section--light">
+    
+
+    
+
+    
+
+    
+
+    
+      <div class="post__header  u-contained">
+        <div class="post__title">
+          <div class="post__date u-push-bottom--none">10 December 2015</div>
+          <h2>Offline Web Applications with CouchDB, PouchDB and Ember CLI</h2>
+          
+            <div class="post__author">
+              
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+              <p class="u-push-bottom--none">
+                by 
+      Chris Moore
+    
+              </p>
+            </div>
+          
+        </div>
+      </div>
+    
+  </section>
+
+  <section class="post__body">
+    <div>
+    <p>A few years ago, we worked with a client in the agricultural industry. We were building an application to allow scouts to take measurements out in the field. Literally.</p>
+
+<p><img src="http://40.media.tumblr.com/c5096b1c303c7f687e3754fede2e249d/tumblr_moozs5TsHZ1qlk81uo2_1280.jpg" alt="" /></p>
+
+<p>It was a difficult problem because we had to support offline use. We wound up creating a pretty sophisticated system that worked well, but it took almost a year of development effort from the team. There were many other features, but offline use consumed a large portion of our effort.</p>
+
+<p>In the end, we created a native iOS app designed to run on iPads. The iOS app was built to be offline friendly, but it didn’t start out that way.</p>
+
+<p>Initially, we thought we could continue to develop in the typical web fashion: build the API and the client application in parallel. After some flailing, we realized that we were actually building two applications that happened to synchronize data between them.</p>
+
+<h2 id="offline-first">Offline first</h2>
+
+<p>There has been a lot of activity in the “offline first” space recently. A team in Germany has been working with health care teams <a href="http://www.ehealthafrica.org">on the ground in Africa fighting Ebola</a>. They used JavaScript and the web to power offline web applications. These apps enable health care workers to track and update patient care records in the field without cellular service.</p>
+
+<p>But your app doesn’t have to be mission critical to benefit from the offline first approach. Consider the user who is working in your application on one of the few remaining planes without Wifi. Or taking the train underground with no cell service. Or working inside a huge, metal warehouse that basically acts as a Faraday cage. There are still areas where working offline can be beneficial.</p>
+
+<h2 id="the-test">The test</h2>
+
+<p>Another client has approached us with an idea for an application that will need to support the online/offline use case. For this example, we’ll use the idea of someone tasked with inspecting something. Think about an inspector heading out in to the world to take readings. Some of the areas where the work will happen are more rural and might not have cellular service.</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>As an avid supporter of <a href="https://teamgaslight.com/training/courses/14-introduction-to-ember-js">all things Ember</a>, this will be my starting point. I’ve upgraded my <a href="http://ember-cli.com/">ember-cli</a> to the latest release (1.13.13 at the time of this writing). Next, I’ll create a new, empty application.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ember new offline
+cd offline
+</code></pre></div></div>
+
+<p>Next, we’ll install <a href="https://couchdb.apache.org">CouchDB</a>. If you aren’t familiar with Couch, you should be! Couch is designed from the ground up to make replication easy and has very good conflict resolution support with built in versioning.</p>
+
+<p>UPDATE: There’s a much, much easier way. Thanks @janl!</p>
+
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/cdmwebs">@cdmwebs</a> …installer from <a href="https://t.co/mTz9ELDlSU">https://t.co/mTz9ELDlSU</a> — 1. unzip 2. double click 3. there is no step 3 :)</p>&mdash; Jan Lehnardt (@janl) <a href="https://twitter.com/janl/status/675040196249919488">December 10, 2015</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p><code class="highlighter-rouge">brew install couchdb</code></p>
+
+<p>This step will take a while unless you’ve already installed Erlang. After Couch installation finishes, we need to enable CORS so that our application can connect. Make sure your Couch instance is running (just type <code class="highlighter-rouge">couchdb</code>). There’s a handy package called <a href="https://github.com/pouchdb/add-cors-to-couchdb">add-cors-to-couchdb</a> that will do this for us:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install -g add-cors-to-couchdb
+add-cors-to-couchdb
+</code></pre></div></div>
+
+<p>Ok, now let’s get back to the Ember CLI project. Our app will need a local data store as well. We could just use local storage, but I’m going to use a neat little micro instance of CouchDB that runs in the browser called <a href="http://pouchdb.com">PouchDB</a>. Since Couch supports sync already, Pouch can act as a “mini-Couch” and will handle subsets of our data very well.</p>
+
+<p>Let’s install <a href="https://github.com/nolanlawson/ember-pouch">Ember Pouch</a> into our project.</p>
+
+<p><code class="highlighter-rouge">ember install ember-pouch</code></p>
+
+<p>If you start your server, you should see a message that says “Welcome to Ember” when you browse to http://localhost:4200. If you do, let’s move on to our test application.</p>
+
+<h3 id="the-app">The app</h3>
+
+<p>First, we need to configure our Ember application adapter. ember-pouch makes this pretty easy. Here’s my application adapter:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/adapters/application.js</span>
+
+<span class="k">import</span> <span class="nx">PouchDB</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">pouchdb</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Adapter</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ember-pouch</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">PouchDB</span><span class="p">.</span><span class="nx">debug</span><span class="p">.</span><span class="nx">enable</span><span class="p">(</span><span class="dl">'</span><span class="s1">*</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">remote</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://localhost:5984/offline</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="dl">'</span><span class="s1">local_pouch</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">sync</span><span class="p">(</span><span class="nx">remote</span><span class="p">,</span> <span class="p">{</span>
+   <span class="na">live</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>   <span class="c1">// do a live, ongoing sync</span>
+   <span class="na">retry</span><span class="p">:</span> <span class="kc">true</span>   <span class="c1">// retry if the conection is lost</span>
+<span class="p">});</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Adapter</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">db</span><span class="p">:</span> <span class="nx">db</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>I’ve enabled debugging, which will clog up our Console with messages, but that’s okay for now. It’s kind of fun to watch.</p>
+
+<p>Now let’s create our model: List the inspections on the index page and add a form to create a new inspection.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/models/inspection.js</span>
+
+<span class="k">import</span> <span class="nx">DS</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ember-data</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">DS</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">title</span>       <span class="p">:</span> <span class="nx">DS</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="dl">'</span><span class="s1">string</span><span class="dl">'</span><span class="p">),</span>
+  <span class="na">isCompleted</span> <span class="p">:</span> <span class="nx">DS</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="dl">'</span><span class="s1">boolean</span><span class="dl">'</span><span class="p">),</span>
+  <span class="na">rev</span>         <span class="p">:</span> <span class="nx">DS</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="dl">'</span><span class="s1">string</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Our model is pretty basic. That’s okay. Do note the <code class="highlighter-rouge">rev</code> attribute, though. That’s required by Pouch and Couch. It’ll handle revisions for us.</p>
+
+<p>Add an <code class="highlighter-rouge">/inspections</code> route and load the inspections:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/router.js</span>
+
+<span class="nx">Router</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="dl">'</span><span class="s1">inspections</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/routes/inspections.js</span>
+
+<span class="k">import</span> <span class="nx">Ember</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ember</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">Route</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">model</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">findAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">inspection</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Create a template to show the list and add a new inspection (I’m using Bootstrap markup):</p>
+
+<div class="language-handlebars highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c">&lt;!-- app/templates/inspections.hbs --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-3"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;h2&gt;</span>New Inspection<span class="nt">&lt;/h2&gt;</span>
+     <span class="nt">&lt;form</span> <span class="k">{{</span><span class="nv">action</span> <span class="s2">"createInspection"</span> <span class="nv">on</span><span class="o">=</span><span class="s2">"submit"</span><span class="k">}}</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;label&gt;</span>Title<span class="nt">&lt;/label&gt;</span>
+         <span class="k">{{</span><span class="nv">input</span> <span class="nv">value</span><span class="o">=</span><span class="nv">title</span> <span class="nv">class</span><span class="o">=</span><span class="s2">"form-control"</span><span class="k">}}</span>
+       <span class="nt">&lt;/div&gt;</span>
+       <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;label&gt;</span>
+           <span class="k">{{</span><span class="nv">input</span> <span class="nv">type</span><span class="o">=</span><span class="s2">"checkbox"</span> <span class="nv">name</span><span class="o">=</span><span class="s2">"isCompleted"</span> <span class="nv">checked</span><span class="o">=</span><span class="nv">isCompleted</span><span class="k">}}</span>
+           Complete?
+         <span class="nt">&lt;/label&gt;</span>
+       <span class="nt">&lt;/div&gt;</span>
+       <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Add Inspection"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;/form&gt;</span>
+   <span class="nt">&lt;/div&gt;</span>
+
+   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-9"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;h2&gt;</span>Inspections<span class="nt">&lt;/h2&gt;</span>
+     <span class="nt">&lt;table</span> <span class="na">class=</span><span class="s">"table"</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;thead&gt;</span>
+         <span class="nt">&lt;tr&gt;</span>
+           <span class="nt">&lt;th&gt;</span>Revision<span class="nt">&lt;/th&gt;</span>
+           <span class="nt">&lt;th&gt;</span>Title<span class="nt">&lt;/th&gt;</span>
+           <span class="nt">&lt;th&gt;</span>Complete?<span class="nt">&lt;/th&gt;</span>
+           <span class="nt">&lt;th&gt;&lt;/th&gt;</span>
+         <span class="nt">&lt;/tr&gt;</span>
+       <span class="nt">&lt;/thead&gt;</span>
+
+       <span class="nt">&lt;tbody&gt;</span>
+         <span class="k">{{#</span><span class="nn">each</span> <span class="nv">model</span> <span class="nv">as</span> <span class="p">|</span><span class="nv">inspection</span><span class="p">|</span><span class="k">}}</span>
+           <span class="nt">&lt;tr&gt;</span>
+             <span class="nt">&lt;td&gt;</span><span class="k">{{</span><span class="nv">inspection</span><span class="p">.</span><span class="nv">rev</span><span class="k">}}</span><span class="nt">&lt;/td&gt;</span>
+             <span class="nt">&lt;td&gt;</span><span class="k">{{</span><span class="nv">inspection</span><span class="p">.</span><span class="nv">title</span><span class="k">}}</span><span class="nt">&lt;/td&gt;</span>
+             <span class="nt">&lt;td&gt;</span>
+               <span class="k">{{#if</span> <span class="nv">inspection</span><span class="p">.</span><span class="nv">isCompleted</span><span class="k">}}</span>
+                 <span class="ni">&amp;#x2713;</span>
+               <span class="k">{{else}}</span>
+                 <span class="ni">&amp;#x2717;</span>
+               <span class="k">{{/if}}</span>
+             <span class="nt">&lt;/td&gt;</span>
+             <span class="nt">&lt;td</span> <span class="k">{{</span><span class="nv">action</span> <span class="s2">"deleteInspection"</span> <span class="nv">inspection</span> <span class="nv">on</span><span class="o">=</span><span class="s2">"click"</span><span class="k">}}</span><span class="nt">&gt;</span>
+               x
+             <span class="nt">&lt;/td&gt;</span>
+           <span class="nt">&lt;/tr&gt;</span>
+         <span class="k">{{/</span><span class="nn">each</span><span class="k">}}</span>
+       <span class="nt">&lt;/tbody&gt;</span>
+     <span class="nt">&lt;/table&gt;</span>
+   <span class="nt">&lt;/div&gt;</span>
+ <span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+
+<p>And a controller to handle the <code class="highlighter-rouge">createInspection</code> and <code class="highlighter-rouge">deleteInspection</code> actions:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/controllers/inspections.js</span>
+
+<span class="k">import</span> <span class="nx">Ember</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">ember</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Ember</span><span class="p">.</span><span class="nx">Controller</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="na">actions</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">createInspection</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">inspection</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">createRecord</span><span class="p">(</span><span class="dl">"</span><span class="s2">inspection</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">title</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">title</span><span class="dl">'</span><span class="p">),</span>
+        <span class="na">isCompleted</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">isCompleted</span><span class="dl">'</span><span class="p">)</span>
+      <span class="p">});</span>
+      <span class="nx">inspection</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">title</span><span class="dl">'</span><span class="p">,</span> <span class="dl">''</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">isCompleted</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">deleteInspection</span><span class="p">(</span><span class="nx">inspection</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">inspection</span><span class="p">.</span><span class="nx">deleteRecord</span><span class="p">();</span>
+      <span class="nx">inspection</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>That’s it. You’ve just built your first offline ready web application. Seriously! Let’s give it a try.</p>
+
+<p>First, start CouchDB.</p>
+
+<p><code class="highlighter-rouge">couchdb</code></p>
+
+<p>You’ll see a bit of output in the console then a notice that Couch is ready and it’s now time to relax:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Apache CouchDB 1.6.1 (LogLevel=info) is starting.
+Apache CouchDB has started. Time to relax.
+[info] [&lt;0.32.0&gt;] Apache CouchDB has started on http://127.0.0.1:5984/
+</code></pre></div></div>
+
+<p>Once Couch is up and running, start your Ember application (if it isn’t already).</p>
+
+<p><code class="highlighter-rouge">ember serve</code></p>
+
+<p>Now, browse to http://localhost:4200/inspections and fill out the form. You should see a new inspection created in the table.</p>
+
+<p><img src="http://g.recordit.co/ncUhIxt1zB.gif" alt="" /></p>
+
+<p>Also, if you browse to Futon (CouchDB’s admin tool), you’ll see a new record there as well.</p>
+
+<p><img src="https://gaslight-blog.s3.amazonaws.com/offline-web-applications-with-couchdb-pouchdb-and-ember-cli/Screen_Shot_2015-12-08_at_12.08.47_AM.png" alt="" /></p>
+
+<h2 id="lets-go-offline">Let’s go offline!</h2>
+
+<p>Now the exciting part. The moment we’ve all been waiting for! Let’s stop our Couch server and pretend we’re offline. Hop over to the terminal window running <code class="highlighter-rouge">couchdb</code> and give it a <code class="highlighter-rouge">CTRL-C</code>. Jump back over to your Ember app running in the browser and refresh. It’s still up and running! Go ahead and add another inspection or two. Refresh the page. Whoa! You’re creating new inspections offline! Also, look in the console and watch PouchDB try to connect to the server. You’ll see it try to reconnect every few seconds.</p>
+
+<p>Let’s see if we can synchronize our data. Start <code class="highlighter-rouge">couchdb</code> again and pretend we just picked up a cell signal. Hop back over to the Ember app and refresh (this will trigger a sync). Now look in Futon and you’ll see your new records. Isn’t that amazing?</p>
+
+<p>Oh, by the way, deleting works, too. Go ahead, give it a shot. You know you want to! I’ll wait.</p>
+
+<h2 id="what-are-you-going-to-build">What are you going to build?</h2>
+
+<p>That was just a simple example, but I hope you’ve thought of some interesting uses for offline web applications. The use cases for this model are all over the place. A few years ago, it took months to create something like this. You and I, because of the genius of others, are now able to do it in a few minutes.</p>
+
+<p>You can view the source code for this article <a href="https://github.com/cdmwebs/inspector/">here</a>.</p>
+
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      <a class="tag" href="/blog/categories/development/index.html">Development</a>
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      
+      
+      
+
+      
+        
+        
+
+        
+          <a href="/blog/refactoring-patterns-in-elixir-replace-conditional-with-polymorphism-via-protocols-part-2" class="card card--feature">
+            <div class="card__content">
+              <h3>Refactoring Patterns in Elixir: Replace Conditional with Polymorphism Via Protocols Part 2</h3>
+              <h4>Zack Kayser</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/outsourcing-custom-development-for-fast-paced-companies" class="card card--feature">
+            <div class="card__content">
+              <h3>Outsourcing Custom Development for Fast-Paced Companies </h3>
+              <h4>Peter Kananen</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/oh-to-be-a-domain-expert-if-only-we-knew-what-you-know" class="card card--feature">
+            <div class="card__content">
+              <h3>Oh, to be a Domain Expert … if we only knew what you knew.</h3>
+              <h4>Kati Best</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/gaslight-your-partner-in-growth" class="card card--feature">
+            <div class="card__content">
+              <h3>Gaslight, Your Partner in Growth</h3>
+              <h4>Steve Hennegan</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+            
+    </div>
+  </section>
+</article>
+
+
+<section class="section--light flush">
+  <div class="cta">
+    <img src="/assets/img/color-shapes-one.svg" class="cta__confetti" />
+    <div class="cta__container">
+      <div>
+        
+<h3> Like what you're seeing? Let's keep in touch. </h3> <a href="/newsletter" class="btn btn--cta"> Subscribe to Our Newsletter </a>
+
+      </div>
+    </div>
+    <img src="/assets/img/color-shapes-two.svg" class="cta__confetti" />
+  </div>
+</section>
+
+
+    </main>
+
+    
+<footer>
+  <div class="footer__container">
+    <div class="footer__menu">
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
+        <li><a class="inverse" href="/careers">Careers</a></li>
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
+        
+          <li><a class="inverse" href="/what-we-do">Apprenticeship</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Code Check Up</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Custom Software Development</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Design Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Discovery Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Fast Forward Build</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
+        
+        <li><a class="inverse" href="/work/e_beam">E-Beam Services, Inc.</a></li>
+        
+        <li><a class="inverse" href="/work/mike-albert-fleet-solutions">Mike Albert Fleet Solutions</a></li>
+        
+        <li><a class="inverse" href="/work/omega">OMEGA</a></li>
+        
+        <li><a class="inverse" href="/work/poa">POA</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
+        
+          <li><a href="/blog/categories/business/index.html" class="inverse">Business</a></li>
+        
+          <li><a href="/blog/categories/design/index.html" class="inverse">Design</a></li>
+        
+          <li><a href="/blog/categories/development/index.html" class="inverse">Development</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
+        <li><a class="inverse" href="/events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer__credentials">
+      <a href="/" class="footer__logo"></a>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/rhythmdogsports/" target="_blank" class="social__link instagram">
+  <svg viewBox="0 0 50 50">
+    <path d="M16 3C8.83 3 3 8.83 3 16v18c0 7.17 5.83 13 13 13h18c7.17 0 13-5.83 13-13V16c0-7.17-5.83-13-13-13H16zm21 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-12 3c6.07 0 11 4.93 11 11s-4.93 11-11 11-11-4.93-11-11 4.93-11 11-11zm0 2c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z"/>
+  </svg>
+</a>
+<!-- <a href="http://twitter.com/teamgaslight" target="_blank" class="social__link twitter">
+  <svg viewBox="0 0 50 50">
+    <path d="M50.06 10.44c-1.85.82-3.83 1.37-5.91 1.62 2.12-1.27 3.76-3.29 4.52-5.69a20.473 20.473 0 0 1-6.53 2.49c-1.88-2-4.55-3.25-7.5-3.25-5.68 0-10.29 4.6-10.29 10.28 0 .8.09 1.59.27 2.34C16.08 17.81 8.5 13.72 3.43 7.5c-.89 1.52-1.39 3.29-1.39 5.17 0 3.57 1.81 6.71 4.57 8.56-1.69-.05-3.27-.52-4.66-1.29v.13c0 4.98 3.55 9.14 8.25 10.09-.86.23-1.77.36-2.71.36-.66 0-1.31-.06-1.94-.19 1.31 4.08 5.11 7.06 9.61 7.14-3.52 2.76-7.95 4.4-12.77 4.4-.83 0-1.65-.05-2.45-.14 4.55 2.92 9.95 4.62 15.76 4.62 18.91 0 29.26-15.67 29.26-29.25 0-.45-.01-.89-.03-1.33 2.01-1.46 3.75-3.27 5.13-5.33z"/>
+  </svg>
+</a> -->
+<a href="http://facebook.com/rhythmdogsports" target="_blank" class="social__link facebook">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zm-4 15h-2c-2.14 0-3 .5-3 2v3h5l-1 5h-4v15h-5V29h-4v-5h4v-3c0-4 2-7 6-7 2.9 0 4 1 4 1v4z"/>
+  </svg>
+</a>
+<!-- <a href="http://github.com/gaslight" target="_blank" class="social__link github">
+  <svg viewBox="0 0 50 50">
+    <path d="M33 29c-1.8 0-3 1.52-3 4s.89 5.05 3 5c2.22-.05 3.02-2.22 3-5-.02-2.48-1.21-4-3-4zm11.26-11.93c.27-1.34.39-6.1-1.58-11.07 0 0-4.53.5-11.38 5.2-1.43-.4-3.87-.6-6.3-.6s-4.86.2-6.3.59C11.85 6.5 7.32 6 7.32 6c-1.98 4.96-1.88 9.61-1.59 11.07C3.42 19.59 2 22.61 2 26.74 2 44.71 16.91 45 20.67 45h8.66C33.09 45 48 44.71 48 26.74c0-4.13-1.42-7.15-3.74-9.67zM25.14 43H25c-9.43 0-16.84-1.34-16.84-10.5 0-2.2.78-4.23 2.62-5.92 3.07-2.82 8.26-1.33 14.16-1.33h.14c5.89 0 11.09-1.49 14.16 1.33 1.84 1.69 2.61 3.73 2.61 5.92-.01 9.16-7.28 10.5-16.71 10.5zM17 29c-1.79 0-3 2.02-3 4.5s1.21 4.5 3 4.5c1.8 0 3-2.02 3-4.5S18.8 29 17 29z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.youtube.com/channel/UCC36CM_uLqhoKEqSy2mjqFQ" target="_blank" class="social__link youtube">
+  <svg viewBox="0 0 50 50">
+    <path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9zm6 4h2.4l1.6 4 1.6-4H23l-3 7v4h-2v-4.01c-.6-1.61-2.59-5.98-3-6.99zm10 3c.89 0 1.77.27 2.33.95.43.49.67 1.28.67 2.32v1.46c0 1.04-.2 1.76-.62 2.25-.56.67-1.49 1.02-2.38 1.02s-1.8-.35-2.36-1.02c-.43-.49-.64-1.21-.64-2.25v-1.45c0-1.04.23-1.84.67-2.33.56-.68 1.32-.95 2.33-.95zm4 0h2v6c.05.27.34.39.61.39.41 0 .93-.48 1.39-1.01V11h2v8h-2v-1.38c-.81.79-1.5 1.38-2.41 1.35-.66-.02-1.12-.26-1.35-.74-.14-.28-.24-.73-.24-1.39V11zm-4 1.62c-.14 0-.27.03-.39.08a1.016 1.016 0 0 0-.53.54c-.05.13-.08.26-.08.4v2.81a1.02 1.02 0 0 0 .61.94c.12.05.25.08.39.08s.27-.03.39-.08c.36-.16.61-.52.61-.94v-2.81c0-.56-.45-1.02-1-1.02zM24.99 22h.02s6.71 0 11.19.32c.63.07 1.99.08 3.21 1.33.96.94 1.27 3.1 1.27 3.1s.32 1.53.32 4.06v2.37c0 2.53-.32 4.06-.32 4.06s-.31 2.16-1.27 3.1c-1.22 1.25-2.58 1.26-3.21 1.33-4.48.32-11.2.33-11.2.33s-8.32-.08-10.88-.32c-.71-.13-2.31-.09-3.53-1.33-.96-.95-1.27-3.11-1.27-3.11S9 35.71 9 33.18v-2.37c0-2.53.32-4.06.32-4.06s.31-2.16 1.27-3.1c1.22-1.25 2.58-1.26 3.21-1.33C18.28 22 24.99 22 24.99 22zM12 26v1.98h2V38h2V27.98h2V26h-6zm13 0v12h2v-1.25c.63.78 1.45 1.25 2.12 1.25.75 0 1.41-.4 1.66-1.18.12-.42.21-.81.21-1.7v-2.75c0-.99-.13-1.73-.26-2.15-.24-.78-.85-1.22-1.61-1.22-.98-.01-1.38.5-2.12 1.38V26h-2zm-7 3v6.69c0 .72.1 1.21.23 1.52.22.51.67.79 1.31.79.73 0 1.67-.51 2.46-1.37V38h2v-9h-2v6.27c-.44.58-1.08 1.02-1.48 1.02-.26 0-.47-.11-.52-.4V29h-2zm17.03 0c-1.01 0-1.8.32-2.37.92-.42.44-.66 1.16-.66 2.1v3.07c0 .93.27 1.58.69 2.02.57.6 1.36.9 2.39.9s1.84-.31 2.39-.95c.24-.28.39-.6.46-.95.01-.17.07-.6.07-1.11h-2v.8c0 .46-.45.84-1 .84s-1-.38-1-.84V34h4v-2.03c0-.93-.23-1.62-.64-2.06-.56-.59-1.34-.91-2.33-.91zM35 30.45c.55 0 1 .38 1 .84v1.33h-2v-1.33c0-.47.45-.84 1-.84zm-6.78.3c.55 0 .78.33.78 1.38v2.75c0 1.04-.23 1.4-.78 1.4-.31 0-.9-.21-1.22-.53v-4.38c.32-.31.91-.62 1.22-.62z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.linkedin.com/company/gaslight" target="_blank" class="social__link linkedin">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM17 20v19h-6V20h6zm-6-5.53c0-1.4 1.2-2.47 3-2.47s2.93 1.07 3 2.47c0 1.4-1.12 2.53-3 2.53-1.8 0-3-1.13-3-2.53zM39 39h-6V29c0-2-1-4-3.5-4.04h-.08C27 24.96 26 27.02 26 29v10h-6V20h6v2.56S27.93 20 31.81 20c3.97 0 7.19 2.73 7.19 8.26V39z"/>
+  </svg>
+</a> -->
+
+      </div>
+      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/js/scale.fix.js"></script>
+    <script src="/assets/js/rellax.min.js"></script>
+    <script>
+    var rellax = new Rellax('.float', {
+      speed: -2,
+      center: false,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    </script>
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/509988.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    
+  </body>
+</html>

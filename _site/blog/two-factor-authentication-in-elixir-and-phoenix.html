@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Two Factor Authentication In Elixir And Phoenix | Rhythm Dog Sports</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Two Factor Authentication In Elixir And Phoenix" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Two-Factor Authentication in Elixir and Phoenix" />
+<meta property="og:description" content="Two-Factor Authentication in Elixir and Phoenix" />
+<link rel="canonical" href="http://localhost:4000/blog/two-factor-authentication-in-elixir-and-phoenix" />
+<meta property="og:url" content="http://localhost:4000/blog/two-factor-authentication-in-elixir-and-phoenix" />
+<meta property="og:site_name" content="Rhythm Dog Sports" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-02T00:00:00-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/two-factor-authentication-in-elixir-and-phoenix","headline":"Two Factor Authentication In Elixir And Phoenix","dateModified":"2019-07-02T00:00:00-04:00","datePublished":"2019-07-02T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/two-factor-authentication-in-elixir-and-phoenix"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"}},"description":"Two-Factor Authentication in Elixir and Phoenix","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="https://use.typekit.net/vnr4ouz.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+  </head>
+  <body>
+    <nav>
+  <a class="nav__logo" href="/"></a>
+  <input type="checkbox" id="nav__toggle">
+  <label class="nav__toggle" for="nav__toggle"></label>
+  <div class="nav__list">
+    <div class="nav__link ">
+      <a href="/who-we-are">About Us</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/what-we-do">Agility</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/events">Events</a>
+    </div>
+    <div class="nav__link   current ">
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/connect">Connect with Us</a>
+    </div>
+    <!-- <div class="nav__link nav__cta">
+      <a href="/start-a-project" class="btn btn--cta btn--sm">Start a Project</a>
+    </div> -->
+  </div>
+</nav>
+
+
+    <main>
+      <article class="post">
+  <section class="section--light">
+    
+
+    
+
+    
+
+    
+
+    
+      <div class="post__header  u-contained">
+        <div class="post__title">
+          <div class="post__date u-push-bottom--none">18 March 2019</div>
+          <h2>Two-Factor Authentication in Elixir and Phoenix</h2>
+          
+            <div class="post__author">
+              
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+              <p class="u-push-bottom--none">
+                by 
+      Cam Carter
+    
+              </p>
+            </div>
+          
+        </div>
+      </div>
+    
+  </section>
+
+  <section class="post__body">
+    <div>
+    <h1 id="two-factor-authentication-in-elixir-and-phoenix">Two-Factor Authentication in Elixir and Phoenix</h1>
+
+<p>Multi-factor authentication relies on the user having two or more pieces of evidence (or factors) in order to gain access into a system. In this example we will implement a two-factor authentication system that requires the user to present two forms of evidence: what the user and only that user knows, their password, and a one time password sent to what only the user has access to, their email.</p>
+
+<h3 id="a-disclaimer">A Disclaimer</h3>
+
+<p>Now I’m just going to assume that if you’re reading this you’ve already got the first factor of two-factor authentication figured out on your own. If that’s not the case you can take a dive into the source code of the <a href="https://github.com/cam-carter/two-factor-auth-phx">example application</a> that already implements basic user authentication with <a href="https://github.com/ueberauth/guardian">Guardian</a> and <a href="https://github.com/riverrun/comeonin">comeonin</a>.</p>
+
+<p>And if you figure out a better way of doing this (there’s always a better way), then please feel free to email me your suggestions, insults, or compliments.</p>
+
+<h3 id="oh-and-app-dependencies">Oh, and app dependencies</h3>
+
+<p>Here’s the list of dependencies I’m using. You can just throw this in your <code class="highlighter-rouge">mix.exs</code> file.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+  <span class="p">[</span>
+    <span class="p">{</span><span class="ss">:bamboo</span><span class="p">,</span> <span class="s2">"~&gt; 1.0"</span><span class="p">},</span>
+    <span class="p">{</span><span class="ss">:guardian</span><span class="p">,</span> <span class="s2">"~&gt; 1.1"</span><span class="p">},</span>
+    <span class="p">{</span><span class="ss">:pot</span><span class="p">,</span> <span class="s2">"~&gt; 0.9.6"</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="hmac-one-time-password-generation">HMAC one time password generation</h2>
+
+<p>To generate this one time password, we will be using an Erlang library called <a href="https://github.com/yuce/pot">pot</a>. The function we will be using generates an HOTP, a one time password based on HMAC (hash-based message authentication code).</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># the secret token we'll need to generate the hotp</span>
+<span class="c1"># this will need to stay hidden from the user</span>
+<span class="n">token</span> <span class="o">=</span>
+  <span class="ss">:crypto</span><span class="o">.</span><span class="n">strong_rand_bytes</span>
+  <span class="o">|&gt;</span> <span class="no">Base</span><span class="o">.</span><span class="n">encode32</span><span class="p">()</span>
+
+<span class="c1"># the one_time_pass we'll send to our user's email</span>
+<span class="n">one_time_pass</span> <span class="o">=</span> <span class="ss">:pot</span><span class="o">.</span><span class="n">hotp</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">_number_of_trials</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This code is going to come in handy later, so we’ll want to hold on to it. We’re creating a token with the <a href="http://erlang.org/doc/search/?q=crypto&amp;x=0&amp;y=0"><code class="highlighter-rouge">:crypto</code></a> application which is a module that provides access to cryptographic functions in Erlang. Then we’re using that token to generate a one time password that can only be used… You, guessed it: once.</p>
+
+<h2 id="add-a-flag-to-the-user-add-a-flag-to-the-user">Add a flag to the User? Add a flag to the User.</h2>
+
+<p>To get things poppin’ off we’re going to want to add a boolean flag to our <code class="highlighter-rouge">User</code> schema module and <code class="highlighter-rouge">:users</code> tabel. We can do that by generating a new Ecto migration.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.gen.migration add_has_2fa_to_users
+</code></pre></div></div>
+
+<p>Then we’ll add the stuff to the other stuff…</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### whatevertimestamp_add_has_2fa_to_users.exs ###</span>
+
+<span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+  <span class="n">alter</span> <span class="n">table</span><span class="p">(</span><span class="ss">:users</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">add</span><span class="p">(</span><span class="ss">:has_2fa</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">true</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+
+<span class="c1">### user.ex ###</span>
+
+<span class="n">schema</span> <span class="s2">"users"</span> <span class="k">do</span>
+  <span class="n">field</span><span class="p">(</span><span class="ss">:email</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+  <span class="n">field</span><span class="p">(</span><span class="ss">:has_2fa</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">false</span><span class="p">)</span> <span class="c1"># &lt;- the new stuff</span>
+  <span class="n">field</span><span class="p">(</span><span class="ss">:password_hash</span><span class="p">,</span> <span class="ss">:string</span><span class="p">)</span>
+  <span class="n">field</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">virtual:</span> <span class="no">true</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Then we’ll run our new, fancy migration.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.migrate
+</code></pre></div></div>
+
+<p>And to great success we now have <code class="highlighter-rouge">:has_2fa</code> attached to our users! This flag is going to tell us which users to send a one time password to and which ones to just let slide through with only one piece of authentic evidence. (Note: two factor authentication won’t protect anything if your passwords for both the system and your email are just <code class="highlighter-rouge">password</code>)</p>
+
+<h2 id="were-gonna-need-some-new-routes">We’re gonna need some new routes</h2>
+
+<p>We need a place to go to render our form for 2fa, and when we’re there, we need a way for our user to send their one time password to the controller for examination and verification.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### lib/two_factor_auth_web/router.ex ###</span>
+
+<span class="n">get</span><span class="p">(</span><span class="s2">"/sessions/new/two_factor_auth"</span><span class="p">,</span> <span class="no">TwoFactorAuthController</span><span class="p">,</span> <span class="ss">:new</span><span class="p">)</span>
+<span class="n">post</span><span class="p">(</span><span class="s2">"/sessions/new/two_factor_auth"</span><span class="p">,</span> <span class="no">TwoFactorAuthController</span><span class="p">,</span> <span class="ss">:create</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>And the corresponding form:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### lib/two_factor_auth_web/templates/two_factor_auth/two_factor_auth.html.eex ###</span>
+
+<span class="o">&lt;%=</span> <span class="n">form_for</span> <span class="nv">@conn</span><span class="p">,</span> <span class="n">two_factor_auth_path</span><span class="p">(</span><span class="nv">@conn</span><span class="p">,</span> <span class="ss">:create</span><span class="p">),</span> <span class="k">fn</span> <span class="n">f</span> <span class="o">-&gt;</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">label</span><span class="o">&gt;</span>
+    <span class="ss">Code:</span> <span class="o">&lt;%=</span> <span class="n">text_input</span> <span class="n">f</span><span class="p">,</span> <span class="ss">:one_time_pass</span><span class="p">,</span> <span class="ss">class:</span> <span class="s2">"qa-one_time_pass"</span> <span class="p">%</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+
+  <span class="o">&lt;%=</span> <span class="n">submit</span> <span class="s2">"Submit"</span><span class="p">,</span> <span class="ss">class:</span> <span class="s2">"qa-submit"</span> <span class="p">%</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="p">%</span> <span class="k">end</span> <span class="p">%</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<h2 id="and-now-the-all-powerfull-controllers">And now the all-powerfull controllers</h2>
+
+<p>Before we can get to the meat and potatoes of two-factor authentication, we need to take a gander at our session controller and, using that shiny, new boolean on our users, make sure we’re sending people to their appropriate destinations.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">TwoFactorAuthWeb</span><span class="o">.</span><span class="no">SessionController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">TwoFactorAuthWeb</span><span class="p">,</span> <span class="ss">:controller</span>
+  <span class="kn">import</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span>
+
+  <span class="n">alias</span> <span class="no">TwoFactorAuth</span><span class="o">.</span><span class="no">Guardian</span>
+  <span class="n">alias</span> <span class="no">TwoFactorAuth</span><span class="o">.</span><span class="no">Accounts</span>
+  <span class="n">alias</span> <span class="no">TwoFactorAuthWeb</span><span class="o">.</span><span class="no">Mailer</span>
+
+  <span class="k">def</span> <span class="n">new</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">"new.html"</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">session_params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># You could use a nested case here, but withs are cool, too</span>
+    <span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">verify_login</span><span class="p">(</span><span class="n">session_params</span><span class="p">)</span> <span class="k">do</span>
+      <span class="k">case</span> <span class="n">user</span><span class="o">.</span><span class="n">has_2fa</span> <span class="k">do</span>
+        <span class="no">true</span> <span class="o">-&gt;</span>
+          <span class="c1"># remember that code at the beginning... this is where it went</span>
+          <span class="p">{</span><span class="n">token</span><span class="p">,</span> <span class="n">one_time_pass</span><span class="p">}</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">generate_one_time_pass</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+          <span class="no">Mailer</span><span class="o">.</span><span class="n">deliver_2fa_email</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">one_time_pass</span><span class="p">)</span>
+
+          <span class="n">conn</span>
+          <span class="o">|&gt;</span> <span class="n">put_session</span><span class="p">(</span><span class="s2">"user_secret"</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"token"</span> <span class="o">=&gt;</span> <span class="n">token</span><span class="p">,</span> <span class="s2">"user_id"</span> <span class="o">=&gt;</span> <span class="n">user_id</span><span class="p">})</span>
+          <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"A heckin' 2fa code has been sent to you! Isn't that cool?"</span><span class="p">)</span>
+          <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">302</span><span class="p">)</span>
+          <span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="n">two_factor_auth_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:new</span><span class="p">))</span>
+
+        <span class="no">false</span> <span class="o">-&gt;</span>
+          <span class="n">conn</span>
+          <span class="o">|&gt;</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+          <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"Login successful! But you should enable two-factor auth ngl"</span><span class="p">)</span>
+          <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">302</span><span class="p">)</span>
+          <span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="n">page_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:index</span><span class="p">))</span>
+      <span class="k">end</span>
+    <span class="k">else</span>
+      <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">conn</span>
+        <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"You entered an invalid password or email!"</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">render</span><span class="p">(</span><span class="s2">"new.html"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Here we verify the the email and password passed in through <code class="highlighter-rouge">session_params</code> and return <code class="highlighter-rouge">{:ok, user}</code>. If the user has enabled two-factor auth on their account, we will generate them a one time password and email it to them. The user will fail the second factor of the authentication process if they don’t have access to their email or this one time password.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">TwoFactorAuthWeb</span><span class="o">.</span><span class="no">TwoFactorAuthController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">TwoFactorAuthWeb</span><span class="p">,</span> <span class="ss">:controller</span>
+  <span class="kn">import</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span>
+
+  <span class="n">alias</span> <span class="no">TwoFactorAuth</span><span class="o">.</span><span class="no">Guardian</span>
+  <span class="n">alias</span> <span class="no">TwoFactorAuth</span><span class="o">.</span><span class="no">Accounts</span>
+
+  <span class="k">def</span> <span class="n">new</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># we want to see if our token is empty, and if it is we redirect them back to the new session page</span>
+    <span class="c1"># the goal here is to make sure we have the same conn that went through the session controller</span>
+    <span class="n">with</span> <span class="p">%{}</span> <span class="o">&lt;-</span> <span class="no">Auth</span><span class="o">.</span><span class="n">fetch_secret_from_session</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">conn</span>
+      <span class="o">|&gt;</span> <span class="n">render</span><span class="p">(</span><span class="s2">"two_factor_auth.html"</span><span class="p">,</span> <span class="ss">action:</span> <span class="n">tw</span>        <span class="c1"># just in case?</span>
+<span class="mi">191</span>
+<span class="n">o_factor_auth_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:create</span><span class="p">))</span>
+    <span class="k">else</span>
+    <span class="n">_</span> <span class="o">-&gt;</span>
+      <span class="n">conn</span>
+      <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"Page not found"</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="n">session_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:new</span><span class="p">))</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"one_time_pass"</span> <span class="o">=&gt;</span> <span class="n">one_time_pass</span><span class="p">})</span> <span class="k">do</span>
+    <span class="c1"># to verify the one_time_pass that comes in through the form we need the secret token off the conn</span>
+    <span class="c1"># we also need the user_id to know who we're building the session for</span>
+    <span class="p">%{</span><span class="s2">"token"</span> <span class="o">=&gt;</span> <span class="n">token</span><span class="p">,</span> <span class="s2">"user_id"</span> <span class="o">=&gt;</span> <span class="n">user_id</span><span class="p">}</span> <span class="o">=</span> <span class="n">get_session</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">get_user!</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+
+    <span class="k">case</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">valid_one_time_pass?</span><span class="p">(</span><span class="n">one_time_pass</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span> <span class="k">do</span>
+      <span class="no">true</span> <span class="o">-&gt;</span>
+        <span class="n">conn</span>
+        <span class="c1"># our one time password can only be used... once</span>
+        <span class="c1"># but we wanna go that extra mile and also invalidate it... just in case</span>
+        <span class="o">|&gt;</span> <span class="n">delete_session</span><span class="p">(</span><span class="s2">"user_secret"</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"Login successful!"</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">302</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="n">page_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:index</span><span class="p">))</span>
+
+      <span class="no">false</span> <span class="o">-&gt;</span>
+        <span class="n">conn</span>
+        <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"The authentication code you entered was invalid!"</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">render</span><span class="p">(</span><span class="s2">"two_factor_auth.html"</span><span class="p">,</span> <span class="ss">action:</span> <span class="n">two_factor_auth_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:create</span><span class="p">))</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="the-legend-of-plugconn">The legend of Plug.Conn</h2>
+
+<p>There’s a couple of challenges when it comes to dealing with the second factor of our authentication workflow. We need to be able to assure that there is one continuous session throughout the entire process, meaning that we can’t take any requests from a user that hasn’t first logged in with their username and password. We also need to be sure no sensitive data, i.e. our secret token, is being leaked to the user.</p>
+
+<p>That’s where <code class="highlighter-rouge">:plug_session</code> comes in. This is the session store in <code class="highlighter-rouge">conn[:private]</code> that get’s encrypted when it’s sent to the client and is stored by your browser as a cookie. We’ll need to use <code class="highlighter-rouge">put_session/3</code> and <code class="highlighter-rouge">get_session/2</code> from <code class="highlighter-rouge">Plug.Conn</code> to assign and fetch our <code class="highlighter-rouge">"user_secret"</code> to and from the session.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### from Plug.Conn (conn.ex) ###</span>
+
+<span class="k">def</span> <span class="n">put_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_atom</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">do</span>
+<span class="n">put_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="o">&amp;</span><span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">,</span> <span class="n">session_key</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">value</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">put_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">fun</span><span class="p">)</span> <span class="k">do</span>
+<span class="n">private</span> <span class="o">=</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">private</span>
+<span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="ss">:plug_session</span><span class="p">,</span> <span class="n">fun</span><span class="o">.</span><span class="p">(</span><span class="n">get_session</span><span class="p">(</span><span class="n">conn</span><span class="p">)))</span>
+<span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">put_new</span><span class="p">(</span><span class="ss">:plug_session_info</span><span class="p">,</span> <span class="ss">:write</span><span class="p">)</span>
+
+<span class="p">%{</span><span class="n">conn</span> <span class="o">|</span> <span class="ss">private:</span> <span class="n">private</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">put_session</code> takes your connection, the new key, and the value you want to assign to that key and puts them in <code class="highlighter-rouge">:plug_session</code> which lives in the private store of you connection.</p>
+
+<p><code class="highlighter-rouge">conn[:private]</code> is meant to be used by libraries and frameworks, such as <code class="highlighter-rouge">Plug.Conn</code>, to avoid writing to the user storage (the <code class="highlighter-rouge">:assigns</code> field).</p>
+
+<p>So inside of our <code class="highlighter-rouge">conn</code> lives a special <code class="highlighter-rouge">:private</code> map that keeps our deep, dark secrets away from the user instead of leaking this information through <code class="highlighter-rouge">conn[:assigns]</code>. It’s meant to be used by libraries, such as <code class="highlighter-rouge">Plug.Conn</code>, to avoid writing to <code class="highlighter-rouge">:assigns</code>. Take a gander:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%</span><span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="p">{</span>
+  <span class="ss">private:</span> <span class="p">%{</span>
+    <span class="ss">:phoenix_action</span> <span class="o">=&gt;</span> <span class="ss">:new</span><span class="p">,</span>
+    <span class="ss">:phoenix_controller</span> <span class="o">=&gt;</span> <span class="no">TwoFactorAuthWeb</span><span class="o">.</span><span class="no">TwoFactorAuthController</span><span class="p">,</span>
+    <span class="ss">:phoenix_endpoint</span> <span class="o">=&gt;</span> <span class="no">TwoFactorAuthWeb</span><span class="o">.</span><span class="no">Endpoint</span><span class="p">,</span>
+    <span class="ss">:phoenix_flash</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+      <span class="s2">"info"</span> <span class="o">=&gt;</span> <span class="s2">"A two-factor authentication code has been sent to your email!"</span>
+    <span class="p">},</span>
+    <span class="ss">:phoenix_format</span> <span class="o">=&gt;</span> <span class="s2">"html"</span><span class="p">,</span>
+    <span class="ss">:phoenix_layout</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="no">TwoFactorAuthWeb</span><span class="o">.</span><span class="no">LayoutView</span><span class="p">,</span> <span class="ss">:app</span><span class="p">},</span>
+    <span class="ss">:phoenix_pipelines</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:browser</span><span class="p">],</span>
+    <span class="ss">:phoenix_router</span> <span class="o">=&gt;</span> <span class="no">TwoFactorAuthWeb</span><span class="o">.</span><span class="no">Router</span><span class="p">,</span>
+    <span class="ss">:phoenix_view</span> <span class="o">=&gt;</span> <span class="no">TwoFactorAuthWeb</span><span class="o">.</span><span class="no">TwoFactorAuthView</span><span class="p">,</span>
+    <span class="ss">:plug_session</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+      <span class="s2">"_csrf_token"</span> <span class="o">=&gt;</span> <span class="s2">"MXbH2CPKOEs5iMltrA38ZQ=="</span><span class="p">,</span>
+      <span class="s2">"guardian_default_token"</span> <span class="o">=&gt;</span> <span class="s2">"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0d29fZmFjdG9yX2F1dGgiLCJleHAiOjE1NTExMzE1NDMsImlhdCI6MTU0ODcxMjM0MywiaXNzIjoidHdvX2ZhY3Rvcl9hdXRoIiwianRpIjoiYmMyMzUyZDktODk1Yi00N2ZiLTkzMWItNWNlY2I2OTcwMjMzIiwibmJmIjoxNTQ4NzEyMzQyLCJzdWIiOiIxIiwidHlwIjoiYWNjZXNzIn0.5rFnDhFhB28LxksKqt_sc0ZfgYv-QbuTX5PLFKJkgi7J4NzxKt5N-PphQT2Z39uMWbp3V2p22Fz1Yz3pqisfWw"</span><span class="p">,</span>
+      <span class="s2">"phoenix_flash"</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+        <span class="s2">"info"</span> <span class="o">=&gt;</span> <span class="s2">"A two-factor authentication code has been sent to your email!"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here we’re putting on the secret sauce during the first step of authentication and then sending the user along to the next stop:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### lib/two_factor_auth_web/controllers/session_controller.ex ###</span>
+
+<span class="n">conn</span>
+<span class="o">|&gt;</span> <span class="n">put_session</span><span class="p">(</span><span class="s2">"user_secret"</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"token"</span> <span class="o">=&gt;</span> <span class="n">token</span><span class="p">,</span> <span class="s2">"user_id"</span> <span class="o">=&gt;</span> <span class="n">user_id</span><span class="p">})</span>
+<span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"A heckin' 2fa code has been sent to you! Isn't that cool?"</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">302</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="n">two_factor_auth_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="nv">@new</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Take a look at this! Our <code class="highlighter-rouge">"user_secret"</code> is now nested comfortable in <code class="highlighter-rouge">:plug_session</code>:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">%</span><span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span><span class="p">{</span>
+  <span class="ss">private:</span> <span class="p">%{</span>
+    <span class="ss">:plug_session</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+      <span class="s2">"_csrf_token"</span> <span class="o">=&gt;</span> <span class="s2">"MXbH2CPKOEs5iMltrA38ZQ=="</span><span class="p">,</span>
+      <span class="s2">"guardian_default_token"</span> <span class="o">=&gt;</span> <span class="s2">"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0d29fZmFjdG9yX2F1dGgiLCJleHAiOjE1NTExMzE1NDMsImlhdCI6MTU0ODcxMjM0MywiaXNzIjoidHdvX2ZhY3Rvcl9hdXRoIiwianRpIjoiYmMyMzUyZDktODk1Yi00N2ZiLTkzMWItNWNlY2I2OTcwMjMzIiwibmJmIjoxNTQ4NzEyMzQyLCJzdWIiOiIxIiwidHlwIjoiYWNjZXNzIn0.5rFnDhFhB28LxksKqt_sc0ZfgYv-QbuTX5PLFKJkgi7J4NzxKt5N-PphQT2Z39uMWbp3V2p22Fz1Yz3pqisfWw"</span><span class="p">,</span>
+      <span class="s2">"phoenix_flash"</span> <span class="o">=&gt;</span> <span class="p">%{</span>
+        <span class="s2">"info"</span> <span class="o">=&gt;</span> <span class="s2">"A two-factor authentication code has been sent to your email!"</span>
+      <span class="p">},</span>
+      <span class="s2">"user_secret"</span> <span class="o">=&gt;</span> <span class="p">%{</span><span class="s2">"token"</span> <span class="o">=&gt;</span> <span class="s2">"some_token"</span><span class="p">,</span> <span class="s2">"user_id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>When get’s redirected to our new path, that’s when we’ll implement <code class="highlighter-rouge">get_session/2</code> to fetch our secret and check to see if we can even let them in and if we can, authenticate their one time password.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### from Plug.Conn (conn.ex) ###</span>
+
+<span class="k">def</span> <span class="n">get_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_atom</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">conn</span> <span class="o">|&gt;</span> <span class="n">get_session</span> <span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">session_key</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">get_session</span><span class="p">(%</span><span class="no">Conn</span><span class="p">{</span><span class="ss">private:</span> <span class="n">private</span><span class="p">})</span> <span class="k">do</span>
+  <span class="k">if</span> <span class="n">session</span> <span class="o">=</span> <span class="no">Map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">private</span><span class="p">,</span> <span class="ss">:plug_session</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">session</span>
+  <span class="k">else</span>
+    <span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">,</span> <span class="s2">"session not fetched, call fetch_session/2"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">session_key</span><span class="p">(</span><span class="n">binary</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">binary</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">binary</span>
+<span class="k">defp</span> <span class="n">session_key</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_atom</span><span class="p">(</span><span class="n">atom</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Atom</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>After we retrieve our <code class="highlighter-rouge">"user_secret"</code>, we want to drop it from the session. Our one time password can only be used… well once. But, for an added measure of security we want to make sure that token doesn’t exist anymore. This is where <code class="highlighter-rouge">delete_session/2</code> comes in, which works like a specialized version of <code class="highlighter-rouge">Map.delete/2</code>, but for the <code class="highlighter-rouge">:private</code> stuff on our <code class="highlighter-rouge">conn</code>.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">delete_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_atom</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">put_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="o">&amp;</span><span class="no">Map</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">,</span> <span class="n">session_key</span><span class="p">(</span><span class="n">key</span><span class="p">)))</span>
+<span class="k">end</span>
+
+<span class="k">defp</span> <span class="n">put_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">fun</span><span class="p">)</span> <span class="k">do</span>
+<span class="n">private</span> <span class="o">=</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">private</span>
+<span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="ss">:plug_session</span><span class="p">,</span> <span class="n">fun</span><span class="o">.</span><span class="p">(</span><span class="n">get_session</span><span class="p">(</span><span class="n">conn</span><span class="p">)))</span>
+<span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">put_new</span><span class="p">(</span><span class="ss">:plug_session_info</span><span class="p">,</span> <span class="ss">:write</span><span class="p">)</span>
+
+<span class="p">%{</span><span class="n">conn</span> <span class="o">|</span> <span class="ss">private:</span> <span class="n">private</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>So now we have all the ingredients, assuming that the user has access to their email, for two successful pieces of evidence to finally sign them in to the system. That’s where the create path from the <code class="highlighter-rouge">TwoFactorAuthController</code> comes in:</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"one_time_pass"</span> <span class="o">=&gt;</span> <span class="n">one_time_pass</span><span class="p">})</span> <span class="k">do</span>
+  <span class="c1"># to verify the one_time_pass we need the token off of the conn, which lives in the :private map</span>
+  <span class="c1"># (specifically under :plug_session)</span>
+  <span class="c1"># we also need the user_id to know who we're signing in</span>
+  <span class="p">%{</span><span class="s2">"token"</span> <span class="o">=&gt;</span> <span class="n">token</span><span class="p">,</span> <span class="s2">"user_id"</span> <span class="o">=&gt;</span> <span class="n">user_id</span><span class="p">}</span> <span class="o">=</span> <span class="n">get_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">"user_secret"</span><span class="p">)</span>
+  <span class="n">user</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">get_user!</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+
+  <span class="k">case</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">valid_one_time_pass?</span><span class="p">(</span><span class="n">one_time_pass</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">true</span> <span class="o">-&gt;</span>
+      <span class="n">conn</span>
+      <span class="o">|&gt;</span> <span class="n">delete_session</span><span class="p">(</span><span class="s2">"user_secret"</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="no">Guardian</span><span class="o">.</span><span class="no">Plug</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"Login successful!"</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">302</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="n">page_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:index</span><span class="p">))</span>
+
+    <span class="no">false</span> <span class="o">-&gt;</span>
+      <span class="n">conn</span>
+      <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"The authentication code you entered was invalid!"</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">render</span><span class="p">(</span><span class="s2">"two_factor_auth.html"</span><span class="p">,</span> <span class="ss">action:</span> <span class="n">two_factor_auth_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:create</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="the-cherry-on-top">The cherry on top</h2>
+
+<p>So what if our user doesn’t recieve the email? Maybe some shark was nibbling on some transatlantic communications cable and something went wrong? Well, we could give our user the option to resend their email. We’d just need a new route and some extra goodies in the controller to generate another one time password and token.</p>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### liv/two_factor_auth_web/router.ex ###</span>
+
+<span class="n">post</span><span class="p">(</span><span class="s2">"/sessions/new/two_factor_auth/resend_email"</span><span class="p">,</span> <span class="no">TwoFactorAuthController</span><span class="p">,</span> <span class="ss">:resend_email</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### lib/two_factor_auth_web/controllers/two_factor_auth_controller.ex ###</span>
+
+<span class="k">def</span> <span class="n">resend_email</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">%{</span><span class="s2">"token"</span> <span class="o">=&gt;</span> <span class="n">_old_token</span><span class="p">,</span> <span class="s2">"user_id"</span> <span class="o">=&gt;</span> <span class="n">user_id</span><span class="p">}</span> <span class="o">=</span> <span class="n">get_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">"user_secret"</span><span class="p">)</span>
+  <span class="n">user</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">get_user!</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+
+  <span class="p">{</span><span class="n">new_token</span><span class="p">,</span> <span class="n">one_time_pass</span><span class="p">}</span> <span class="o">=</span> <span class="no">Acconts</span><span class="o">.</span><span class="n">generate_one_time_pass</span><span class="p">()</span>
+  <span class="no">Mailer</span><span class="o">.</span><span class="n">deliver_2fa_email</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">one_time_pass</span><span class="p">)</span>
+
+  <span class="n">conn</span>
+  <span class="o">|&gt;</span> <span class="n">put_session</span><span class="p">(</span><span class="s2">"user_secret"</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"token"</span> <span class="o">=&gt;</span> <span class="n">new_token</span><span class="p">,</span> <span class="s2">"user_id"</span> <span class="o">=&gt;</span> <span class="n">user_id</span><span class="p">})</span>
+  <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"A new two-factor authentication code was sent to your email!"</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="n">render</span><span class="p">(</span><span class="s2">"two_factor_auth.html"</span><span class="p">,</span> <span class="ss">action:</span> <span class="n">two_factor_auth_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:create</span><span class="p">))</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="so-long">So long</h2>
+
+<p>As more and more services are moving away from email-based two-factor auth, is this solution useful? Sure it is! We (I) learned a lot by doing this. Mainly, I learned to read all the way through the docs when reading about a particular module *cough* <code class="highlighter-rouge">Plug.Conn</code> *cough*. Am I going to remember this lesson learned? Probably not. But that’s besides the point. The information I’ve presented to you, the wonderful reader, could come in handy with loads of other stuff.</p>
+
+<p>Next time you’re trying to pass weird and not-so-secure things from controller to controller, think back on this and ask yourself: is there a better way? Probably.</p>
+
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      <a class="tag" href="/blog/categories/development/index.html">Development</a>
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      
+      
+      
+
+      
+        
+        
+
+        
+          <a href="/blog/refactoring-patterns-in-elixir-replace-conditional-with-polymorphism-via-protocols-part-2" class="card card--feature">
+            <div class="card__content">
+              <h3>Refactoring Patterns in Elixir: Replace Conditional with Polymorphism Via Protocols Part 2</h3>
+              <h4>Zack Kayser</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/outsourcing-custom-development-for-fast-paced-companies" class="card card--feature">
+            <div class="card__content">
+              <h3>Outsourcing Custom Development for Fast-Paced Companies </h3>
+              <h4>Peter Kananen</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/oh-to-be-a-domain-expert-if-only-we-knew-what-you-know" class="card card--feature">
+            <div class="card__content">
+              <h3>Oh, to be a Domain Expert … if we only knew what you knew.</h3>
+              <h4>Kati Best</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/gaslight-your-partner-in-growth" class="card card--feature">
+            <div class="card__content">
+              <h3>Gaslight, Your Partner in Growth</h3>
+              <h4>Steve Hennegan</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+            
+    </div>
+  </section>
+</article>
+
+
+<section class="section--light flush">
+  <div class="cta">
+    <img src="/assets/img/color-shapes-one.svg" class="cta__confetti" />
+    <div class="cta__container">
+      <div>
+        
+<h3> Like what you're seeing? Let's keep in touch. </h3> <a href="/newsletter" class="btn btn--cta"> Subscribe to Our Newsletter </a>
+
+      </div>
+    </div>
+    <img src="/assets/img/color-shapes-two.svg" class="cta__confetti" />
+  </div>
+</section>
+
+
+    </main>
+
+    
+<footer>
+  <div class="footer__container">
+    <div class="footer__menu">
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
+        <li><a class="inverse" href="/careers">Careers</a></li>
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
+        
+          <li><a class="inverse" href="/what-we-do">Apprenticeship</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Code Check Up</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Custom Software Development</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Design Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Discovery Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Fast Forward Build</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
+        
+        <li><a class="inverse" href="/work/e_beam">E-Beam Services, Inc.</a></li>
+        
+        <li><a class="inverse" href="/work/mike-albert-fleet-solutions">Mike Albert Fleet Solutions</a></li>
+        
+        <li><a class="inverse" href="/work/omega">OMEGA</a></li>
+        
+        <li><a class="inverse" href="/work/poa">POA</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
+        
+          <li><a href="/blog/categories/business/index.html" class="inverse">Business</a></li>
+        
+          <li><a href="/blog/categories/design/index.html" class="inverse">Design</a></li>
+        
+          <li><a href="/blog/categories/development/index.html" class="inverse">Development</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
+        <li><a class="inverse" href="/events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer__credentials">
+      <a href="/" class="footer__logo"></a>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/rhythmdogsports/" target="_blank" class="social__link instagram">
+  <svg viewBox="0 0 50 50">
+    <path d="M16 3C8.83 3 3 8.83 3 16v18c0 7.17 5.83 13 13 13h18c7.17 0 13-5.83 13-13V16c0-7.17-5.83-13-13-13H16zm21 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-12 3c6.07 0 11 4.93 11 11s-4.93 11-11 11-11-4.93-11-11 4.93-11 11-11zm0 2c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z"/>
+  </svg>
+</a>
+<!-- <a href="http://twitter.com/teamgaslight" target="_blank" class="social__link twitter">
+  <svg viewBox="0 0 50 50">
+    <path d="M50.06 10.44c-1.85.82-3.83 1.37-5.91 1.62 2.12-1.27 3.76-3.29 4.52-5.69a20.473 20.473 0 0 1-6.53 2.49c-1.88-2-4.55-3.25-7.5-3.25-5.68 0-10.29 4.6-10.29 10.28 0 .8.09 1.59.27 2.34C16.08 17.81 8.5 13.72 3.43 7.5c-.89 1.52-1.39 3.29-1.39 5.17 0 3.57 1.81 6.71 4.57 8.56-1.69-.05-3.27-.52-4.66-1.29v.13c0 4.98 3.55 9.14 8.25 10.09-.86.23-1.77.36-2.71.36-.66 0-1.31-.06-1.94-.19 1.31 4.08 5.11 7.06 9.61 7.14-3.52 2.76-7.95 4.4-12.77 4.4-.83 0-1.65-.05-2.45-.14 4.55 2.92 9.95 4.62 15.76 4.62 18.91 0 29.26-15.67 29.26-29.25 0-.45-.01-.89-.03-1.33 2.01-1.46 3.75-3.27 5.13-5.33z"/>
+  </svg>
+</a> -->
+<a href="http://facebook.com/rhythmdogsports" target="_blank" class="social__link facebook">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zm-4 15h-2c-2.14 0-3 .5-3 2v3h5l-1 5h-4v15h-5V29h-4v-5h4v-3c0-4 2-7 6-7 2.9 0 4 1 4 1v4z"/>
+  </svg>
+</a>
+<!-- <a href="http://github.com/gaslight" target="_blank" class="social__link github">
+  <svg viewBox="0 0 50 50">
+    <path d="M33 29c-1.8 0-3 1.52-3 4s.89 5.05 3 5c2.22-.05 3.02-2.22 3-5-.02-2.48-1.21-4-3-4zm11.26-11.93c.27-1.34.39-6.1-1.58-11.07 0 0-4.53.5-11.38 5.2-1.43-.4-3.87-.6-6.3-.6s-4.86.2-6.3.59C11.85 6.5 7.32 6 7.32 6c-1.98 4.96-1.88 9.61-1.59 11.07C3.42 19.59 2 22.61 2 26.74 2 44.71 16.91 45 20.67 45h8.66C33.09 45 48 44.71 48 26.74c0-4.13-1.42-7.15-3.74-9.67zM25.14 43H25c-9.43 0-16.84-1.34-16.84-10.5 0-2.2.78-4.23 2.62-5.92 3.07-2.82 8.26-1.33 14.16-1.33h.14c5.89 0 11.09-1.49 14.16 1.33 1.84 1.69 2.61 3.73 2.61 5.92-.01 9.16-7.28 10.5-16.71 10.5zM17 29c-1.79 0-3 2.02-3 4.5s1.21 4.5 3 4.5c1.8 0 3-2.02 3-4.5S18.8 29 17 29z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.youtube.com/channel/UCC36CM_uLqhoKEqSy2mjqFQ" target="_blank" class="social__link youtube">
+  <svg viewBox="0 0 50 50">
+    <path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9zm6 4h2.4l1.6 4 1.6-4H23l-3 7v4h-2v-4.01c-.6-1.61-2.59-5.98-3-6.99zm10 3c.89 0 1.77.27 2.33.95.43.49.67 1.28.67 2.32v1.46c0 1.04-.2 1.76-.62 2.25-.56.67-1.49 1.02-2.38 1.02s-1.8-.35-2.36-1.02c-.43-.49-.64-1.21-.64-2.25v-1.45c0-1.04.23-1.84.67-2.33.56-.68 1.32-.95 2.33-.95zm4 0h2v6c.05.27.34.39.61.39.41 0 .93-.48 1.39-1.01V11h2v8h-2v-1.38c-.81.79-1.5 1.38-2.41 1.35-.66-.02-1.12-.26-1.35-.74-.14-.28-.24-.73-.24-1.39V11zm-4 1.62c-.14 0-.27.03-.39.08a1.016 1.016 0 0 0-.53.54c-.05.13-.08.26-.08.4v2.81a1.02 1.02 0 0 0 .61.94c.12.05.25.08.39.08s.27-.03.39-.08c.36-.16.61-.52.61-.94v-2.81c0-.56-.45-1.02-1-1.02zM24.99 22h.02s6.71 0 11.19.32c.63.07 1.99.08 3.21 1.33.96.94 1.27 3.1 1.27 3.1s.32 1.53.32 4.06v2.37c0 2.53-.32 4.06-.32 4.06s-.31 2.16-1.27 3.1c-1.22 1.25-2.58 1.26-3.21 1.33-4.48.32-11.2.33-11.2.33s-8.32-.08-10.88-.32c-.71-.13-2.31-.09-3.53-1.33-.96-.95-1.27-3.11-1.27-3.11S9 35.71 9 33.18v-2.37c0-2.53.32-4.06.32-4.06s.31-2.16 1.27-3.1c1.22-1.25 2.58-1.26 3.21-1.33C18.28 22 24.99 22 24.99 22zM12 26v1.98h2V38h2V27.98h2V26h-6zm13 0v12h2v-1.25c.63.78 1.45 1.25 2.12 1.25.75 0 1.41-.4 1.66-1.18.12-.42.21-.81.21-1.7v-2.75c0-.99-.13-1.73-.26-2.15-.24-.78-.85-1.22-1.61-1.22-.98-.01-1.38.5-2.12 1.38V26h-2zm-7 3v6.69c0 .72.1 1.21.23 1.52.22.51.67.79 1.31.79.73 0 1.67-.51 2.46-1.37V38h2v-9h-2v6.27c-.44.58-1.08 1.02-1.48 1.02-.26 0-.47-.11-.52-.4V29h-2zm17.03 0c-1.01 0-1.8.32-2.37.92-.42.44-.66 1.16-.66 2.1v3.07c0 .93.27 1.58.69 2.02.57.6 1.36.9 2.39.9s1.84-.31 2.39-.95c.24-.28.39-.6.46-.95.01-.17.07-.6.07-1.11h-2v.8c0 .46-.45.84-1 .84s-1-.38-1-.84V34h4v-2.03c0-.93-.23-1.62-.64-2.06-.56-.59-1.34-.91-2.33-.91zM35 30.45c.55 0 1 .38 1 .84v1.33h-2v-1.33c0-.47.45-.84 1-.84zm-6.78.3c.55 0 .78.33.78 1.38v2.75c0 1.04-.23 1.4-.78 1.4-.31 0-.9-.21-1.22-.53v-4.38c.32-.31.91-.62 1.22-.62z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.linkedin.com/company/gaslight" target="_blank" class="social__link linkedin">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM17 20v19h-6V20h6zm-6-5.53c0-1.4 1.2-2.47 3-2.47s2.93 1.07 3 2.47c0 1.4-1.12 2.53-3 2.53-1.8 0-3-1.13-3-2.53zM39 39h-6V29c0-2-1-4-3.5-4.04h-.08C27 24.96 26 27.02 26 29v10h-6V20h6v2.56S27.93 20 31.81 20c3.97 0 7.19 2.73 7.19 8.26V39z"/>
+  </svg>
+</a> -->
+
+      </div>
+      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/js/scale.fix.js"></script>
+    <script src="/assets/js/rellax.min.js"></script>
+    <script>
+    var rellax = new Rellax('.float', {
+      speed: -2,
+      center: false,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    </script>
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/509988.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    
+  </body>
+</html>

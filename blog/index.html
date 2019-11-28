@@ -7,9 +7,9 @@ pagination:
 ---
 
 <section class="section--light">
-  <h1 class="u-center--xs u-push-bottom--sm">Gaslight Blog</h1>
+  <h1 class="u-center--xs u-push-bottom--sm">Blog</h1>
   {% capture blog-intro %}{% include  /snipets/blog-intro.md %}{% endcapture %}
-  {% include image-pane.html image-url="../../assets/img/rocket-cho.jpg" pane-align="left" pane-copy=blog-intro %}
+  {% include image-pane.html image-url="../../assets/img/agility-7.jpg" pane-align="left" pane-copy=blog-intro %}
   {% include blog-filters.html %}
 </section>
 
@@ -43,7 +43,3 @@ pagination:
     {% endif %}
     </div>
 </section>
-
-
-{% capture cta-copy %}{% include  /cta/cta-newsletter.md %}{% endcapture %}
-{% include call-to-action.html cta-copy=cta-copy %}

@@ -7,93 +7,55 @@ permalink: /what-we-do/
 <h1 class="u-center--xs">What We Do </h1>
 </section>
 {% capture what-we-do-intro %}{% include /snipets/what-we-do-intro.md %}{% endcapture %}
-{% include image-pane-splash.html image-url="/assets/img/gaslight-4.jpg" pane-align="center"
-copy=what-we-do-intro desktop-confetti="/assets/img/color-shapes-two.svg" mobile-confetti="/assets/img/color-shapes-four.svg" color="light" %}
+{% include image-pane-splash.html image-url="/assets/img/agility-1.jpg" pane-align="left"
+copy=what-we-do-intro color="light" %}
 
 
-<section class="section--dark section--dark-texture">
+<section class="section--light">
   <div class="u-contained--wide  u-push--auto">
     <h2>Our Approach</h2>
     <div class="grid grid--3">
       <div class="grid__child grid__child--span-2">
         <p>
-        We whole-heartedly believe that we are better together—so much so that we made it one of our core values. That's why when we work for you, you work with us. We pride ourselves on forming partnerships with our clients. Not in some legal-beagle kind of way, though we guess we'd be open to that, too; but a true partnership where we are working together toward a common goal—to build the best solution for your users.
+          I started teach to help myself to better understand the behaviors of both the handler and the dogs. I felt that if I were able to help others that it too would help my handling and performance. The longer that I taught the better that is made me as a person. There are so many wonderful people in this sport with so much to offer. I continue to learn from each person I come in contact with and still 20+ years later enjoy the sport in general.
         </p>
         <p>
-        We prioritize open communication and active involvement from our clients—that's right, you're on this team, too! That's because we know software, you know your business, and our goal is to align the two in perfect harmony. That starts with a daily touchpoint, continues with tight feedback loops, and comes full circle with feature acceptance by—you guessed it—you!
+          One of the amazing moments that I think I enjoy most when teaching a handler and dog combo is to watch the "light bulb" moments with each of them when things really start to work the way they think it should work. A moment can be when the handler has the trust of the training while in the ring and sends the dog in one direction and heads to in another direction. You really have to watch the first time but it is magical to see the expression on the handlers face that it worked and they now trust the training they have worked so hard with their dog. So many of these moments really makes this sport so much fun to run and to watch.
         </p>
       </div>
-
-      <ul class="u-text-xlg  list--confetti">
-      <li>Discover</li>
-      <li>Build</li>
-      <li>Validate</li>
-      <li>Repeat</li>
-      </ul>
+        {% include split-pane.html image-url="../assets/img/agility-1.jpg" pane-align="right" %}
     </div>
   </div>
 </section>
 
-<section class="section--light">
-  <h2 class="u-center--xs  u-push-bottom  u-contained  u-push--auto">Our Custom Services</h2>
-  <p class="u-contained  u-push--auto">
-  No matter where you are in the product lifecycle—ideation, validation, discovery, execution, or just need some more man power to bring it home—we're here to help. Let us step into the process with you, we're excited to see what we can do together.
-  </p>
-
-  <div class="service__container">
-    <input type="radio" id="discovery" name="services" />
-    <label class="service__category" for="discovery">
-      <h4 class="u-text-right"><span>Discovery</span></h4>
-    </label>
-
-    <div class="service__list service__list--discovery">
-    {% for service in site.service %}
-    {% if service.category == "discovery" %}
-    <div>
-    <img src="{{ service.image_path }}">
-    <h3>{{ service.title }}</h3>
-    <p>{{ service.short_description }}</p>
-    </div>
-    {% endif %}
-    {% endfor %}
-    </div>
-
-
-    <input type="radio" id="delivery" name="services" checked />
-    <label class="service__category" for="delivery">
-      <h4><span>Delivery</span></h4>
-    </label>
-
-    <div class="service__list service__list--delivery">
-    {% for service in site.service %}
-    {% if service.category == "delivery" %}
-    <div>
-    <img src="{{ service.image_path }}">
-    <h3>{{ service.title }}</h3>
-    <p>{{ service.short_description }}</p>
-    </div>
-    {% endif %}
-    {% endfor %}
-    </div>
-
-
-    <input type="radio" id="team-augmentation" name="services" />
-    <label class="service__category" for="team-augmentation">
-      <h4 class="u-text-left"><span>Growth</span></h4>
-    </label>
-    <div class="service__list  service__list--team-augmentation">
-    {% for service in site.service %}
-    {% if service.category == "team-augmentation" %}
-    <div>
-    <img src="{{ service.image_path }}">
-    <h3>{{ service.title }}</h3>
-    <p>{{ service.short_description }}</p>
-    </div>
-    {% endif %}
-    {% endfor %}
+<section class="section--dark">
+  <div class="u-contained--wide  u-push--auto">
+    <h2>Classes</h2>
+    <div class="grid grid--3">
+      <div class="grid__child">
+        <h3>Foundation</h3>
+        <p>
+          Designed for puppies/dogs that are either new or beginners and have not started to compete. We will work many flat work drills and start to introduce the puppies/dogs to the different equipment.
+        </p>
+      </div>
+      <div class="grid__child">
+        <h3>Skills & Drills</h3>
+        <p>
+          Designed for dogs that are competing at any level. We will work on drills and course work that will add skills to your toll belt. We will work on how to read courses and control to setup your dog for the next sequence.
+        </p>
+      </div>
+      <div class="grid__child">
+        <h3>Private Lessons</h3>
+        <p>
+        If you would like to schedule a one on one session or need to work on a specific issue, private lessons are available. Please email Mark Anthony at rhythmdogsports@gmail.com for more information.
+        </p>
+      </div>
+      <a href="/who-we-are" class="btn">Download Form</a>
     </div>
   </div>
 </section>
+
+
 
 
 

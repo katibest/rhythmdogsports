@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>The Beauty Of Folds And Union Types In Elm | Rhythm Dog Sports</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="The Beauty Of Folds And Union Types In Elm" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Beauty of Folds and Union Types in Elm" />
+<meta property="og:description" content="The Beauty of Folds and Union Types in Elm" />
+<link rel="canonical" href="http://localhost:4000/blog/the-beauty-of-folds-and-union-types-in-elm" />
+<meta property="og:url" content="http://localhost:4000/blog/the-beauty-of-folds-and-union-types-in-elm" />
+<meta property="og:site_name" content="Rhythm Dog Sports" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-02T00:00:00-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/the-beauty-of-folds-and-union-types-in-elm","headline":"The Beauty Of Folds And Union Types In Elm","dateModified":"2019-07-02T00:00:00-04:00","datePublished":"2019-07-02T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/the-beauty-of-folds-and-union-types-in-elm"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"}},"description":"The Beauty of Folds and Union Types in Elm","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="https://use.typekit.net/vnr4ouz.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+  </head>
+  <body>
+    <nav>
+  <a class="nav__logo" href="/"></a>
+  <input type="checkbox" id="nav__toggle">
+  <label class="nav__toggle" for="nav__toggle"></label>
+  <div class="nav__list">
+    <div class="nav__link ">
+      <a href="/who-we-are">About Us</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/what-we-do">Agility</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/events">Events</a>
+    </div>
+    <div class="nav__link   current ">
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/connect">Connect with Us</a>
+    </div>
+    <!-- <div class="nav__link nav__cta">
+      <a href="/start-a-project" class="btn btn--cta btn--sm">Start a Project</a>
+    </div> -->
+  </div>
+</nav>
+
+
+    <main>
+      <article class="post">
+  <section class="section--light">
+    
+
+    
+
+    
+
+    
+
+    
+      <div class="post__header  u-contained">
+        <div class="post__title">
+          <div class="post__date u-push-bottom--none">6 April 2018</div>
+          <h2>The Beauty of Folds and Union Types in Elm</h2>
+          
+            <div class="post__author">
+              
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        <img src="/assets/img/team/zack-kayser.jpg" alt="Zack Kayser" />
+        
+      
+    
+              <p class="u-push-bottom--none">
+                by 
+      Zack Kayser
+    
+              </p>
+            </div>
+          
+        </div>
+      </div>
+    
+  </section>
+
+  <section class="post__body">
+    <div>
+    <h1 id="the-beauty-of-folds-and-union-types-in-elm">The Beauty of Folds and Union Types in Elm</h1>
+
+<h3 id="the-problem">The Problem</h3>
+
+<p>After finishing up a side project in Elm about a month ago, I decided that I enjoyed the language so much that I might as well start work on a whole new side project. At the time I started the project, I had a couple weeks before I was scheduled to give an introductory talk on Elm at the Cincinnati JavaScript meetup (which you can watch <a href="https://www.youtube.com/watch?v=emGIAWeFVUU&amp;t=11s">here</a>), and I wanted to have a smaller, relatively straightforward Elm app to show off as an example I could point to during my talk. The app is a Scrabble-esque word game that follows along with the rules of Scrabble pretty closely, except that players do not share a board (I have more features planned… stay tuned for those!)</p>
+
+<p>A word game where players are simply laying tiles on a board seemed like a relatively well-defined domain, and I didn’t anticipate running into any super scary problems. After getting a drag and drop implementation up and running smoothly in just an hour or so of work on the first day, I did, however, run into a challenge on the second day: How do you validate whether or not a turn taken by a player is valid?</p>
+
+<p>Let’s set up the problem in a little more detail. I chose to represent my board, or <code class="highlighter-rouge">Grid</code>, as a simple list of 225 <code class="highlighter-rouge">Cell</code>s. I did not do anything fancy like break the board down into a two-dimensional list or array – it is simply a single list of 225 elements (15 x 15). A <code class="highlighter-rouge">Cell</code> is a record that carries with it data including a <code class="highlighter-rouge">Position</code> (x, y) and whether or not a <code class="highlighter-rouge">Tile</code> has been placed on the given cell. My model also contains a <code class="highlighter-rouge">Context</code> record that stores the state of the board, a list of the moves made by the player in his or her current turn, and the player’s remaining unplayed tiles. Here are the data structures in question for reference:</p>
+
+<div class="language-elm highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">type</span> <span class="k">alias</span> <span class="kt">Grid</span> <span class="o">=</span>
+
+    <span class="kt">List</span> <span class="kt">Cell</span>
+
+
+
+<span class="k">type</span> <span class="k">alias</span> <span class="kt">Cell</span> <span class="o">=</span>
+
+    <span class="p">{</span> <span class="n">position</span> <span class="p">:</span> <span class="kt">Position</span>
+
+    <span class="o">,</span> <span class="n">multiplier</span> <span class="p">:</span> <span class="kt">Multiplier</span>
+
+    <span class="o">,</span> <span class="n">tile</span> <span class="p">:</span> <span class="kt">Maybe</span> <span class="kt">Tile</span>
+
+    <span class="o">,</span> <span class="n">isCenter</span> <span class="p">:</span> <span class="kt">Bool</span>
+
+    <span class="p">}</span>
+
+
+
+<span class="k">type</span> <span class="k">alias</span> <span class="kt">Position</span> <span class="o">=</span>
+
+    <span class="p">(</span> <span class="kt">Int</span><span class="o">,</span> <span class="kt">Int</span> <span class="p">)</span>
+
+
+
+<span class="k">type</span> <span class="k">alias</span> <span class="kt">Tile</span> <span class="o">=</span>
+
+    <span class="p">{</span> <span class="n">letter</span> <span class="p">:</span> <span class="kt">String</span>
+
+    <span class="o">,</span> <span class="n">id</span> <span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="o">,</span> <span class="n">value</span> <span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="o">,</span> <span class="n">multiplier</span> <span class="p">:</span> <span class="kt">Multiplier</span>
+
+    <span class="p">}</span>
+
+
+
+<span class="k">type</span> <span class="k">alias</span> <span class="kt">Move</span> <span class="o">=</span>
+
+    <span class="p">{</span> <span class="n">tile</span> <span class="p">:</span> <span class="kt">Tile</span>
+
+    <span class="o">,</span> <span class="n">position</span> <span class="p">:</span> <span class="kt">Position</span>
+
+    <span class="p">}</span>
+
+
+
+<span class="k">type</span> <span class="k">alias</span> <span class="kt">Context</span> <span class="o">=</span>
+
+    <span class="p">{</span> <span class="n">grid</span> <span class="p">:</span> <span class="kt">Grid</span>
+
+    <span class="o">,</span> <span class="n">movesMade</span> <span class="p">:</span> <span class="kt">List</span> <span class="kt">Move</span>
+
+    <span class="o">,</span> <span class="n">tiles</span> <span class="p">:</span> <span class="kt">List</span> <span class="kt">Tile</span>
+
+    <span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Okay, so the problem arises when we need to check that the tiles placed on the board by a player are placed in sequence along a single row or column. For example, you cannot place a tile in the upper right cell and one on the bottom left in a single turn. You also cannot place one tile in the upper right and one in the bottom right unless you also placed tiles on all the cells in between (or unless there were already tiles on the cells in between from previous turns). How do we check if a turn is valid given the simple list data structure that we’re using and the data that we have access to?</p>
+
+<p>Contrary to more mainstream imperative languages, the <code class="highlighter-rouge">List</code> data structure in Elm does not have a straightforward way like <code class="highlighter-rouge">grid[index]</code> to access an element at a given index like you might do with an array in JavaScript. (Sidenote: Elm actually does have an <code class="highlighter-rouge">Array</code> data type with a <code class="highlighter-rouge">get</code> function to access a given index. I would have reached for this instead of <code class="highlighter-rouge">List</code> if I felt I really needed it, but I’m pretty satisfied with the solution I came up with). Not having immediate access to an element at a given index in the collection makes it challenging to move back and forth by doing something like <code class="highlighter-rouge">grid[index - 1]</code> or <code class="highlighter-rouge">grid[index + 1]</code>, so the solution isn’t as trivial as starting out by fetching the element at some index where we know the player placed a tile and navigating back and forth until we see all the tiles played in the current turn, verifying that all the tiles were connected by other tiles with no blank spaces in between. Phew… okay, so admittedly, that probably would not be a trivial solution, but the point is, that is clearly not the way to go given the way <code class="highlighter-rouge">List</code> works in Elm!</p>
+
+<h2 id="solution-part-1-the-easy-stuff">Solution Part 1: The Easy Stuff</h2>
+
+<p>Let’s begin with the easy part of the solution before we move into the meaty part of the Elm code. We need to start off by verifying that all of the tiles placed by a player were put either in a single row or a single column. To get this, we can take the list of <code class="highlighter-rouge">Move</code>s made by the player in the current turn from the <code class="highlighter-rouge">Context</code> record and map over them, pulling out their <code class="highlighter-rouge">Position</code>s as we go. This will return us a <code class="highlighter-rouge">List Position</code> – a list of positions where the user placed tiles. Here it is in Elm:</p>
+
+<div class="language-elm highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kt">List</span><span class="o">.</span><span class="n">map</span> <span class="o">.</span><span class="n">position</span> <span class="n">context</span><span class="o">.</span><span class="n">movesMade</span>
+
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">map</code> is one of the three quintessential tools used all the time by functional programmers (along with <code class="highlighter-rouge">filter</code> and <code class="highlighter-rouge">reduce/fold</code>). If you are entirely unfamiliar with FP, <code class="highlighter-rouge">map</code> in general (not just in Elm) takes a function and a container of things, and applies the function to each element inside of the container. The return value is the container with the new values based on the results of the function passed in.</p>
+
+<p>In the code above, we are using some Elm syntactic magic to shorten things up a bit. The more complete form of the above code would look like: <code class="highlighter-rouge">List.map (\move -&gt; move.position) context.movesMade</code>. Since <code class="highlighter-rouge">context.movesMade</code> contains <code class="highlighter-rouge">Move</code> records and <code class="highlighter-rouge">Move</code> records contain a <code class="highlighter-rouge">position</code> key, Elm lets us just call <code class="highlighter-rouge">.position</code> as the function to call on the elements we are mapping over in our “container” (list).</p>
+
+<p>So now that we have a list of positions, how do we know if those positions were all along the same row or column? Also, what do we need to return to indicate what the result we got was?</p>
+
+<p>To answer these questions, let’s create a new Union Type (more about Union Types below) that represents the validity of our results. Let’s call it <code class="highlighter-rouge">Dimension</code> and define it to take one of three possible values:</p>
+
+<div class="language-elm highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">type</span> <span class="kt">Dimension</span>
+
+<span class="o">=</span> <span class="kt">Invalid</span>
+
+<span class="o">|</span> <span class="kt">Row</span> <span class="kt">Int</span>
+
+<span class="o">|</span> <span class="kt">Column</span> <span class="kt">Int</span>
+
+</code></pre></div></div>
+
+<p>Cool. Now we have a data type that can accurately and concisely represent the information we need to know after running this validation. The <code class="highlighter-rouge">Int</code> values contained by <code class="highlighter-rouge">Row</code> and <code class="highlighter-rouge">Column</code> represent the number of the row or column marked as valid. We will use this result later.</p>
+
+<p>What we can do now is take the result of our <code class="highlighter-rouge">List.map</code> function from above and place it in a case statement as shown below:</p>
+
+<div class="language-elm highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">case</span> <span class="kt">List</span><span class="o">.</span><span class="n">map</span> <span class="o">.</span><span class="n">position</span> <span class="n">context</span><span class="o">.</span><span class="n">movesMade</span> <span class="k">of</span>
+
+<span class="p">[]</span> <span class="o">-&gt;</span>
+
+<span class="kt">Invalid</span>
+
+
+
+<span class="p">(</span><span class="n">row</span><span class="o">,</span> <span class="n">column</span><span class="p">)</span> <span class="o">::</span> <span class="n">tail</span> <span class="o">-&gt;</span>
+
+<span class="k">if</span> <span class="kt">List</span><span class="o">.</span><span class="n">all</span> <span class="p">(</span><span class="o">\</span><span class="p">(</span><span class="n">r</span><span class="o">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">r</span> <span class="o">==</span> <span class="n">row</span><span class="p">)</span> <span class="n">tail</span> <span class="k">then</span>
+
+<span class="kt">Row</span> <span class="n">row</span>
+
+<span class="k">else</span> <span class="k">if</span> <span class="kt">List</span><span class="o">.</span><span class="n">all</span> <span class="p">(</span><span class="o">\</span><span class="p">(</span><span class="n">_</span><span class="o">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">c</span> <span class="o">==</span> <span class="n">column</span><span class="p">)</span> <span class="n">tail</span> <span class="k">then</span>
+
+<span class="kt">Column</span> <span class="n">column</span>
+
+<span class="k">else</span>
+
+<span class="kt">Invalid</span>
+
+
+
+</code></pre></div></div>
+
+<p>The first case we are matching on above is pretty straightforward: if the player didn’t make any moves yet, there are obviously no moves to submit, so it is <code class="highlighter-rouge">Invalid</code>. The second match is a bit more dense. The case statement pattern matches on the list, taking the head (the first value in the list) and pattern matching on the head to give us <code class="highlighter-rouge">row</code> and <code class="highlighter-rouge">column</code> variables. These variables will be in scope for us inside the body of this branch. The <code class="highlighter-rouge">:: tail</code> part of this pattern match is how you destructure a list in Elm: (<code class="highlighter-rouge">head :: tail</code>) where <code class="highlighter-rouge">head</code> is the first element of the list and <code class="highlighter-rouge">tail</code> is everything else.</p>
+
+<p>Inside this branch, we are using the <code class="highlighter-rouge">List.all</code> function and capitalizing on pattern matching some more. <code class="highlighter-rouge">List.all</code> takes a function which takes a list element and returns a boolean. The second parameter to <code class="highlighter-rouge">List.all</code> is a list of things to run the function against. It returns <code class="highlighter-rouge">True</code> if the given function evaluates to <code class="highlighter-rouge">True</code> for every element in the list. Inside of the admittedly obscure anonymous function <code class="highlighter-rouge">(\(r, _) -&gt; r == row)</code>, we are pattern matching on the <code class="highlighter-rouge">Position</code> elements coming in from the remainder (<code class="highlighter-rouge">tail</code>) of the list we mapped over earlier and we are taking only the row value. We check to see if the current row value <code class="highlighter-rouge">r</code> is equal to the <code class="highlighter-rouge">row</code> value we matched on in the list head on this branch of the case statement. If all elements return <code class="highlighter-rouge">True</code>, then we know that the player made all of his or her moves along a row, and we know which row that was as well. If this is not true, we then try the same thing for columns. If that fails, we know that something is amiss and we return <code class="highlighter-rouge">Invalid</code>. Note that if we only have one <code class="highlighter-rouge">Move</code> in the list, we are always going to get back <code class="highlighter-rouge">Row row</code> from this function. This may not be immediately obvious behavior, and we might to refine how this works later on.</p>
+
+<p>Alright, so given a <code class="highlighter-rouge">Dimension</code>, how do we get a finer-grained validation on a player’s moves for the current turn?</p>
+
+<h2 id="taking-a-step-back-foldreduce-the-functional-programmers-swiss-army-knife">Taking a Step Back: Fold/Reduce, the Functional Programmer’s Swiss Army Knife</h2>
+
+<p>Before we get into the nitty-gritty details, let’s take a step back and go over arguably the most important function in functional programming: <code class="highlighter-rouge">fold</code> (and its mostly identical twin <code class="highlighter-rouge">reduce</code>). I first became acquainted with <code class="highlighter-rouge">reduce</code> when I started doing Elixir a couple of years ago, and it really changed the way I look at programming when it clicked for me. Elm has two functions, <code class="highlighter-rouge">foldl</code> and <code class="highlighter-rouge">foldr</code> that essentially do the same thing as <code class="highlighter-rouge">reduce</code>. The <code class="highlighter-rouge">l</code> and <code class="highlighter-rouge">r</code> varieties denote which way the function runs through a collection – either starting from the left or the right, thus <code class="highlighter-rouge">l</code> and <code class="highlighter-rouge">r</code>. For those of you who are unfamiliar with the concept, let’s take a look at a simple example before getting into some more complex examples.</p>
+
+<p>In general, <code class="highlighter-rouge">fold</code>s take three parameters: a function (which itself takes two parameters), an initial value, and a list that we want to <code class="highlighter-rouge">fold</code> over (think “loop” if “fold” sounds weird to you). This allows us to take a list of things and transform those things into some single value. To create a single value from our list of things, the <code class="highlighter-rouge">fold</code> function needs us to give it a single thing to start working with. This is the initial value parameter. So, say we have a list of numbers [1, 2, 3] and we want to know the sum of those numbers. The initial value we need to give the function is <code class="highlighter-rouge">0</code> because it hasn’t added any of those numbers together yet. This is just the starting point.</p>
+
+<p>The function we pass to <code class="highlighter-rouge">fold</code> is what takes care of doing the computational work to build our final output value, and in this simple example it would be a simple addition function. As I mentioned earlier, the function parameter is a higher-order function that takes two parameters: the current element from the list we are “looping” over, and an accumulator value that is in charge of storing the intermediate states of the output value as we build it up incrementally. This function is commonly referred to as the “folding function”. The accumulator value always starts out as whatever we give to <code class="highlighter-rouge">fold</code> as the “initial value” parameter. For us, this means on our first pass through the list <code class="highlighter-rouge">[1,2,3]</code>, our folding function will takes the parameters <code class="highlighter-rouge">1</code> (&lt;– current element of the list) and <code class="highlighter-rouge">0</code> (&lt;– the initial value we explicitly pass to <code class="highlighter-rouge">fold</code>). In Elm, our folding function might look like this <code class="highlighter-rouge">(\currentElement accumulator -&gt; currentElement + accumulator)</code>, so on the first pass through we get <code class="highlighter-rouge">(1 0 -&gt; 1 + 0)</code>. This returns <code class="highlighter-rouge">1</code>, and this value will be used as the accumulator parameter on the next iteration over the list. Now we get <code class="highlighter-rouge">(2 1 -&gt; 2 + 1)</code>. This returns 3, which gets passed to the folding function as the accumulator value for the last iteration on <code class="highlighter-rouge">[1,2,3]</code>, giving us <code class="highlighter-rouge">(3 3 -&gt; 3 + 3)</code> for our final result of <code class="highlighter-rouge">6</code>.</p>
+
+<p>Perfect! We were able to implement a <code class="highlighter-rouge">sum</code> function using <code class="highlighter-rouge">fold</code>. This alone is not particularly exciting, but <code class="highlighter-rouge">fold</code> is not limited to just summing up a simple list of integers – it can be used to reduce a list of things into an entirely different list or even into a data structure of your own making. This is where the real power of <code class="highlighter-rouge">fold</code> comes from.</p>
+
+<p>With that overview out of the way, let’s jump back into the solving the validation problem.</p>
+
+<h2 id="folds-and-union-types">Folds and Union Types</h2>
+
+<p>We defined a union type earlier for <code class="highlighter-rouge">Dimension</code>s that can take on one of three values: <code class="highlighter-rouge">Invalid</code>, <code class="highlighter-rouge">Row Int</code>, or <code class="highlighter-rouge">Column Int</code>. The cool thing about union types (also known as Algebraic Data Types or ADTs) is that they allow us to model data in a concise but expressive way. We get “value” constructors like <code class="highlighter-rouge">Row</code> or <code class="highlighter-rouge">Column</code>, which we can think of as functions that take in one <code class="highlighter-rouge">Int</code> parameter and return us a <code class="highlighter-rouge">Dimension</code> type. We can use an arbitrary number of parameters to pass to our own value constructors and the parameter data can even be of different shapes and sizes: they can be lists, strings, records, or even other union types. We can match on them in case statements using pattern matching, which makes using them nice, expressive, and concise.</p>
+
+<p>To reach a solution to the problem of checking whether or not the moves made by a player in their current turn are valid or not, we need some “validator” machinery that will run through the board for the <code class="highlighter-rouge">Dimension</code> returned from our earlier validation. The “validator” needs to essentially loop through a subset of the board list and keep track of where a user might have made a valid play. Let’s define a union type to keep track of this for us:</p>
+
+<div class="language-elm highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">type</span> <span class="kt">ValidatorState</span>
+
+<span class="o">=</span> <span class="kt">NoMoveDetected</span>
+
+<span class="o">|</span> <span class="kt">PossibleMoveFound</span> <span class="p">(</span><span class="kt">List</span> <span class="kt">Tile</span><span class="p">)</span>
+
+<span class="o">|</span> <span class="kt">MoveDetected</span> <span class="p">(</span><span class="kt">List</span> <span class="kt">Tile</span><span class="p">)</span>
+
+<span class="o">|</span> <span class="kt">Validated</span> <span class="kt">Play</span>
+
+<span class="o">|</span> <span class="kt">Invalidated</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>The <code class="highlighter-rouge">Play</code> type above is a record that is encoded and then passed to the server for further work after validation succeeds.</li>
+</ul>
+
+<p>We define five possible states that we might run into while our “validator” is running through the row or column on the board that we are checking against. Let’s go over each one and what it means.</p>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">NoMoveDetected</code> will be our initial state. Before we start looping over the list of cells that represent a list or column, our “validator” obviously has not seen any moves or cells that could possibly represent a move by the player. The validator stays in this state until it sees a cell that contains a tile.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">PossibleMoveFound</code> represents a state in which the validator has found a tile in the row or column, but the tile was not a tile played in the current turn. These would be tiles that were played in earlier turns and can be built upon by the player in the current turn. The <code class="highlighter-rouge">PossibleMoveFound</code> carries around with it the list of tiles that it has seen so far.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">MoveDetected</code> is the state our validator takes when it finds a tile played by the player in the current turn. It takes the list of tiles from <code class="highlighter-rouge">PossibleMoveFound</code> if that list exists and builds upon it. At this stage, our validator will know on the next empty <code class="highlighter-rouge">Cell</code> (meaning a <code class="highlighter-rouge">Cell</code> with no <code class="highlighter-rouge">Tile</code>) whether or not the move it detected is valid or not. We can determine it is valid by taking the list of moves made and checking if all the tiles played in the current turn are contained in the <code class="highlighter-rouge">List Tile</code> carried around by <code class="highlighter-rouge">MoveDetected</code>. If so, we want to validate the move. If not we want to invalidate it.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">Validated</code> represents a valid <code class="highlighter-rouge">Play</code> and is one of the two possible outputs from our validator. This is nice because our main application code can pattern match on this value, take the <code class="highlighter-rouge">Play</code> value out, and submit it directly to the server for further processing.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">Invalidated</code> is the other possible output from our validator. It essentially represents any move that was not validated. This could be if we had <code class="highlighter-rouge">MoveDetected</code> at some point, but then ran into an empty cell and the <code class="highlighter-rouge">List Tile</code> held by <code class="highlighter-rouge">MoveDetected</code> did not contain all of the tiles played in the current turn. It might also be if we end up with <code class="highlighter-rouge">NoMoveDetected</code> or a <code class="highlighter-rouge">PossibleMoveFound</code> that never reached a valid <code class="highlighter-rouge">MoveDetected</code>.</p>
+  </li>
+</ol>
+
+<p>Sooo…. How are we going to put all this together? Well, as you may have guessed, we can just use a <code class="highlighter-rouge">fold</code>! This time we are going to fold our list (i.e. a <code class="highlighter-rouge">Row</code> or <code class="highlighter-rouge">Column</code>) into a <code class="highlighter-rouge">ValidatorState</code> value.</p>
+
+<p>Let’s setup the fold by explaining the three parameters needed:</p>
+
+<ol>
+  <li>
+    <p>The folding function – Our folding function is going to actually take three parameters this time, the normal two passed to the folding function (the current element of the list and the accumulator), along with another parameter we are going to supply ourselves. The other parameter will be a <code class="highlighter-rouge">List Tile</code> that represents the list of tiles played in the current turn. The type signature for our folding function then, will look like this: <code class="highlighter-rouge">List Tile -&gt; Cell -&gt; ValidatorState -&gt; ValidatorState</code>. That is, it takes a list of tiles, a cell, and a validator state, and it returns a new validator state.</p>
+  </li>
+  <li>
+    <p>The initial value – We are going to set our initial value to <code class="highlighter-rouge">NoMoveDetected</code>. This makes sense because we obviously have not detected any moves before we start looking through the list.</p>
+  </li>
+  <li>
+    <p>The list to fold over – Our list is going to be a list of <code class="highlighter-rouge">Cell</code> values from the board representing the row or column we are validating.</p>
+  </li>
+</ol>
+
+<p>Let’s start it out like this:</p>
+
+<div class="language-elm highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">let</span>
+
+<span class="n">playedTiles</span> <span class="o">=</span>
+
+            <span class="kt">List</span><span class="o">.</span><span class="n">map</span> <span class="p">(</span><span class="o">\</span><span class="n">move</span> <span class="o">-&gt;</span> <span class="n">move</span><span class="o">.</span><span class="n">tile</span><span class="p">)</span> <span class="n">context</span><span class="o">.</span><span class="n">movesMade</span>
+
+<span class="k">in</span>
+
+<span class="kt">List</span><span class="o">.</span><span class="n">foldr</span> <span class="p">(</span><span class="n">updateState</span> <span class="n">playedTiles</span><span class="p">)</span> <span class="kt">NoMoveDetected</span> <span class="n">cells</span>
+
+<span class="o">|&gt;</span> <span class="n">finalizeState</span> <span class="n">playedTiles</span>
+
+</code></pre></div></div>
+
+<p>It is important to note that we are taking advantage of a feature in Elm called partial application in our second parameter <code class="highlighter-rouge">(updateState playedTiles)</code>. This allows us to pass less than the number of required parameters to a function, and it will return us a new function that is essentially the same but takes in the remaining parameters and locks in the values for the parameters that we supplied. By doing this, we now have a function that will take in the two parameters normally passed to the folding function when we use <code class="highlighter-rouge">fold</code>.</p>
+
+<p>You can see that instead of using the anonymous function syntax we saw above, we are passing a named function directly as the second parameter to <code class="highlighter-rouge">fold</code>. Our folding function has a lot of work to do, and it doesn’t lend itself to clarity if we try to squeeze it into an anonymous function here. Let’s see what the <code class="highlighter-rouge">updateState</code> function looks like:</p>
+
+<div class="language-elm highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">updateState</span> <span class="p">:</span> <span class="kt">List</span> <span class="kt">Tile</span> <span class="o">-&gt;</span> <span class="kt">Cell</span> <span class="o">-&gt;</span> <span class="kt">ValidatorState</span> <span class="o">-&gt;</span> <span class="kt">ValidatorState</span>
+
+<span class="n">updateState</span> <span class="n">playedTiles</span> <span class="n">cell</span> <span class="n">currentState</span> <span class="o">=</span>
+
+    <span class="k">case</span> <span class="n">currentState</span> <span class="k">of</span>
+
+        <span class="kt">NoMoveDetected</span> <span class="o">-&gt;</span>
+
+            <span class="k">case</span> <span class="n">cell</span><span class="o">.</span><span class="n">tile</span> <span class="k">of</span>
+
+                <span class="kt">Just</span> <span class="n">tile</span> <span class="o">-&gt;</span>
+
+                    <span class="k">if</span> <span class="kt">List</span><span class="o">.</span><span class="n">member</span> <span class="n">tile</span> <span class="n">playedTiles</span> <span class="k">then</span>
+
+                        <span class="kt">MoveDetected</span> <span class="p">[</span> <span class="p">{</span> <span class="n">tile</span> <span class="o">|</span> <span class="n">multiplier</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">multiplier</span> <span class="p">}</span> <span class="p">]</span>
+
+                    <span class="k">else</span>
+
+                        <span class="kt">PossibleMoveFound</span> <span class="p">[</span> <span class="p">{</span> <span class="n">tile</span> <span class="o">|</span> <span class="n">multiplier</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">multiplier</span> <span class="p">}</span> <span class="p">]</span>
+
+
+
+                <span class="kt">Nothing</span> <span class="o">-&gt;</span>
+
+                    <span class="kt">NoMoveDetected</span>
+
+
+
+        <span class="kt">PossibleMoveFound</span> <span class="n">tiles</span> <span class="o">-&gt;</span>
+
+            <span class="k">case</span> <span class="n">cell</span><span class="o">.</span><span class="n">tile</span> <span class="k">of</span>
+
+                <span class="kt">Just</span> <span class="n">tile</span> <span class="o">-&gt;</span>
+
+                    <span class="k">if</span> <span class="kt">List</span><span class="o">.</span><span class="n">member</span> <span class="n">tile</span> <span class="n">playedTiles</span> <span class="k">then</span>
+
+                        <span class="kt">MoveDetected</span> <span class="o">&lt;|</span> <span class="p">{</span> <span class="n">tile</span> <span class="o">|</span> <span class="n">multiplier</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">multiplier</span> <span class="p">}</span> <span class="o">::</span> <span class="n">tiles</span>
+
+                    <span class="k">else</span>
+
+                        <span class="kt">PossibleMoveFound</span> <span class="o">&lt;|</span> <span class="p">{</span> <span class="n">tile</span> <span class="o">|</span> <span class="n">multiplier</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">multiplier</span> <span class="p">}</span> <span class="o">::</span> <span class="n">tiles</span>
+
+
+
+                <span class="kt">Nothing</span> <span class="o">-&gt;</span>
+
+                    <span class="kt">NoMoveDetected</span>
+
+
+
+        <span class="kt">MoveDetected</span> <span class="n">tiles</span> <span class="o">-&gt;</span>
+
+            <span class="k">case</span> <span class="n">cell</span><span class="o">.</span><span class="n">tile</span> <span class="k">of</span>
+
+                <span class="kt">Just</span> <span class="n">tile</span> <span class="o">-&gt;</span>
+
+                    <span class="kt">MoveDetected</span> <span class="o">&lt;|</span> <span class="p">{</span> <span class="n">tile</span> <span class="o">|</span> <span class="n">multiplier</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">multiplier</span> <span class="p">}</span> <span class="o">::</span> <span class="n">tiles</span>
+
+
+
+                <span class="kt">Nothing</span> <span class="o">-&gt;</span>
+
+                    <span class="k">if</span> <span class="kt">List</span><span class="o">.</span><span class="n">all</span> <span class="p">(</span><span class="o">\</span><span class="n">tile</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">.</span><span class="n">member</span> <span class="n">tile</span><span class="o">.</span><span class="n">id</span> <span class="p">(</span><span class="n">idsFor</span> <span class="n">tiles</span><span class="p">))</span> <span class="n">playedTiles</span> <span class="k">then</span>
+
+                        <span class="kt">Validated</span> <span class="o">&lt;|</span> <span class="n">handleValidationForPlay</span> <span class="n">tiles</span> <span class="n">cell</span>
+
+                    <span class="k">else</span>
+
+                        <span class="kt">Invalidated</span>
+
+
+
+        <span class="kt">Validated</span> <span class="n">play</span> <span class="o">-&gt;</span>
+
+            <span class="kt">Validated</span> <span class="n">play</span>
+
+
+
+        <span class="kt">Invalidated</span> <span class="o">-&gt;</span>
+
+            <span class="kt">Invalidated</span>
+
+</code></pre></div></div>
+
+<p>We are taking advantage of pattern matching here in our case statement on the current state of the validator, represented by the <code class="highlighter-rouge">currentState</code> parameter that gets passed into the function. In the <code class="highlighter-rouge">NoMoveDetected</code> branch we check to see if the current <code class="highlighter-rouge">Cell</code> has a tile or not. If it doesn’t we can keep our accumulator value <code class="highlighter-rouge">NoMoveDetected</code>. If the current <code class="highlighter-rouge">Cell</code> does have a tile, we need to determine whether it was a tile played this turn, or if it was an existing tile on the board. If it was played this turn, we can update the current state to <code class="highlighter-rouge">MoveDetected</code> and place the tile on to the list of tiles carried around by <code class="highlighter-rouge">MoveDetected</code>, otherwise we do the same thing but update the state to <code class="highlighter-rouge">PossibleMoveFound</code> instead.</p>
+
+<p>If our current state is <code class="highlighter-rouge">PossibleMoveFound</code>, we also need to look at the tile for the current <code class="highlighter-rouge">Cell</code>. If it empty, we can revert the state to <code class="highlighter-rouge">NoMoveDetected</code> because this means we have not yet found any tiles played by the player in the current turn. If there is a tile on the current cell, we check to see if the tile was played in the current turn and update the state to <code class="highlighter-rouge">MoveDetected</code> while we pass along the list of tiles we are carrying around. Otherwise, we keep the state <code class="highlighter-rouge">PossibleMoveFound</code> and update the list of tiles with the tile from the current cell.</p>
+
+<p>Now, when we are on the <code class="highlighter-rouge">MoveDetected</code> branch, we are checking to see if the current cell has a tile. If it does, that is good and we keep the state <code class="highlighter-rouge">MoveDetected</code> while tacking on the new tile to the list of tiles we are carrying around. The current tile may or may not be played by the player in the current turn, but that is okay because it is legal to build a play off of previously placed tiles. If we see that there is no tile on the current cell, we can determine the validity of the play. If the list of tiles we are carrying around in the <code class="highlighter-rouge">MoveDetected</code> value contains all of the tiles played in the current turn (represented by the <code class="highlighter-rouge">playedTiles</code> parameter we are supplying to the function), then the move was valid and we can return <code class="highlighter-rouge">Validated play</code> (the <code class="highlighter-rouge">handleValidationForPlay</code> function takes care of formatting our list of tiles into a proper <code class="highlighter-rouge">Play</code> data structure that can be passed on to the server). However, if we see the list of tiles we are carrying around does not contain all of the tiles played in the current round, then the turn is invalid and we return <code class="highlighter-rouge">Invalidated</code>.</p>
+
+<p>The last two branches of the case statement are pretty straightforward: once we’ve finished the work of validating, we can just keep the validator state in its current state until the fold is finished. This may cause a small amount of excess work, but we’re only folding over 15 elements so it is not too concerning.</p>
+
+<p>After we are done with the fold, we pipe the result into a <code class="highlighter-rouge">finalizeState</code> function that takes care of some cleanup work (like handling cases where we end up with <code class="highlighter-rouge">NoMoveDetected</code> or if we ended on a <code class="highlighter-rouge">MoveDetected</code>). That function is shown here:</p>
+
+<div class="language-elm highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">finalizeState</span> <span class="p">:</span> <span class="kt">List</span> <span class="kt">Tile</span> <span class="o">-&gt;</span> <span class="kt">ValidatorState</span> <span class="o">-&gt;</span> <span class="kt">ValidatorState</span>
+
+<span class="n">finalizeState</span> <span class="n">playedTiles</span> <span class="n">state</span> <span class="o">=</span>
+
+    <span class="k">case</span> <span class="n">state</span> <span class="k">of</span>
+
+        <span class="kt">NoMoveDetected</span> <span class="o">-&gt;</span>
+
+            <span class="kt">Invalidated</span>
+
+
+
+        <span class="kt">MoveDetected</span> <span class="n">tiles</span> <span class="o">-&gt;</span>
+
+            <span class="k">if</span> <span class="kt">List</span><span class="o">.</span><span class="n">all</span> <span class="p">(</span><span class="o">\</span><span class="n">tile</span> <span class="o">-&gt;</span> <span class="kt">List</span><span class="o">.</span><span class="n">member</span> <span class="n">tile</span><span class="o">.</span><span class="n">id</span> <span class="p">(</span><span class="n">idsFor</span> <span class="n">tiles</span><span class="p">))</span> <span class="n">playedTiles</span> <span class="k">then</span>
+
+                <span class="kt">Validated</span> <span class="o">&lt;|</span> <span class="kt">List</span><span class="o">.</span><span class="n">filter</span> <span class="p">(</span><span class="o">\</span><span class="n">play</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="o">.</span><span class="n">length</span> <span class="n">play</span><span class="o">.</span><span class="n">word</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">[</span> <span class="kt">ScrabblePlay</span><span class="o">.</span><span class="n">tilesToPlay</span> <span class="n">tiles</span> <span class="p">]</span>
+
+            <span class="k">else</span>
+
+                <span class="kt">Invalidated</span>
+
+
+
+        <span class="n">_</span> <span class="o">-&gt;</span>
+
+            <span class="n">state</span>
+
+</code></pre></div></div>
+
+<p>Now we have a validator that can not only tell us whether a move was valid or not, it can also give us the data we need to send to the server if the move was valid! Pretty cool :)</p>
+
+<p>I found this solution particularly exciting because I worked on a sizeable side project for several months using Elm and I felt like I never really grokked the true power of union types. I think this solution demonstrates a pretty clear example of how they can be used while shining a light on some of their strengths. I hope you found this post helpful, and if you want to peruse the code, feel free to check it out on my Github page <a href="https://github.com/zkayser/elm_scrabble">here</a>!</p>
+
+<p>Thank you for reading!</p>
+
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      <a class="tag" href="/blog/categories/development/index.html">Development</a>
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      
+      
+      
+
+      
+        
+        
+
+        
+          <a href="/blog/refactoring-patterns-in-elixir-replace-conditional-with-polymorphism-via-protocols-part-2" class="card card--feature">
+            <div class="card__content">
+              <h3>Refactoring Patterns in Elixir: Replace Conditional with Polymorphism Via Protocols Part 2</h3>
+              <h4>Zack Kayser</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/outsourcing-custom-development-for-fast-paced-companies" class="card card--feature">
+            <div class="card__content">
+              <h3>Outsourcing Custom Development for Fast-Paced Companies </h3>
+              <h4>Peter Kananen</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/oh-to-be-a-domain-expert-if-only-we-knew-what-you-know" class="card card--feature">
+            <div class="card__content">
+              <h3>Oh, to be a Domain Expert … if we only knew what you knew.</h3>
+              <h4>Kati Best</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/gaslight-your-partner-in-growth" class="card card--feature">
+            <div class="card__content">
+              <h3>Gaslight, Your Partner in Growth</h3>
+              <h4>Steve Hennegan</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+            
+    </div>
+  </section>
+</article>
+
+
+<section class="section--light flush">
+  <div class="cta">
+    <img src="/assets/img/color-shapes-one.svg" class="cta__confetti" />
+    <div class="cta__container">
+      <div>
+        
+<h3> Like what you're seeing? Let's keep in touch. </h3> <a href="/newsletter" class="btn btn--cta"> Subscribe to Our Newsletter </a>
+
+      </div>
+    </div>
+    <img src="/assets/img/color-shapes-two.svg" class="cta__confetti" />
+  </div>
+</section>
+
+
+    </main>
+
+    
+<footer>
+  <div class="footer__container">
+    <div class="footer__menu">
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
+        <li><a class="inverse" href="/careers">Careers</a></li>
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
+        
+          <li><a class="inverse" href="/what-we-do">Apprenticeship</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Code Check Up</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Custom Software Development</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Design Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Discovery Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Fast Forward Build</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
+        
+        <li><a class="inverse" href="/work/e_beam">E-Beam Services, Inc.</a></li>
+        
+        <li><a class="inverse" href="/work/mike-albert-fleet-solutions">Mike Albert Fleet Solutions</a></li>
+        
+        <li><a class="inverse" href="/work/omega">OMEGA</a></li>
+        
+        <li><a class="inverse" href="/work/poa">POA</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
+        
+          <li><a href="/blog/categories/business/index.html" class="inverse">Business</a></li>
+        
+          <li><a href="/blog/categories/design/index.html" class="inverse">Design</a></li>
+        
+          <li><a href="/blog/categories/development/index.html" class="inverse">Development</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
+        <li><a class="inverse" href="/events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer__credentials">
+      <a href="/" class="footer__logo"></a>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/rhythmdogsports/" target="_blank" class="social__link instagram">
+  <svg viewBox="0 0 50 50">
+    <path d="M16 3C8.83 3 3 8.83 3 16v18c0 7.17 5.83 13 13 13h18c7.17 0 13-5.83 13-13V16c0-7.17-5.83-13-13-13H16zm21 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-12 3c6.07 0 11 4.93 11 11s-4.93 11-11 11-11-4.93-11-11 4.93-11 11-11zm0 2c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z"/>
+  </svg>
+</a>
+<!-- <a href="http://twitter.com/teamgaslight" target="_blank" class="social__link twitter">
+  <svg viewBox="0 0 50 50">
+    <path d="M50.06 10.44c-1.85.82-3.83 1.37-5.91 1.62 2.12-1.27 3.76-3.29 4.52-5.69a20.473 20.473 0 0 1-6.53 2.49c-1.88-2-4.55-3.25-7.5-3.25-5.68 0-10.29 4.6-10.29 10.28 0 .8.09 1.59.27 2.34C16.08 17.81 8.5 13.72 3.43 7.5c-.89 1.52-1.39 3.29-1.39 5.17 0 3.57 1.81 6.71 4.57 8.56-1.69-.05-3.27-.52-4.66-1.29v.13c0 4.98 3.55 9.14 8.25 10.09-.86.23-1.77.36-2.71.36-.66 0-1.31-.06-1.94-.19 1.31 4.08 5.11 7.06 9.61 7.14-3.52 2.76-7.95 4.4-12.77 4.4-.83 0-1.65-.05-2.45-.14 4.55 2.92 9.95 4.62 15.76 4.62 18.91 0 29.26-15.67 29.26-29.25 0-.45-.01-.89-.03-1.33 2.01-1.46 3.75-3.27 5.13-5.33z"/>
+  </svg>
+</a> -->
+<a href="http://facebook.com/rhythmdogsports" target="_blank" class="social__link facebook">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zm-4 15h-2c-2.14 0-3 .5-3 2v3h5l-1 5h-4v15h-5V29h-4v-5h4v-3c0-4 2-7 6-7 2.9 0 4 1 4 1v4z"/>
+  </svg>
+</a>
+<!-- <a href="http://github.com/gaslight" target="_blank" class="social__link github">
+  <svg viewBox="0 0 50 50">
+    <path d="M33 29c-1.8 0-3 1.52-3 4s.89 5.05 3 5c2.22-.05 3.02-2.22 3-5-.02-2.48-1.21-4-3-4zm11.26-11.93c.27-1.34.39-6.1-1.58-11.07 0 0-4.53.5-11.38 5.2-1.43-.4-3.87-.6-6.3-.6s-4.86.2-6.3.59C11.85 6.5 7.32 6 7.32 6c-1.98 4.96-1.88 9.61-1.59 11.07C3.42 19.59 2 22.61 2 26.74 2 44.71 16.91 45 20.67 45h8.66C33.09 45 48 44.71 48 26.74c0-4.13-1.42-7.15-3.74-9.67zM25.14 43H25c-9.43 0-16.84-1.34-16.84-10.5 0-2.2.78-4.23 2.62-5.92 3.07-2.82 8.26-1.33 14.16-1.33h.14c5.89 0 11.09-1.49 14.16 1.33 1.84 1.69 2.61 3.73 2.61 5.92-.01 9.16-7.28 10.5-16.71 10.5zM17 29c-1.79 0-3 2.02-3 4.5s1.21 4.5 3 4.5c1.8 0 3-2.02 3-4.5S18.8 29 17 29z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.youtube.com/channel/UCC36CM_uLqhoKEqSy2mjqFQ" target="_blank" class="social__link youtube">
+  <svg viewBox="0 0 50 50">
+    <path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9zm6 4h2.4l1.6 4 1.6-4H23l-3 7v4h-2v-4.01c-.6-1.61-2.59-5.98-3-6.99zm10 3c.89 0 1.77.27 2.33.95.43.49.67 1.28.67 2.32v1.46c0 1.04-.2 1.76-.62 2.25-.56.67-1.49 1.02-2.38 1.02s-1.8-.35-2.36-1.02c-.43-.49-.64-1.21-.64-2.25v-1.45c0-1.04.23-1.84.67-2.33.56-.68 1.32-.95 2.33-.95zm4 0h2v6c.05.27.34.39.61.39.41 0 .93-.48 1.39-1.01V11h2v8h-2v-1.38c-.81.79-1.5 1.38-2.41 1.35-.66-.02-1.12-.26-1.35-.74-.14-.28-.24-.73-.24-1.39V11zm-4 1.62c-.14 0-.27.03-.39.08a1.016 1.016 0 0 0-.53.54c-.05.13-.08.26-.08.4v2.81a1.02 1.02 0 0 0 .61.94c.12.05.25.08.39.08s.27-.03.39-.08c.36-.16.61-.52.61-.94v-2.81c0-.56-.45-1.02-1-1.02zM24.99 22h.02s6.71 0 11.19.32c.63.07 1.99.08 3.21 1.33.96.94 1.27 3.1 1.27 3.1s.32 1.53.32 4.06v2.37c0 2.53-.32 4.06-.32 4.06s-.31 2.16-1.27 3.1c-1.22 1.25-2.58 1.26-3.21 1.33-4.48.32-11.2.33-11.2.33s-8.32-.08-10.88-.32c-.71-.13-2.31-.09-3.53-1.33-.96-.95-1.27-3.11-1.27-3.11S9 35.71 9 33.18v-2.37c0-2.53.32-4.06.32-4.06s.31-2.16 1.27-3.1c1.22-1.25 2.58-1.26 3.21-1.33C18.28 22 24.99 22 24.99 22zM12 26v1.98h2V38h2V27.98h2V26h-6zm13 0v12h2v-1.25c.63.78 1.45 1.25 2.12 1.25.75 0 1.41-.4 1.66-1.18.12-.42.21-.81.21-1.7v-2.75c0-.99-.13-1.73-.26-2.15-.24-.78-.85-1.22-1.61-1.22-.98-.01-1.38.5-2.12 1.38V26h-2zm-7 3v6.69c0 .72.1 1.21.23 1.52.22.51.67.79 1.31.79.73 0 1.67-.51 2.46-1.37V38h2v-9h-2v6.27c-.44.58-1.08 1.02-1.48 1.02-.26 0-.47-.11-.52-.4V29h-2zm17.03 0c-1.01 0-1.8.32-2.37.92-.42.44-.66 1.16-.66 2.1v3.07c0 .93.27 1.58.69 2.02.57.6 1.36.9 2.39.9s1.84-.31 2.39-.95c.24-.28.39-.6.46-.95.01-.17.07-.6.07-1.11h-2v.8c0 .46-.45.84-1 .84s-1-.38-1-.84V34h4v-2.03c0-.93-.23-1.62-.64-2.06-.56-.59-1.34-.91-2.33-.91zM35 30.45c.55 0 1 .38 1 .84v1.33h-2v-1.33c0-.47.45-.84 1-.84zm-6.78.3c.55 0 .78.33.78 1.38v2.75c0 1.04-.23 1.4-.78 1.4-.31 0-.9-.21-1.22-.53v-4.38c.32-.31.91-.62 1.22-.62z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.linkedin.com/company/gaslight" target="_blank" class="social__link linkedin">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM17 20v19h-6V20h6zm-6-5.53c0-1.4 1.2-2.47 3-2.47s2.93 1.07 3 2.47c0 1.4-1.12 2.53-3 2.53-1.8 0-3-1.13-3-2.53zM39 39h-6V29c0-2-1-4-3.5-4.04h-.08C27 24.96 26 27.02 26 29v10h-6V20h6v2.56S27.93 20 31.81 20c3.97 0 7.19 2.73 7.19 8.26V39z"/>
+  </svg>
+</a> -->
+
+      </div>
+      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/js/scale.fix.js"></script>
+    <script src="/assets/js/rellax.min.js"></script>
+    <script>
+    var rellax = new Rellax('.float', {
+      speed: -2,
+      center: false,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    </script>
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/509988.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    
+  </body>
+</html>

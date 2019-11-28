@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Elm Elixir And Phoenix Reflecting On A Functional Full Stack Project | Rhythm Dog Sports</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Elm Elixir And Phoenix Reflecting On A Functional Full Stack Project" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A couple days ago, I wrapped up work on a side-project I started back in December 2016. It started out as a barebones server-side-rendered Phoenix app, and my only real goal at the time was to do a deep-dive into both Elixir and the Phoenix framework itself. The application is a classic Texas Hold ‘Em app, something I chose for a couple of reasons: 1) poker games like Hold ‘Em present excellent opportunities to take advantage of some of the most powerful features around concurrency and fault-tolerance made available by the OTP platform, and 2) the acceptance criteria were relatively well-defined and straightforward (or so I thought at the time… How hard could it be, right?)" />
+<meta property="og:description" content="A couple days ago, I wrapped up work on a side-project I started back in December 2016. It started out as a barebones server-side-rendered Phoenix app, and my only real goal at the time was to do a deep-dive into both Elixir and the Phoenix framework itself. The application is a classic Texas Hold ‘Em app, something I chose for a couple of reasons: 1) poker games like Hold ‘Em present excellent opportunities to take advantage of some of the most powerful features around concurrency and fault-tolerance made available by the OTP platform, and 2) the acceptance criteria were relatively well-defined and straightforward (or so I thought at the time… How hard could it be, right?)" />
+<link rel="canonical" href="http://localhost:4000/blog/elm-elixir-and-phoenix-reflecting-on-a-functional-full-stack-project" />
+<meta property="og:url" content="http://localhost:4000/blog/elm-elixir-and-phoenix-reflecting-on-a-functional-full-stack-project" />
+<meta property="og:site_name" content="Rhythm Dog Sports" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-02T00:00:00-04:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/blog/elm-elixir-and-phoenix-reflecting-on-a-functional-full-stack-project","headline":"Elm Elixir And Phoenix Reflecting On A Functional Full Stack Project","dateModified":"2019-07-02T00:00:00-04:00","datePublished":"2019-07-02T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/elm-elixir-and-phoenix-reflecting-on-a-functional-full-stack-project"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/img/logo.png"}},"description":"A couple days ago, I wrapped up work on a side-project I started back in December 2016. It started out as a barebones server-side-rendered Phoenix app, and my only real goal at the time was to do a deep-dive into both Elixir and the Phoenix framework itself. The application is a classic Texas Hold ‘Em app, something I chose for a couple of reasons: 1) poker games like Hold ‘Em present excellent opportunities to take advantage of some of the most powerful features around concurrency and fault-tolerance made available by the OTP platform, and 2) the acceptance criteria were relatively well-defined and straightforward (or so I thought at the time… How hard could it be, right?)","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <link rel="stylesheet" href="https://use.typekit.net/vnr4ouz.css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+  </head>
+  <body>
+    <nav>
+  <a class="nav__logo" href="/"></a>
+  <input type="checkbox" id="nav__toggle">
+  <label class="nav__toggle" for="nav__toggle"></label>
+  <div class="nav__list">
+    <div class="nav__link ">
+      <a href="/who-we-are">About Us</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/what-we-do">Agility</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/events">Events</a>
+    </div>
+    <div class="nav__link   current ">
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="nav__link  ">
+      <a href="/connect">Connect with Us</a>
+    </div>
+    <!-- <div class="nav__link nav__cta">
+      <a href="/start-a-project" class="btn btn--cta btn--sm">Start a Project</a>
+    </div> -->
+  </div>
+</nav>
+
+
+    <main>
+      <article class="post">
+  <section class="section--light">
+    
+
+    
+
+    
+
+    
+
+    
+      <div class="post__header  u-contained">
+        <div class="post__title">
+          <div class="post__date u-push-bottom--none">26 February 2018</div>
+          <h2>Elm, Elixir, and Phoenix: Reflecting on a Functional Full-Stack Project</h2>
+          
+            <div class="post__author">
+              
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+        <img src="/assets/img/team/zack-kayser.jpg" alt="Zack Kayser" />
+        
+      
+    
+              <p class="u-push-bottom--none">
+                by 
+      Zack Kayser
+    
+              </p>
+            </div>
+          
+        </div>
+      </div>
+    
+  </section>
+
+  <section class="post__body">
+    <div>
+    <p>A couple days ago, I wrapped up work on a side-project I started back in December 2016. It started out as a barebones server-side-rendered Phoenix app, and my only real goal at the time was to do a deep-dive into both Elixir and the Phoenix framework itself. The application is a classic Texas Hold ‘Em app, something I chose for a couple of reasons: 1) poker games like Hold ‘Em present excellent opportunities to take advantage of some of the most powerful features around concurrency and fault-tolerance made available by the OTP platform, and 2) the acceptance criteria were relatively well-defined and straightforward (or so I thought at the time… How hard could it be, right?)</p>
+
+<p>I had a working application by March last year, albeit with quite a clunky UI. Most of the user-interaction functionality on the client was written in plain old JavaScript, a choice I made at the time thinking I would be perfectly content with the result. Just a splash of interactivity on the client where I needed it, and everything would be okay… Yeah… That actually didn’t work out very well for me.</p>
+
+<p>At any rate, I did have a real-time poker app that spun up 100 poker “room” processes that ran concurrently when the application started up. Each room took advantage of a range of OTP-related goodies: connections through Phoenix channels, running in <code class="highlighter-rouge">GenServer</code> (actually <code class="highlighter-rouge">GenStatem</code>) processes, and complete with supervisors for each room process. In three months, I went from not having ever worked on a real-time application to feeling like I could handle even the most daunting problems the domain could throw at me. Elixir does that. It’s empowering. OTP and Phoenix channels can give you superpowers.</p>
+
+<p>Having taken my deep-dive on Elixir and feeling pretty good about what I learned, I shelved the project for a while. The lack of attention paid to the client-side code weighed on me, though. I knew it could be better, but I had trouble finding the motivation to pretty up the JavaScript code. I wasn’t really sharing the app with anyone, and I didn’t really see too much value in refactoring what was already there. Moving the code over to a front-end framework like React with a state management solution like Redux certainly would have been a big win, and I did consider rewriting the client code with React and Redux. For whatever reason, though, I couldn’t find the motivation to actually do it.</p>
+
+<h1 id="elm---front-and-center">Elm - Front and Center</h1>
+
+<p>Right around the time I stopped working on the project, I started hearing more and more about Elm. I began working through some simple tutorials, building out little widgets with it, and reading all I could about Elm. Since I had just immersed myself in Elixir, I had a newfound appreciation for functional languages and the functional mindset. But as I read more about Elm, I found other exciting aspects of the language:</p>
+
+<ul>
+  <li>The Elm architecture encourages good design decisions, and more importantly, makes it very painful to make poor design decisions</li>
+  <li>The tooling around the language is first-class (tools like <code class="highlighter-rouge">elm-package</code> are a breath of fresh air compared to npm)</li>
+  <li>The compiler is phenomenal (no longer do you have to worry about cryptic compiler error messages - the Elm compiler tells you what went wrong, where, and gives you suggestions about how to fix it or points you to documentation that provides more context)</li>
+  <li>A focus on the long-term evolution of the language as a platform for writing clean and reactive user interfaces</li>
+</ul>
+
+<p>After a six-month hiatus from my poker project, I decided to return to it with the goal of rewriting the client-side entirely in Elm. This would be my first sizable Elm project, and I honestly wasn’t sure how to write an SPA in Elm. Luckily, Richard Feldman – a big name in the Elm community and author of Elm in Action – open-sourced an SPA example in Elm which I used as my starting point. You can find that project <a href="https://github.com/rtfeldman/elm-spa-example">here</a>.</p>
+
+<p>Now, with the project fresh in mind, I want to share my experience - not only working with Elm, but my thoughts on how it works with Elixir and Phoenix on the back-end.</p>
+
+<h1 id="elm-and-elixir---a-match-made-in-functional-heaven">Elm and Elixir - A Match Made in Functional Heaven</h1>
+
+<p>I personally felt that writing in the functional paradigm on both the client and the server was a big productivity win for me, cutting down on the degree of context-switching I had to do between front-end and back-end code. While you can certainly write good functional Javascript code, Elm enforces functional purity and immutability of data. It decouples data and behavior. You don’t have to worry as much about surprise mutations of state or spooky action at a distance, and that is true now for both your client code with Elm and your server code with Elixir.
+One of the questions I’ve been asked about a fair amount as I progressed with the project is how to configure <code class="highlighter-rouge">Brunch</code> to serve an Elm app from Phoenix. Now, although the server app I wrote and the client are in two separate repos and are separate projects, I am also using Phoenix to serve the Elm app along with some other static assets. Figuring out the <code class="highlighter-rouge">brunch-config</code> is something I had to wrestle with up front, but overall it is not terribly complicated – especially with the new directory structure in Phoenix 1.3. Here is an overview of what you need:</p>
+
+<ol>
+  <li>Pull in <code class="highlighter-rouge">elm-brunch</code> as a <code class="highlighter-rouge">devDependency</code> in your <code class="highlighter-rouge">package.json</code></li>
+  <li>Update the list of <code class="highlighter-rouge">watched</code> directories inside of the <code class="highlighter-rouge">paths</code> object in <code class="highlighter-rouge">brunch-config.js</code> to include your Elm directory</li>
+  <li>In your <code class="highlighter-rouge">brunch-config.js</code>, modify the <code class="highlighter-rouge">plugins</code> object to make use of the aforementioned <code class="highlighter-rouge">elm-brunch</code> library and setup some project-specific configuration (I will share my configuration below)</li>
+  <li>You <em>might</em> need to manually compile your Elm app using <code class="highlighter-rouge">elm-make</code> once initially and copy the Javascript file output into your project (I had to do this at first until I upgraded to version <code class="highlighter-rouge">0.10.0</code> of <code class="highlighter-rouge">elm-brunch</code>)</li>
+</ol>
+
+<p>As promised, here is a look at the relevant parts of my <code class="highlighter-rouge">brunch-config.js</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>paths: {
+  watched: ["static", "css", "js", "vendor", "elm"],
+  public: "../priv/static"
+},
+
+plugins: {
+  babel: {
+    ignore: [/vendor/]
+  },
+  elmBrunch: {
+    mainModules: ["elm/src/Main.elm"],
+    makeParameters: ["--debug"],
+    outputFolder: "js/"
+  },
+}
+</code></pre></div></div>
+
+<p>Pretty straightforward config here. Behind the scenes, <code class="highlighter-rouge">elmBrunch</code> runs the <code class="highlighter-rouge">elm-make</code> command for you. I am specifying the relative path to my <code class="highlighter-rouge">Main</code> module (the entry point to my Elm app) from the <code class="highlighter-rouge">assets</code> directory, and <code class="highlighter-rouge">elm-make</code> uses this information to get the file, compile it to JS, and then output the result to the <code class="highlighter-rouge">outputFolder</code>. The <code class="highlighter-rouge">--debug</code> flag is passed as a parameter to <code class="highlighter-rouge">elm-make</code>, which gives you a nice built-in time-traveling debugger that comes with Elm. The debugger is another awesome feature of Elm and is great for development. Simply remove the <code class="highlighter-rouge">--debug</code> flag when deploying the application so end-users don’t end up with their own debuggers on screen when you’re in production.</p>
+
+<p>There are some other options <code class="highlighter-rouge">elm-brunch</code> exposes to you, but I found the above settings to work best for my needs. You can, for example, also specify a name for the JavaScript file that gets output from the <code class="highlighter-rouge">elm-make</code> command (it defaults to the same name as your main Elm module, with a .js extension and lowercase filename, i.e. <code class="highlighter-rouge">Main.elm</code> -&gt; <code class="highlighter-rouge">main.js</code>), and you can specify where the <code class="highlighter-rouge">elm-make</code> executable lives if you are doing something special and don’t have the binary on your path.</p>
+
+<p>With the config out of the way, I was free to get started working on my Elm app and dive into some real interop between Phoenix and Elm.</p>
+
+<h2 id="elm-and-phoenix-channels">Elm and Phoenix Channels</h2>
+
+<p>There are a couple of Elm libraries available for connecting to Phoenix channels, and they both deserve mention here. One, <code class="highlighter-rouge">elm-phoenix-socket</code> is available through the Elm Package Manager, and the other <code class="highlighter-rouge">elm-phoenix</code> is not. I went with <code class="highlighter-rouge">elm-phoenix</code> simply because I was able to get it working first and I found it easier to use. The downside, of course, is that it is not available through the Elm Package Manager, so you are on your own in terms of managing it as a dependency. The library is not available through the Elm Package Manager because it is what is known as an Effect Manager, which you can read a little more about <a href="http://simonh1000.github.io/2017/05/effect-managers/">here</a>. Essentially, Effect Managers are Elm modules that expand upon the Elm platform itself. The good news is that you don’t have to worry about any of that. Just download the repo from <a href="https://github.com/saschatimme/elm-phoenix/blob/master/src/Phoenix.elm">Github</a> and copy it into your <code class="highlighter-rouge">assets/elm</code> directory, or just clone it into that directory directly and you should be good to go.</p>
+
+<p>There are a few groundwork-related items you need to have in place to set up a socket connection and connect to your channels from Elm. You will have to import the following modules from <code class="highlighter-rouge">elm-phoenix</code> to set everything up: <code class="highlighter-rouge">Phoenix</code>, <code class="highlighter-rouge">Phoenix.Socket</code>, <code class="highlighter-rouge">Phoenix.Channel</code>, and <code class="highlighter-rouge">Phoenix.Push</code>.</p>
+
+<h3 id="1-the-phoenixsocket-module">1. The <code class="highlighter-rouge">Phoenix.Socket</code> module</h3>
+
+<p>The <code class="highlighter-rouge">Phoenix.Socket</code> module exposes functions and types that let you configure and setup your socket connection. In my app, I created a <code class="highlighter-rouge">socket</code> function that takes in <code class="highlighter-rouge">Session</code> data (containing an authentication token for the user, if logged in) and a <code class="highlighter-rouge">String</code> that points to my socket endpoint url on the server. The function returns a <code class="highlighter-rouge">Socket Msg</code>. The pipe operator in Elm works great with the functions exposed by the modules from <code class="highlighter-rouge">elm-phoenix</code>. Here is a look at my socket function:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>socket : Session -&gt; String -&gt; Socket Msg
+socket session socketUrl =
+  	let
+        params =
+            case session.player of
+                Just player -&gt;
+                    let
+                        token =
+                            AuthToken.authTokenToString player.token
+                    in
+                    [ ( "guardian_token", token ) ]
+
+                Nothing -&gt;
+                    []
+    in
+    Socket.init socketUrl
+        |&gt; Socket.withParams params
+        |&gt; Socket.onOpen SocketOpened
+        |&gt; Socket.onClose (\_ -&gt; SocketClosed)
+        |&gt; Socket.onAbnormalClose (\_ -&gt; SocketClosedAbnormally)
+</code></pre></div></div>
+
+<p>In the main body of the function here (the part below <code class="highlighter-rouge">in</code>), I’m declaring the behavior I want from my socket in a pipeline - from the initialization of the socket, to the parameters I’m passing along to the server, to the messages I want to receive when the socket connection opens, closes, or closes abnormally. The <code class="highlighter-rouge">Phoenix.Socket</code> module exposes other functions as well that let you further fine-tune what messages you want to receive and respond to on other socket-related events. If you are reading this and are unfamiliar with the Elm architecture, this excerpt might be slightly confusing to you. I will get into a (very) brief overview of the Elm architecture later in this post that will shed some more light on how this all fits together, but <a href="https://guide.elm-lang.org/architecture/">here</a> is an awesome guide if you don’t want to wait and you want to know all of the things right now.</p>
+
+<h3 id="2-the-phoenix-module">2. The <code class="highlighter-rouge">Phoenix</code> module</h3>
+
+<p>I call the <code class="highlighter-rouge">socket</code> function above in my <code class="highlighter-rouge">subscriptions</code> function, which in turn is used in the <code class="highlighter-rouge">main</code> function – the entry point for an Elm application. The Elm runtime steps up and handles the subscriptions for you, you simply need to tell it what you are interested in subscribing to. Here is a look at my subscription function:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>subscriptions : Model -&gt; Session -&gt; Sub Msg
+subscriptions model session =
+    let
+        phoenixSubscriptions =
+            [ Phoenix.connect (socket session model.socketUrl) model.channelSubscriptions ]
+
+        -- more subscriptions unrelated to the socket connection setup here
+  	in
+  	Sub.batch [ phoenixSubscriptions, someOtherSubscription ]
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">Phoenix</code> module from the <code class="highlighter-rouge">elm-phoenix</code> library exposes a <code class="highlighter-rouge">connect</code> function that takes your <code class="highlighter-rouge">Socket Msg</code> and a list of channel subscriptions (a <code class="highlighter-rouge">List (Channel Msg)</code> type), and then handles the dirty work of connecting to the server. Once connected, you start receiving the messages you set up in the <code class="highlighter-rouge">socket</code> function back from the runtime, and you can respond to them accordingly in your <code class="highlighter-rouge">update</code> function.</p>
+
+<h3 id="3-the-phoenixchannel-module">3. The <code class="highlighter-rouge">Phoenix.Channel</code> module</h3>
+
+<p>As you can see in the <code class="highlighter-rouge">subscriptions</code> function above, my model stores a list of channel subscriptions. I am joining two separate channels in the module these code examples are from, and I have a function for each channel that handles the logic of connecting to the channel on the server and declaring what messages and events I am interested in. Here is a look at the code for hooking up to my <code class="highlighter-rouge">playerChannel</code>, where I get information about the player (user) who is logged in:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>playerChannel : Player -&gt; Channel Msg
+playerChannel player =
+    Channel.init ("players:" ++ Player.usernameToString player.username)
+        |&gt; Channel.onJoin (\_ -&gt; ConnectedToPlayerChannel)
+        |&gt; Channel.on "player" (\payload -&gt; UpdatePlayer payload)
+        |&gt; Channel.on "attr_updated" (\message -&gt; NewUpdateMessage message)
+        |&gt; Channel.on "error" (\error -&gt; NewErrorMessage error)
+        |&gt; Channel.on "player_search_list" (\payload -&gt; UpdateSearchList payload)
+</code></pre></div></div>
+
+<p>The function takes a <code class="highlighter-rouge">Player</code> record and returns a <code class="highlighter-rouge">Channel Msg</code>. The code looks very similar to the <code class="highlighter-rouge">socket</code> connection – you initialize the channel with the <code class="highlighter-rouge">Channel.init</code> function, passing in a string that indicates the name of the channel you want to join. Then I specify that I want to receive a <code class="highlighter-rouge">ConnectedToPlayerChannel</code> message when the channel has been successfully joined, and I set up a number of custom event listeners using the <code class="highlighter-rouge">Channel.on</code> function. <code class="highlighter-rouge">Channel.on</code> takes two parameters: a string specifying the name of a message from the channel, and a function that takes a payload (of type <code class="highlighter-rouge">Json.Decode.Value</code>) that you wrap in a <code class="highlighter-rouge">Msg</code>. The <code class="highlighter-rouge">Msg</code> returned from the function gets picked up in your <code class="highlighter-rouge">update</code> function and you can respond to it accordingly. Generally this means decoding the payload and updating your model. That would look something like this (inside of your <code class="highlighter-rouge">update</code> function’s <code class="highlighter-rouge">case</code> statement):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UpdatePlayer payload -&gt;
+  	case Decode.decodeValue Profile.decoder payload of
+        Ok newProfile -&gt;
+            ( ( { model | profile = newProfile }, Cmd.none ), NoOp )
+
+        Err error -&gt;
+            ( ( { model | errorMessages = error :: model.errorMessages } , Cmd.none ), NoOp )
+</code></pre></div></div>
+
+<h3 id="4-the-phoenixpush-module">4. The <code class="highlighter-rouge">Phoenix.Push</code> module</h3>
+
+<p>The last module to touch on from <code class="highlighter-rouge">elm-phoenix</code> is the <code class="highlighter-rouge">Phoenix.Push</code> module. This module lets you initiate <code class="highlighter-rouge">push</code> requests over the socket connection to the server. You can think of these as simple http requests, only instead of communicating over http, they communicate through a socket connection. You would use a <code class="highlighter-rouge">push</code> if you want to send a request to the server from your client-side code. The <code class="highlighter-rouge">Phoenix.Push</code> module also works well with the pipe operator and allows you to neatly compose functions together. I have a number of functions that create <code class="highlighter-rouge">push</code> requests in my code, and I will show one here that asks the server to create a new poker room:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>createGamePush : Model -&gt; Cmd Msg
+createGamePush model =
+    let
+        playerName =
+            getPlayerName model
+
+        push =
+            Push.init ("private_rooms:" ++ playerName) "create_room"
+                |&gt; Push.withPayload (encodeNewGame model.newGame)
+                |&gt; Push.onOk (\_ -&gt; RoomCreated)
+                |&gt; Push.onError (\payload -&gt; CreateRoomFailed payload)
+    in
+    Phoenix.push model.socketUrl push
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">Push</code> module follows suit with the <code class="highlighter-rouge">Socket</code> and <code class="highlighter-rouge">Channel</code> modules - you use the <code class="highlighter-rouge">Push.init</code> function to kick things off, then pipe the result through to specify the events and messages you are interested in. The <code class="highlighter-rouge">Push.init</code> function takes two parameters: 1) a string that represents the name of the channel on the server, and 2) the name of the message you are sending to the channel. You then pipe this result to the <code class="highlighter-rouge">Push.withPayload</code> function and pass in the encoded parameters you want to pass along to the server. You pipe that result to the <code class="highlighter-rouge">onOk</code> and <code class="highlighter-rouge">onError</code> functions where you specify the messages you want to receive for a successful response or a failed response. Finally, in the main body of the function, you reach for the <code class="highlighter-rouge">Phoenix</code> module again to call <code class="highlighter-rouge">Phoenix.push</code>, which takes the socket url endpoint as a string and the <code class="highlighter-rouge">Push Msg</code> you specified in the <code class="highlighter-rouge">let</code> block as parameters. The <code class="highlighter-rouge">Phoenix.push</code> function returns a <code class="highlighter-rouge">Cmd Msg</code>. If you are unfamiliar with the Elm architecture, <code class="highlighter-rouge">Cmd</code>s are a key part of the platform and are a specification of some task you want to happen in the real world. Once you specify a command, you can return it in your <code class="highlighter-rouge">update</code> function and the Elm runtime takes care of the dirty work. Here is a simplified example from my <code class="highlighter-rouge">update</code> function where I use the <code class="highlighter-rouge">createGamePush</code> function to kick off a <code class="highlighter-rouge">Cmd</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let
+    game =
+        model.newGame
+
+    newGame =
+{ game | owner = Player.usernameToString model.player.username }
+
+    newModel =
+    	{ model | newGame = newGame }
+
+in
+( newModel, createGamePush model )
+</code></pre></div></div>
+
+<p>That was just a very brief whirlwind tour of hooking an Elm app up to Phoenix channels. There are some other cool features like <code class="highlighter-rouge">Phoenix.Presence</code> that I have not yet worked with from Elm, but after using <code class="highlighter-rouge">elm-phoenix</code> for a couple of months, I can say that the library has been great to work with. I would definitely recommend it if you are looking for an Elm client for Phoenix channels.</p>
+
+<h2 id="a-brief-overview-of-the-elm-architecture">A Brief Overview of the Elm Architecture</h2>
+
+<p>I would be remiss if I did not touch on the Elm Architecture, which has probably been the most appealing aspect of the language to me personally. It provides you a path to follow that guides you to a cohesive, straightforward design. One of the reasons for this is the language’s reliance on immutable data structures and pure functions. Another part is that the Elm architecture provides you with some simple constructs that serve as a template and drive you towards an intuitive and scalable design. Let’s look at the three core parts of the Elm Architecture:</p>
+
+<ol>
+  <li>Model - A record (records are similar to JavaScript objects, but are immutable) that holds the state of your application. This is like the store in a Redux application.</li>
+  <li>Update - A function that takes in a <code class="highlighter-rouge">msg</code> (more on this later) and your <code class="highlighter-rouge">Model</code>. You generally run a case statement on the <code class="highlighter-rouge">msg</code> where you can use pattern matching to pick up specific <code class="highlighter-rouge">msgs</code> and update your model accordingly. The parallel to this in Redux would be reducers. <code class="highlighter-rouge">msg</code>s roughly parallel actions in Redux, but there is more to the story that I’ll touch on below.</li>
+  <li>View - A function that takes in your Model (and sometimes other parameters) and returns a <code class="highlighter-rouge">Html msg</code>. It does pretty much what it says: it describes your view. The <code class="highlighter-rouge">Html msg</code> part confused me a bit at first, but you can read this as: Html that emits messages of type <code class="highlighter-rouge">msg</code>.</li>
+</ol>
+
+<p>In more sophisticated apps, you can add <code class="highlighter-rouge">subscriptions</code> to the list above, but the idea is basically the same as the view - you have subscriptions that emit messages of type <code class="highlighter-rouge">msg</code>, which you can pick up in the update function and use to update your model. There are also two tangentially-related concepts that are key to understanding the Elm architecture:</p>
+
+<h3 id="union-types">Union Types</h3>
+<p>Union types, which you can read more about <a href="https://guide.elm-lang.org/types/union_types.html">here</a>, are one of the things that set Elm apart. The <code class="highlighter-rouge">Msg</code> type concept that appeared in most of the excerpts I showed aboveis an example of a union type. Union types allow you to specify a data structure that can hold a value that can be of different types, but only one of those types can be used at a given point. The most ubiquitous example from Elm itself is the <code class="highlighter-rouge">Maybe</code> union type. The <code class="highlighter-rouge">Maybe</code> type acts like optionals in other languages - it can either hold a single value of any type, or be empty. This is represented in <code class="highlighter-rouge">Maybe</code>’s definition: <code class="highlighter-rouge">type Maybe a = Just a | Nothing</code>. (The <code class="highlighter-rouge">a</code> is a type parameter, a stand-in for any type - the convention in Elm is to use lowercase letters/names for type parameters, like the <code class="highlighter-rouge">msg</code> I was describing above.) In Elm, union types generally demonstrate their power in case statements where you can use them with pattern matching:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aFunctionThatReturnsAnInteger : Maybe Int -&gt; Int
+aFunctionThatReturnsAnInteger maybeAnInteger =
+case maybeAnInteger of
+Just theInteger -&gt; theInteger
+Nothing -&gt; 1
+</code></pre></div></div>
+
+<p>The first line of the code above is the type definition of the <code class="highlighter-rouge">aFunctionThatReturnsAnInteger</code> function, and, strictly speaking, is not needed. The compiler can figure out the type definition for you. The second line onward is the function definition, consisting of the function name followed by parameters. The <code class="highlighter-rouge">=</code> delineates the head of the function from the function body.</p>
+
+<p>Union types are most important in terms of the Elm architecture in understanding the <code class="highlighter-rouge">update</code> function and one of its parameters - <code class="highlighter-rouge">Msg</code>. In a typical Elm app, you define your own union type, conventionally given the name <code class="highlighter-rouge">Msg</code>. Your <code class="highlighter-rouge">Msg</code> union type outlines all of the messages that you are interested in emitting and responding to from your module. Here is the <code class="highlighter-rouge">Msg</code> from my <code class="highlighter-rouge">Rooms.elm</code> module where I show a list of all <code class="highlighter-rouge">public</code> poker rooms running on the server:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>type Msg
+  = JoinedLobby
+  | JoinFailed Decode.Value
+  | UpdatePlayerCount Decode.Value
+  | UpdateRooms Decode.Value
+  | PaginationItemClicked String
+  | SocketOpened
+  | SocketClosed
+  | SocketClosedAbnormally
+</code></pre></div></div>
+
+<p>I listen for all of these in my update function (Elm case statements must be exhaustive; use <code class="highlighter-rouge">_</code> as a catch-all, but be wary dear reader, this can be dangerous), and I use pattern matching to draw out values I’m interested in, like the <code class="highlighter-rouge">Decode.Value</code> that follows <code class="highlighter-rouge">UpdatePlayerCount</code>. The <code class="highlighter-rouge">Decode.Value</code> is the data sent back to me when the server broadcasts an update of the number of players who have joined a specific room. I use that data to update my <code class="highlighter-rouge">Model</code>, which updates the view accordingly. Other values I’ve defined here don’t need any extra data. Receiving a <code class="highlighter-rouge">SocketOpened</code> value in my update function is enough to let me know what I need to do to update my model appropriately.</p>
+
+<h3 id="cmd"><code class="highlighter-rouge">Cmd</code></h3>
+<p>Elm enforces pure functions, so how do you do side-effecty things like make a network call? That is where <code class="highlighter-rouge">Cmd</code>s come in. A conventional <code class="highlighter-rouge">update</code> function generally returns a tuple of the form: <code class="highlighter-rouge">(Model, Cmd Msg)</code>. <code class="highlighter-rouge">Model</code> we already know - it is the (possibly updated) version of your model, but what is this <code class="highlighter-rouge">Cmd Msg</code>? Commands let you tell the Elm runtime to do something that has an effect on the outside world. They can send a <code class="highlighter-rouge">Msg</code> value back to your program you that you can respond to in your update function. You see this with Http requests, for example. In your update function, you might return something like <code class="highlighter-rouge">(model, Http.send MyMsg (Request.callApi model))</code>. The command here (the result of <code class="highlighter-rouge">Http.send</code>) is a description of what you would like the Elm runtime to do for you. You maintain functional purity while the runtime handles the dirty work for you. When it finishes, it will send the <code class="highlighter-rouge">MyMsg</code> value to your update function, which you can then use to update your model. This creates a common flow in Elm apps, something that follows along these lines:</p>
+
+<ol>
+  <li>You have a button in your view. Clicking on it emits a <code class="highlighter-rouge">SubmitForm</code> value.</li>
+  <li>You respond to the <code class="highlighter-rouge">SubmitForm</code> message in your update function by returning a <code class="highlighter-rouge">Cmd</code> in your update function without updating the model. The <code class="highlighter-rouge">Cmd</code> will send you another <code class="highlighter-rouge">Msg</code> with data.</li>
+  <li>You respond to the <code class="highlighter-rouge">Msg</code> you receive from the Cmd by using the data it wraps to update your model.</li>
+</ol>
+
+<p>If you were wondering what to return from your <code class="highlighter-rouge">update</code> function when you don’t want to do anything, by the way, I’m glad you asked. You can use <code class="highlighter-rouge">Cmd.none</code>. If you want to do more than one thing at a time, you can use <code class="highlighter-rouge">Cmd.batch (List (Cmd Msg))</code>. Pass a list of <code class="highlighter-rouge">Cmd Msg</code>s to the <code class="highlighter-rouge">Cmd.batch</code> function. <code class="highlighter-rouge">Cmd.none</code> and <code class="highlighter-rouge">Cmd.batch</code> also have twins in <code class="highlighter-rouge">Sub.none</code> and <code class="highlighter-rouge">Sub.batch</code> for subscriptions.</p>
+
+<h2 id="challenges-and-roadblocks">Challenges and Roadblocks</h2>
+
+<p>I want to wrap up with some of the challenges I faced while I worked my way through Elm. I personally struggled with 1) how to organize my code, especially with larger modules, 2) figuring out how to make the UI more interactive, and 3) sharing code across modules. I am sure there are better ways to do these things than the way I handled them in my project, and I’d be super appreciative of any feedback. Let me just briefly touch on each one of these points.</p>
+
+<ol>
+  <li>Organizing code with larger modules - I have two modules that grew quite large by the end of the project: my <code class="highlighter-rouge">Page.Room</code> and <code class="highlighter-rouge">Page.Profile</code> modules. These represent the pages in the SPA for the actual poker room UI and for the player profile page, respectively. I took two separate approaches with each module.</li>
+</ol>
+
+<p>In the <code class="highlighter-rouge">Page.Room</code> module, I ended up breaking out my view, update, and socket config code into separate modules that I imported back into <code class="highlighter-rouge">Page.Room</code>. I also had to make a couple of modules specifically for some of the types I was using - one for the <code class="highlighter-rouge">Msg</code>, and another for other miscellaneous types.</p>
+
+<p>In the <code class="highlighter-rouge">Page.Profile</code> module, which I wrote after finishing the <code class="highlighter-rouge">Page.Room</code> module, I decided I would take a different approach and just keep everything in the same module regardless of how big it grew. It is now quite a massive file, but I actually feel that this approach worked better for me. I don’t have to do weird things like import my <code class="highlighter-rouge">Msg</code> union type in a bunch of different files, and I don’t have to navigate to other files to see what I’m actually doing in my update helper functions. Despite the size, I have things partitioned into segments, so my <code class="highlighter-rouge">Model</code> and type definitions are toward the top of the file, my view functions come next, then my update function, update helper functions, subscriptions, and finally a chunk of small utility helper functions. It is a huge file, but it actually does not take me too long to find where things are.</p>
+
+<ol>
+  <li>
+    <p>Making the UI more interactive - I have the feeling I found this difficult because I was coming to Elm with some baggage from JavaScript. In JavaScript, if I really wanted to make something move on the screen, I could just use a query selector to find an element in the DOM and manipulate it however I wanted. This is very difficult to do in Elm because of the focus on functional purity. Elm does have a library for lower level interactions with the DOM, but I couldn’t figure out how to use it or even if it could do something like find an element and move it around. I have a function in my chat interface in the <code class="highlighter-rouge">Page.Room</code> module that scrolls the latest messages to the top of the chat element. To accomplish this, I decided to go with a <code class="highlighter-rouge">port</code> (ports are Elm’s way of interop with JavaScript) that tells JavaScript to take over and handle the scrolling. Other interactive things I carry out using CSS transitions and animations. My struggle here is more with figuring out the right way to do address these kind of concerns in Elm.</p>
+  </li>
+  <li>
+    <p>Sharing code between modules - Where I really felt the pain of this one was in hooking up my socket to different modules. I connect to Phoenix channels in three different modules, and I ended up writing essentially the same boiler plate code to set up the socket connection in each module. Ideally, I would like to connect to the socket in the <code class="highlighter-rouge">Main</code> module and pass it down to pages where it was needed. The issue I ran into was that <code class="highlighter-rouge">Socket</code>s are parameterized with <code class="highlighter-rouge">Socket msg</code>. So, if I define a <code class="highlighter-rouge">Msg</code> in my <code class="highlighter-rouge">Main</code> module and get back a socket with type <code class="highlighter-rouge">Socket Msg</code>, the pages below that will be passed the same socket but want a socket instance parameterized with <code class="highlighter-rouge">Socket Room.Msg</code>, for example. I ran into similar issues when setting up the SPA itself with the discrepancy between <code class="highlighter-rouge">Html Msg</code>, <code class="highlighter-rouge">Html Room.Msg</code>, etc., but got around these issues using the <code class="highlighter-rouge">Html.map</code> function. The same is true for <code class="highlighter-rouge">Cmd Msg</code>s. I could map these from the <code class="highlighter-rouge">Main</code> module to wrap them in the appropriate type of <code class="highlighter-rouge">msg</code> for the specific page. I couldn’t figure out how to do the same for sockets, though, even though I experimented with <code class="highlighter-rouge">Socket.map</code> for a while. I also have a feeling that there is a straightforward way around this that hasn’t dawned on me yet. If I have a moment of insight, I will add an update here.</p>
+  </li>
+</ol>
+
+<p>Overall, I absolutely loved working on this project - Elm has been a blast and I will certainly keep following the language and would love to use it on a real project at some point. Combining it with Elixir and Phoenix on the backend was a dream setup for me. I hope others feel the same way, and I’d love to see similar projects using the Functional Full Stack. If you want to check out the project, the Elm app is contained in <a href="https://github.com/zkayser/pokerex_client">this</a> repo under <code class="highlighter-rouge">assets/elm</code>. The server-side code can be found <a href="https://github.com/zkayser/poker_ex">here</a>, and you can also visit the live app on Heroku <a href="https://poker-ex.herokuapp.com/">here</a>.</p>
+
+    </div>
+    <div class="post__tags">
+      <h5>Posted in: </h5>
+      <a class="tag" href="/blog/categories/development/index.html">Development</a>
+    </div>
+  </section>
+
+  <section class="post__related">
+    <h3>Related Posts</h3>
+    <div class="grid grid--2">
+      
+      
+      
+
+      
+        
+        
+
+        
+          <a href="/blog/refactoring-patterns-in-elixir-replace-conditional-with-polymorphism-via-protocols-part-2" class="card card--feature">
+            <div class="card__content">
+              <h3>Refactoring Patterns in Elixir: Replace Conditional with Polymorphism Via Protocols Part 2</h3>
+              <h4>Zack Kayser</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/outsourcing-custom-development-for-fast-paced-companies" class="card card--feature">
+            <div class="card__content">
+              <h3>Outsourcing Custom Development for Fast-Paced Companies </h3>
+              <h4>Peter Kananen</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/oh-to-be-a-domain-expert-if-only-we-knew-what-you-know" class="card card--feature">
+            <div class="card__content">
+              <h3>Oh, to be a Domain Expert … if we only knew what you knew.</h3>
+              <h4>Kati Best</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+        
+      
+        
+        
+
+        
+          <a href="/blog/gaslight-your-partner-in-growth" class="card card--feature">
+            <div class="card__content">
+              <h3>Gaslight, Your Partner in Growth</h3>
+              <h4>Steve Hennegan</h4>
+              <p class="note"></p>
+              Read More &rarr;
+            </div>
+          </a>
+          
+          
+            
+    </div>
+  </section>
+</article>
+
+
+<section class="section--light flush">
+  <div class="cta">
+    <img src="/assets/img/color-shapes-one.svg" class="cta__confetti" />
+    <div class="cta__container">
+      <div>
+        
+<h3> Like what you're seeing? Let's keep in touch. </h3> <a href="/newsletter" class="btn btn--cta"> Subscribe to Our Newsletter </a>
+
+      </div>
+    </div>
+    <img src="/assets/img/color-shapes-two.svg" class="cta__confetti" />
+  </div>
+</section>
+
+
+    </main>
+
+    
+<footer>
+  <div class="footer__container">
+    <div class="footer__menu">
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
+        <li><a class="inverse" href="/careers">Careers</a></li>
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
+        
+          <li><a class="inverse" href="/what-we-do">Apprenticeship</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Code Check Up</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Custom Software Development</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Design Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Discovery Sprint</a></li>
+        
+          <li><a class="inverse" href="/what-we-do">Fast Forward Build</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
+        
+        <li><a class="inverse" href="/work/e_beam">E-Beam Services, Inc.</a></li>
+        
+        <li><a class="inverse" href="/work/mike-albert-fleet-solutions">Mike Albert Fleet Solutions</a></li>
+        
+        <li><a class="inverse" href="/work/omega">OMEGA</a></li>
+        
+        <li><a class="inverse" href="/work/poa">POA</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
+        
+          <li><a href="/blog/categories/business/index.html" class="inverse">Business</a></li>
+        
+          <li><a href="/blog/categories/design/index.html" class="inverse">Design</a></li>
+        
+          <li><a href="/blog/categories/development/index.html" class="inverse">Development</a></li>
+        
+      </ul>
+      <ul>
+        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
+        <li><a class="inverse" href="/events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer__credentials">
+      <a href="/" class="footer__logo"></a>
+      <div class="footer__social">
+        <a href="https://www.instagram.com/rhythmdogsports/" target="_blank" class="social__link instagram">
+  <svg viewBox="0 0 50 50">
+    <path d="M16 3C8.83 3 3 8.83 3 16v18c0 7.17 5.83 13 13 13h18c7.17 0 13-5.83 13-13V16c0-7.17-5.83-13-13-13H16zm21 8c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm-12 3c6.07 0 11 4.93 11 11s-4.93 11-11 11-11-4.93-11-11 4.93-11 11-11zm0 2c-4.96 0-9 4.04-9 9s4.04 9 9 9 9-4.04 9-9-4.04-9-9-9z"/>
+  </svg>
+</a>
+<!-- <a href="http://twitter.com/teamgaslight" target="_blank" class="social__link twitter">
+  <svg viewBox="0 0 50 50">
+    <path d="M50.06 10.44c-1.85.82-3.83 1.37-5.91 1.62 2.12-1.27 3.76-3.29 4.52-5.69a20.473 20.473 0 0 1-6.53 2.49c-1.88-2-4.55-3.25-7.5-3.25-5.68 0-10.29 4.6-10.29 10.28 0 .8.09 1.59.27 2.34C16.08 17.81 8.5 13.72 3.43 7.5c-.89 1.52-1.39 3.29-1.39 5.17 0 3.57 1.81 6.71 4.57 8.56-1.69-.05-3.27-.52-4.66-1.29v.13c0 4.98 3.55 9.14 8.25 10.09-.86.23-1.77.36-2.71.36-.66 0-1.31-.06-1.94-.19 1.31 4.08 5.11 7.06 9.61 7.14-3.52 2.76-7.95 4.4-12.77 4.4-.83 0-1.65-.05-2.45-.14 4.55 2.92 9.95 4.62 15.76 4.62 18.91 0 29.26-15.67 29.26-29.25 0-.45-.01-.89-.03-1.33 2.01-1.46 3.75-3.27 5.13-5.33z"/>
+  </svg>
+</a> -->
+<a href="http://facebook.com/rhythmdogsports" target="_blank" class="social__link facebook">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zm-4 15h-2c-2.14 0-3 .5-3 2v3h5l-1 5h-4v15h-5V29h-4v-5h4v-3c0-4 2-7 6-7 2.9 0 4 1 4 1v4z"/>
+  </svg>
+</a>
+<!-- <a href="http://github.com/gaslight" target="_blank" class="social__link github">
+  <svg viewBox="0 0 50 50">
+    <path d="M33 29c-1.8 0-3 1.52-3 4s.89 5.05 3 5c2.22-.05 3.02-2.22 3-5-.02-2.48-1.21-4-3-4zm11.26-11.93c.27-1.34.39-6.1-1.58-11.07 0 0-4.53.5-11.38 5.2-1.43-.4-3.87-.6-6.3-.6s-4.86.2-6.3.59C11.85 6.5 7.32 6 7.32 6c-1.98 4.96-1.88 9.61-1.59 11.07C3.42 19.59 2 22.61 2 26.74 2 44.71 16.91 45 20.67 45h8.66C33.09 45 48 44.71 48 26.74c0-4.13-1.42-7.15-3.74-9.67zM25.14 43H25c-9.43 0-16.84-1.34-16.84-10.5 0-2.2.78-4.23 2.62-5.92 3.07-2.82 8.26-1.33 14.16-1.33h.14c5.89 0 11.09-1.49 14.16 1.33 1.84 1.69 2.61 3.73 2.61 5.92-.01 9.16-7.28 10.5-16.71 10.5zM17 29c-1.79 0-3 2.02-3 4.5s1.21 4.5 3 4.5c1.8 0 3-2.02 3-4.5S18.8 29 17 29z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.youtube.com/channel/UCC36CM_uLqhoKEqSy2mjqFQ" target="_blank" class="social__link youtube">
+  <svg viewBox="0 0 50 50">
+    <path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9zm6 4h2.4l1.6 4 1.6-4H23l-3 7v4h-2v-4.01c-.6-1.61-2.59-5.98-3-6.99zm10 3c.89 0 1.77.27 2.33.95.43.49.67 1.28.67 2.32v1.46c0 1.04-.2 1.76-.62 2.25-.56.67-1.49 1.02-2.38 1.02s-1.8-.35-2.36-1.02c-.43-.49-.64-1.21-.64-2.25v-1.45c0-1.04.23-1.84.67-2.33.56-.68 1.32-.95 2.33-.95zm4 0h2v6c.05.27.34.39.61.39.41 0 .93-.48 1.39-1.01V11h2v8h-2v-1.38c-.81.79-1.5 1.38-2.41 1.35-.66-.02-1.12-.26-1.35-.74-.14-.28-.24-.73-.24-1.39V11zm-4 1.62c-.14 0-.27.03-.39.08a1.016 1.016 0 0 0-.53.54c-.05.13-.08.26-.08.4v2.81a1.02 1.02 0 0 0 .61.94c.12.05.25.08.39.08s.27-.03.39-.08c.36-.16.61-.52.61-.94v-2.81c0-.56-.45-1.02-1-1.02zM24.99 22h.02s6.71 0 11.19.32c.63.07 1.99.08 3.21 1.33.96.94 1.27 3.1 1.27 3.1s.32 1.53.32 4.06v2.37c0 2.53-.32 4.06-.32 4.06s-.31 2.16-1.27 3.1c-1.22 1.25-2.58 1.26-3.21 1.33-4.48.32-11.2.33-11.2.33s-8.32-.08-10.88-.32c-.71-.13-2.31-.09-3.53-1.33-.96-.95-1.27-3.11-1.27-3.11S9 35.71 9 33.18v-2.37c0-2.53.32-4.06.32-4.06s.31-2.16 1.27-3.1c1.22-1.25 2.58-1.26 3.21-1.33C18.28 22 24.99 22 24.99 22zM12 26v1.98h2V38h2V27.98h2V26h-6zm13 0v12h2v-1.25c.63.78 1.45 1.25 2.12 1.25.75 0 1.41-.4 1.66-1.18.12-.42.21-.81.21-1.7v-2.75c0-.99-.13-1.73-.26-2.15-.24-.78-.85-1.22-1.61-1.22-.98-.01-1.38.5-2.12 1.38V26h-2zm-7 3v6.69c0 .72.1 1.21.23 1.52.22.51.67.79 1.31.79.73 0 1.67-.51 2.46-1.37V38h2v-9h-2v6.27c-.44.58-1.08 1.02-1.48 1.02-.26 0-.47-.11-.52-.4V29h-2zm17.03 0c-1.01 0-1.8.32-2.37.92-.42.44-.66 1.16-.66 2.1v3.07c0 .93.27 1.58.69 2.02.57.6 1.36.9 2.39.9s1.84-.31 2.39-.95c.24-.28.39-.6.46-.95.01-.17.07-.6.07-1.11h-2v.8c0 .46-.45.84-1 .84s-1-.38-1-.84V34h4v-2.03c0-.93-.23-1.62-.64-2.06-.56-.59-1.34-.91-2.33-.91zM35 30.45c.55 0 1 .38 1 .84v1.33h-2v-1.33c0-.47.45-.84 1-.84zm-6.78.3c.55 0 .78.33.78 1.38v2.75c0 1.04-.23 1.4-.78 1.4-.31 0-.9-.21-1.22-.53v-4.38c.32-.31.91-.62 1.22-.62z"/>
+  </svg>
+</a> -->
+<!-- <a href="https://www.linkedin.com/company/gaslight" target="_blank" class="social__link linkedin">
+  <svg viewBox="0 0 50 50">
+    <path d="M41 4H9C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h32c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5zM17 20v19h-6V20h6zm-6-5.53c0-1.4 1.2-2.47 3-2.47s2.93 1.07 3 2.47c0 1.4-1.12 2.53-3 2.53-1.8 0-3-1.13-3-2.53zM39 39h-6V29c0-2-1-4-3.5-4.04h-.08C27 24.96 26 27.02 26 29v10h-6V20h6v2.56S27.93 20 31.81 20c3.97 0 7.19 2.73 7.19 8.26V39z"/>
+  </svg>
+</a> -->
+
+      </div>
+      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/js/scale.fix.js"></script>
+    <script src="/assets/js/rellax.min.js"></script>
+    <script>
+    var rellax = new Rellax('.float', {
+      speed: -2,
+      center: false,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    </script>
+
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/509988.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    
+  </body>
+</html>

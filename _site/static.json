@@ -1,0 +1,12 @@
+{
+  "clean_urls": true,
+  "https_only": true,
+  "error_page": "404.html",
+  "redirects": {
+    "/staging-test": {
+      "url": "/who-we-are",
+      "status": 302
+    }
+  },
+  "root": "_site/"
+}

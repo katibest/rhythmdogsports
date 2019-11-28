@@ -1,10 +1,12 @@
 //MAIN NAVIGATION
 nav {
   align-items: center;
+  background: $teal;
   box-sizing: border-box;
+  color: $color-light;
   display: grid;
   grid-template-columns: 1fr 2rem;
-  padding: $padd-sm;
+  padding: $padd-xs;
   position: relative;
   width: 100%;
   z-index: 200;
@@ -15,14 +17,14 @@ nav {
     background-position: center;
     border: 0;
     display: block;
-    height: grid(1.5);
+    height: grid(3);
     margin: $padd-xxs 0;
     transition: none;
 
     &:hover,
     &:active,
     &:focus {
-      background-image: url("/assets/img/gaslight-logo--hover.svg");
+      background-image: url("/assets/img/logo.svg");
       border: 0;
       transition: none;
 
@@ -46,7 +48,7 @@ nav {
 
 
   &::before, &::after {
-    background: $color-dark;
+    background: $yellow;
     border-radius: 1rem;
     content: "";
     display: block;
@@ -120,7 +122,8 @@ nav {
 
   &.current {
     a {
-      background-position: 0 0;
+      background-position: 0 20px;
+      border-bottom: $yellow;
       color: $color-light;
     }
   }
@@ -132,9 +135,9 @@ nav {
 }
 .section--dark nav {
   a.nav__logo {
-    background-image: url("/assets/img/gaslight-logo__inverse.svg");
+    background-image: url("/assets/img/logo.svg");
     &:hover {
-      background-image: url("/assets/img/gaslight-logo__inverse--hover.svg");
+
     }
   }
 

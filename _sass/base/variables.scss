@@ -63,17 +63,18 @@ $black: #252525;
 $white: #FFFFFF;
 $blue: #33BFE5;
 $red: #f03330;
-$yellow: #FFD503;
+$yellow: #ebc234;
+$teal: #23aaad;
 
-$color-dark: $black;
+$color-dark: $teal;
 $color-off-dark: lighten($black, 6%);
 $color-gray: lighten($black, 30%);
 $color-gray-light: lighten($black, 60%);
 $color-gray-lighter: lighten($black, 80%);
 $color-light: $white;
 $color-off-light: darken($white, 5%);
-$color-splash-1: $blue;
-$color-splash-2: $red;
+$color-splash-1: $teal;
+$color-splash-2: $yellow;
 $color-splash-3: $yellow;
 
 
