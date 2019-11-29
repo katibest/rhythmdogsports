@@ -4,9 +4,9 @@ permalink: /who-we-are/
 ---
 
 {% capture who-we-are-intro %}{% include /snipets/who-we-are-intro.md %}{% endcapture %}
-{% include image-pane-splash.html image-url="/assets/img/agility-5.jpg" pane-align="center" copy=who-we-are-intro desktop-confetti="/assets/img/color-shapes-three.svg" mobile-confetti="/assets/img/color-shapes-four.svg" color="light" %}
+{% include image-pane-splash.html image-url="/assets/img/agility-5.jpg" pane-align="left" copy=who-we-are-intro color="light" %}
 
-<section class="cd-timeline">
+<section class="cd-timeline u-padded--none">
 
   <div class="cd-timeline__container">
     <div class="cd-timeline__block js-cd-block">

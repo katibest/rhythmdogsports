@@ -4,7 +4,7 @@
     max-width: 100%;
     background-position: center;
     background-size: cover;
-    height: grid(15);
+    height: grid(18);
     overflow: hidden;
   }
 
@@ -63,7 +63,7 @@
 
     &__section {
       &-container {
-        grid-template-areas: "header header" "confetti copy";
+        grid-template-areas: "header header" "copy copy";
       }
     }
 

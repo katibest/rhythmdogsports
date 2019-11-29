@@ -3,8 +3,8 @@ layout: dark-nav
 ---
 <section class="section--dark u-full-fold flush">
   {% include navigation.html %}
-  <div class="splash-title__grid">
-    {% include image-pane-splash.html image-url="../assets/img/splash.jpg" %}
+  <div class="splash-title__grid u-full-fold">
+    {% include image-pane-splash-full.html image-url="../assets/img/splash.jpg" %}
     <div class="splash-title__social">
       {% include social-links.html %}
     </div>
@@ -12,6 +12,6 @@ layout: dark-nav
 </section>
 
 <section class="section--light">
-  {% capture what-we-do %}{% include  /snipets/what-we-do-preview.md %}{% endcapture %}
-  {% include image-pane.html image-url="../assets/img/agility-2.jpg" pane-align="left" pane-copy=what-we-do %}
+  {% capture agility %}{% include  /snipets/agility-preview.md %}{% endcapture %}
+  {% include image-pane.html image-url="../assets/img/agility-2.jpg" pane-align="left" pane-copy=agility %}
 </section>

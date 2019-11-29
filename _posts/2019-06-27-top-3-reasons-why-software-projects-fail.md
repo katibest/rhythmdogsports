@@ -26,7 +26,7 @@ Building custom software is risky, so it’s crucial that everyone on the team �
 
 Our most successful projects are ones where the client brings us a problem. We then dive into the problem as a collaborative team. Who’s problem is it? What are they really trying to accomplish? How will they know when the problem is solved? What will solving this problem mean to the clients’ bottom line?
 
-The opposite also holds true: [Our least successful projects](https://teamgaslight.com/blog/learning-from-failure-what-we-do-when-a-client-project-goes-wrong) are when clients bring us a solution they want built. During the sales process or early discovery, they’ve told us they know what they want, and they just want us to build it. 
+The opposite also holds true: [Our least successful projects](https://teamgaslight.com/blog/learning-from-failure-agility-when-a-client-project-goes-wrong) are when clients bring us a solution they want built. During the sales process or early discovery, they’ve told us they know what they want, and they just want us to build it. 
 
 What’s the problem here? The team doesn’t really understand the context of the system they are building, so they’re not equipped to make all the little decisions along the way that affect the Big Picture. 
 

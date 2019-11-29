@@ -1,0 +1,12 @@
+<section class="splash-intro full-bleed flush">
+  <div class="splash-intro__image u-full-height" style="background-image: url( {{ include.image-url }} )">
+  </div>
+
+  <div class="splash-intro__section splash-intro__section--{{include.color}} full-bleed">
+    <div class="splash-intro__section-container">
+      <img src="{{ include.desktop-confetti }}" class="splash-intro__confetti splash-intro__confetti--desktop">
+      <img src="{{ include.mobile-confetti }}" class="splash-intro__confetti splash-intro__confetti--mobile">
+      {{ include.copy }}
+    </div>
+  </div>
+</section>

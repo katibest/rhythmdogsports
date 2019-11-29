@@ -414,7 +414,7 @@ blockquote,
 a.btn, .btn, input.hs-button {
   background: transparent;
   border: 3px solid #ebc234;
-  border-radius: 50px;
+  border-radius: 15px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   color: #252525;
@@ -735,7 +735,7 @@ a.card {
   .cta__confetti {
     height: calc(var(--grid) * 5); } }
 footer, .footer {
-  background-color: #23aaad;
+  background-color: #343434;
   color: #FFFFFF;
   padding: calc(var(--grid) * 2) calc(var(--grid) * 1) calc(var(--grid) * 2); }
   footer__container, .footer__container {
@@ -745,123 +745,34 @@ footer, .footer {
   footer a, footer a.inverse, .footer a, .footer a.inverse {
     border-bottom: 0;
     padding-bottom: .25rem; }
-  footer__credentials, .footer__credentials {
-    display: -ms-grid;
-    display: grid;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    grid-template-areas: "logo logo logo" "social social social" "copyright copyright copyright";
-    grid-gap: calc(var(--grid) * 1);
-    justify-items: center;
-    margin-top: calc(var(--grid) * 3); }
-    @media screen and (min-width: 576px) {
-      footer__credentials, .footer__credentials {
-        -ms-grid-columns: min-content minmax(235px, 1fr) minmax(235px, 1fr);
-        grid-template-columns: -webkit-min-content minmax(235px, 1fr) minmax(235px, 1fr);
-        grid-template-columns: min-content minmax(235px, 1fr) minmax(235px, 1fr);
-        grid-template-areas: "logo social social" "copyright copyright copyright";
-        justify-items: start; } }
-    @media screen and (min-width: 744px) {
-      footer__credentials, .footer__credentials {
-        grid-template-areas: "logo social copyright"; } }
-    footer__credentials a, .footer__credentials a {
-      background: transparent; }
-    footer__credentials .footer__logo, .footer__credentials .footer__logo {
-      background-image: url("/assets/img/gaslight-logo__inverse.svg");
-      background-size: cover;
-      grid-area: logo;
-      -ms-grid-row: 1;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 3;
-      height: calc(var(--grid) * 2);
-      width: calc(var(--grid) * 7); }
-      @media screen and (min-width: 576px) {
-        footer__credentials .footer__logo, .footer__credentials .footer__logo {
-          -ms-grid-row: 1;
-          -ms-grid-column: 1;
-          -ms-grid-column-span: 1; } }
-      @media screen and (min-width: 744px) {
-        footer__credentials .footer__logo, .footer__credentials .footer__logo {
-          -ms-grid-row: 1;
-          -ms-grid-column: 1;
-          -ms-grid-column-span: 1; } }
-      footer__credentials .footer__logo:hover, footer__credentials .footer__logo:active, footer__credentials .footer__logo:focus, .footer__credentials .footer__logo:hover, .footer__credentials .footer__logo:active, .footer__credentials .footer__logo:focus {
-        background-image: url("/assets/img/gaslight-logo__inverse--hover.svg"); }
-    footer__credentials .footer__social, .footer__credentials .footer__social {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
-      grid-area: social;
-      -ms-grid-row: 2;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 3; }
-      @media screen and (min-width: 576px) {
-        footer__credentials .footer__social, .footer__credentials .footer__social {
-          -ms-grid-row: 1;
-          -ms-grid-column: 2;
-          -ms-grid-column-span: 2; } }
-      @media screen and (min-width: 744px) {
-        footer__credentials .footer__social, .footer__credentials .footer__social {
-          -ms-grid-row: 1;
-          -ms-grid-column: 2;
-          -ms-grid-column-span: 1; } }
-    footer__credentials .footer__copyright, .footer__credentials .footer__copyright {
-      grid-area: copyright;
-      -ms-grid-row: 3;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 3;
-      font-size: 0.8em;
-      margin: 0;
-      text-align: center; }
-      @media screen and (min-width: 576px) {
-        footer__credentials .footer__copyright, .footer__credentials .footer__copyright {
-          text-align: left;
-          -ms-grid-row: 2;
-          -ms-grid-column: 1;
-          -ms-grid-column-span: 3; } }
-      @media screen and (min-width: 744px) {
-        footer__credentials .footer__copyright, .footer__credentials .footer__copyright {
-          justify-self: end;
-          text-align: right;
-          -ms-grid-row: 1;
-          -ms-grid-column: 3;
-          -ms-grid-column-span: 1; } }
   footer .social__link, .footer .social__link {
     display: inline-block;
     width: calc(var(--grid) * 1); }
   footer__menu, .footer__menu {
     text-align: center; }
+    footer__menu h5, .footer__menu h5 {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
     @media screen and (min-width: 576px) {
       footer__menu, .footer__menu {
-        display: -ms-grid;
-        display: grid;
-        -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-template-columns: repeat(5, 1fr);
-        grid-gap: calc(var(--grid) * 1);
-        text-align: left; } }
-    footer__menu ul, .footer__menu ul {
-      font-family: aglet-slab, sans-serif;
-      margin: 0 0 calc(var(--grid) * 2);
-      padding: 0;
-      vertical-align: center; }
-      @media screen and (min-width: 576px) {
-        footer__menu ul, .footer__menu ul {
-          margin: 0; } }
-      footer__menu ul li, .footer__menu ul li {
-        font-size: 0.8em;
-        line-height: calc(var(--grid) * 0.75);
-        margin: calc(var(--grid) * 0.25) 0;
-        padding: calc(var(--grid) * 0.25) 0;
-        list-style: none; }
-        footer__menu ul li a, .footer__menu ul li a {
-          line-height: unset; }
-        footer__menu ul li:first-of-type, .footer__menu ul li:first-of-type {
-          line-height: calc(var(--grid) * 1);
-          margin: calc(var(--grid) * 0.5) 0; }
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        text-align: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center; } }
+    footer__menu .footer__logo, .footer__menu .footer__logo {
+      background-image: url("/assets/img/logo.svg");
+      height: 100px;
+      width: 185px; }
 
 input:not([type=radio]):not([type=checkbox]):not([type=range]):not([type=submit]),
 textarea,
@@ -1767,7 +1678,7 @@ a.social__link {
   max-width: 100%;
   background-position: center;
   background-size: cover;
-  height: calc(var(--grid) * 15);
+  height: calc(var(--grid) * 18);
   overflow: hidden; }
 .splash-intro__section {
   overflow: visible;
@@ -1803,7 +1714,7 @@ a.social__link {
 
 @media screen and (min-width: 744px) {
   .splash-intro__section-container {
-    grid-template-areas: "header header" "confetti copy"; }
+    grid-template-areas: "header header" "copy copy"; }
   .splash-intro__confetti--mobile {
     display: none; }
   .splash-intro__confetti--desktop {
@@ -1901,15 +1812,14 @@ Vertical Timeline - by CodyHouse.co
 
 -------------------------------- */
 .cd-timeline {
-  overflow: hidden;
-  margin: 2em auto; }
+  overflow: hidden; }
 
 .cd-timeline__container {
   position: relative;
   width: 90%;
   max-width: 1170px;
   margin: 0 auto;
-  padding: 2em 0; }
+  padding: .5em 0; }
 
 .cd-timeline__container::before {
   /* this is the vertical line */
@@ -1925,10 +1835,6 @@ Vertical Timeline - by CodyHouse.co
   width: 100%; }
 
 @media only screen and (min-width: 1170px) {
-  .cd-timeline {
-    margin-top: 3em;
-    margin-bottom: 3em; }
-
   .cd-timeline__container::before {
     left: 50%;
     margin-left: -2px; } }
@@ -2295,6 +2201,9 @@ Vertical Timeline - by CodyHouse.co
 
 .u-display--in-block {
   display: inline-block; }
+
+.u-full-height {
+  height: 99.5%; }
 
 .u-contained {
   margin-left: auto;

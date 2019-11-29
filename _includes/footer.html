@@ -2,39 +2,15 @@
 <footer>
   <div class="footer__container">
     <div class="footer__menu">
-      <ul>
-        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">Who We Are</a></h5></li>
-        <li><a class="inverse" href="/careers">Careers</a></li>
-      </ul>
-      <ul>
-        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/what-we-do">What We Do</a></h5></li>
-        {% for service in site.service %}
-          <li><a class="inverse" href="/what-we-do">{{ service.title }}</a></li>
-        {% endfor %}
-      </ul>
-      <ul>
-        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/our-work">Our Work</a></h5></li>
-        {% for work in site.work %}
-        <li><a class="inverse" href="{{ work.url }}">{{ work.title }}</a></li>
-        {% endfor %}
-      </ul>
-      <ul>
-        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5></li>
-        {% for category in site.categories %}
-          <li><a href="{{category.url}}/index.html" class="inverse">{{category.title}}</a></li>
-        {% endfor %}
-      </ul>
-      <ul>
-        <li><h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Connect with Us</a></h5></li>
-        <li><a class="inverse" href="/events">Events</a></li>
-      </ul>
-    </div>
-    <div class="footer__credentials">
-      <a href="/" class="footer__logo"></a>
+      <div href="/" class="footer__logo"></div>
+      <h5 class="u-push-bottom--none"><a class="inverse" href="/agility">Agility</a></h5>
+      <h5 class="u-push-bottom--none"><a class="inverse" href="/who-we-are">About Us</a></h5>
+      <h5 class="u-push-bottom--none"><a class="inverse" href="/events">Events</a></h5>
+      <h5 class="u-push-bottom--none"><a class="inverse" href="/blog">Blog</a></h5>
+      <h5 class="u-push-bottom--none"><a class="inverse" href="/connect">Contact Us</a></h5>
       <div class="footer__social">
         {% include social-links.html %}
       </div>
-      <p class="footer__copyright">© 2019 Gaslight. All rights reserved.</p>
     </div>
   </div>
 </footer>

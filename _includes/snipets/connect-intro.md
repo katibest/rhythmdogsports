@@ -1,4 +1,4 @@
-<h2 class="highlight"><span>Let’s talk about working together.</span></h2>
+<h2 class="highlight highlight--gold"><span class="gold">Contact us</span></h2>
 <p>Fill out a few details below, and we’ll be in touch soon.</p>
 <!--[if lte IE 8]>
 <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script>

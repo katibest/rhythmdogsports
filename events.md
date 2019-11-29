@@ -4,7 +4,7 @@ permalink: /events/
 ---
 
 <section class="section--light">
-  <h1 class="u-center--xs u-push-bottom--sm"> Events </h1>
+  <h1 class="u-center--xs u-push-bottom--sm"></h1>
   {% capture events-intro %}{% include  /snipets/events-intro.md %}{% endcapture %}
   {% include image-pane.html image-url="../assets/img/events-1.jpg" pane-align="right" pane-copy=events-intro %}
 </section>
@@ -37,6 +37,3 @@ permalink: /events/
     </div>
   </div>
 </section>
-
-{% capture cta-copy %}{% include /cta/cta-start-a-project.md %}{% endcapture %}
-{% include call-to-action.html cta-copy=cta-copy %}

@@ -10,7 +10,7 @@ post_title: 'Learning From Failure: What We Do When a Client Project Goes Wrong'
 publish_date: 2014-09-16T14:00:00.000+00:00
 feature_post_image: "/uploads/crossroads-retro-v1.gif"
 post_images: []
-slug: learning-from-failure-what-we-do-when-a-client-project-goes-wrong
+slug: learning-from-failure-agility-when-a-client-project-goes-wrong
 
 ---
 At Gaslight, transparency is baked into the company. It means that we share the messy, sticky parts of running a software design and development shop right alongside the success stories.
